@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<title>Hello H5+</title>
+<link rel="stylesheet" type="text/css" href="res/doc.css" charset="utf-8">
+<link rel="stylesheet" type="text/css" href="res/prettify.sons.css" charset="utf-8">
+<script type="text/javascript" src="res/doc.js" charset="utf-8"></script><script type="text/javascript" src="res/prettify.js" charset="utf-8"></script>
+</head>
+<body><div id="content" class="content">
+<h1><a name="plus.accelerometer">accelerometer</a></h1>
+<p>Accelerometer模块管理设备加速度传感器，用于获取设备加速度信息，包括x（屏幕水平方向）、y（垂直屏幕水平方向）、z（垂直屏幕平面方向）三个方向的加速度信息。通过plus.accelerometer获取设备加速度传感器管理对象。</p>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.accelerometer.getCurrentAcceleration">getCurrentAcceleration</a>: 获取当前设备的加速度信息</li>
+<li>
+<a href="#plus.accelerometer.watchAcceleration">watchAcceleration</a>: 监听设备加速度变化信息</li>
+<li>
+<a href="#plus.accelerometer.clearWatch">clearWatch</a>: 关闭监听设备加速度信息</li>
+</ul>
+<h2>对象：</h2>
+<ul>
+<li>
+<a href="#plus.accelerometer.Acceleration">Acceleration</a>: 设备加速度信息对象</li>
+<li>
+<a href="#plus.accelerometer.AccelerometerOption">AccelerometerOption</a>: 监听设备加速度感应器参数</li>
+</ul>
+<h2>回调方法：</h2>
+<ul>
+<li>
+<a href="#plus.accelerometer.AccelerometerSuccessCallback">AccelerometerSuccessCallback</a>: 获取设备加速度信息成功的回调函数</li>
+<li>
+<a href="#plus.accelerometer.AccelerometerErrorCallback">AccelerometerErrorCallback</a>: 获取设备加速度信息失败的回调函数</li>
+</ul>
+<h2>权限：</h2>
+<p>permissions</p>
+<pre class="prettyprint linenums">
+"Accelerometer": {
+	"description": "访问加速度感应器设备"
+}
+			</pre>
+<h1><a name="plus.accelerometer.Acceleration">Acceleration</a></h1>
+<p>设备加速度信息对象</p>
+<pre class="prettyprint linenums">
+interface Acceleration {
+	readonly attribute Number xAxis;
+	readonly attribute Number yAxis;
+	readonly attribute Number zAxis;  
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	JSON对象，保存获取设备的加速度信息，包括x、y、z三个方向的加速度信息。
+				</p>
+<h2>属性：</h2>
+<ul>
+<li>xAxis: <em>(<font class="type">Number</font>
+	类型
+)</em>x轴方向的加速度<br><p>获取当前设备x轴方向的加速度，浮点型数据，与物理学中的加速度值一致。</p>
+</li>
+<li>yAxis: <em>(<font class="type">Number</font>
+	类型
+)</em>y轴方向的加速度<br><p>获取当前设备y轴方向的加速度，浮点型数据，与物理学中的加速度值一致。</p>
+</li>
+<li>zAxis: <em>(<font class="type">Number</font>
+	类型
+)</em>z轴方向的加速度<br><p>获取当前设备z轴方向的加速度，浮点型数据，与物理学中的加速度值一致。</p>
+</li>
+</ul>
+<h1><a name="plus.accelerometer.AccelerometerOption">AccelerometerOption</a></h1>
+<p>监听设备加速度感应器参数</p>
+<pre class="prettyprint linenums">
+interface Acceleration {
+	readonly attribute DOMString frequency;
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	JSON对象，用于设置获取设备加速度信息的参数。
+				</p>
+<h2>属性：</h2>
+<ul><li>frequency: <em>(<font class="type">Number</font>
+	类型
+)</em>更新加速度信息间隔时间<br><p>监听器获取加速度信息的时间间隔，单位为ms，默认值为500ms</p>
+</li></ul>
+<h1><a name="plus.accelerometer.AccelerometerSuccessCallback">AccelerometerSuccessCallback</a></h1>
+<p>获取设备加速度信息成功的回调函数</p>
+<pre class="prettyprint linenums">
+void onSuccess( acceleration ) {
+	// Get acceleration code.
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>acceleration: 
+		<em>(
+			<a href="#plus.accelerometer.Acceleration">Acceleration</a>
+			)
+			必选 </em>设备的加速度信息<br>
+	Acceleration类型对象，用于获取各方向的详细加速度值。
+						</li></ul>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<h1><a name="plus.accelerometer.AccelerometerErrorCallback">AccelerometerErrorCallback</a></h1>
+<p>获取设备加速度信息失败的回调函数</p>
+<pre class="prettyprint linenums">
+function void onAccelerometerError( Exception error ) {
+	// Handle error
+	var code = error.code; // 错误编码
+	var message = error.message; // 错误描述信息
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>error: 
+		<em>(
+			<font class="type">Exception</font>
+			)
+			必选 </em>获取加速度操作的错误信息<br>
+	可通过error.code（Number类型）获取错误编码；
+	可通过error.message（String类型）获取错误描述信息。
+						</li></ul>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<br><br>
+</div></body>
+</html>

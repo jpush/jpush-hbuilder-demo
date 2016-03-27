@@ -1,0 +1,221 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<title>Hello H5+</title>
+<link rel="stylesheet" type="text/css" href="res/doc.css" charset="utf-8">
+<link rel="stylesheet" type="text/css" href="res/prettify.sons.css" charset="utf-8">
+<script type="text/javascript" src="res/doc.js" charset="utf-8"></script><script type="text/javascript" src="res/prettify.js" charset="utf-8"></script>
+</head>
+<body><div id="content" class="content">
+<h1><a name="plus.zip">zip</a></h1>
+<p>Zip模块管理文件压缩和解压，通过plus.zip可获取压缩管理对象。</p>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.zip.compress">compress</a>: 压缩生成Zip文件</li>
+<li>
+<a href="#plus.zip.decompress">decompress</a>: 解压缩Zip文件</li>
+<li>
+<a href="#plus.zip.compressImage">compressImage</a>: 图片压缩转换</li>
+</ul>
+<h2>对象：</h2>
+<ul>
+<li>
+<a href="#plus.zip.CompressImageOptions">CompressImageOptions</a>: JSON对象，配置图片压缩转换的参数</li>
+<li>
+<a href="#plus.zip.ClipImageOptions">ClipImageOptions</a>: JSON对象，图片裁剪区域的参数</li>
+</ul>
+<h2>回调方法：</h2>
+<ul>
+<li>
+<a href="#plus.zip.CompressImageSuccessCallback">CompressImageSuccessCallback</a>: 图片压缩转换操作成功回调接口</li>
+<li>
+<a href="#plus.zip.ZipSuccessCallback">ZipSuccessCallback</a>: 操作成功回调函数接口，在解压Zip文件或压缩成Zip文件成功时调用</li>
+<li>
+<a href="#plus.zip.ZipErrorCallback">ZipErrorCallback</a>: 操作错误回调函数接口，在解压Zip文件或压缩成Zip文件失败时调用</li>
+</ul>
+<h2>权限：</h2>
+<p>permissions</p>
+<pre class="prettyprint linenums">
+"Zip": {
+	"description": "文件压缩与解压缩"
+}
+			</pre>
+<h1><a name="plus.zip.CompressImageOptions">CompressImageOptions</a></h1>
+<p>JSON对象，配置图片压缩转换的参数</p>
+<h2>说明：</h2>
+<p class="des">
+	设置width/height属性则表示需对图片进行缩放转换操作；
+	设置rotate属性则表示需对图片进行旋转转换操作；
+	设置clip属性则表示需对图片进行裁剪转换操作；
+	如同时设置了多个转换操作，则按缩放、旋转、裁剪顺序进行操作。
+				</p>
+<h2>属性：</h2>
+<ul>
+<li>src: <em>(<font class="type">String</font>
+	类型
+)</em>压缩转换原始图片的路径<br><p>
+	支持以下图片路径：
+	相对路径 - 相对于当前页面的host位置，如"a.jpg"，注意当前页面为网络地址则不支持；
+	绝对路径 - 系统绝对路径，如Android平台"/storage/sdcard0/Android/data/io.dcloud.HBuilder/.HBuilder/apps/HBuilder/www/ａ.jpg"，iOS平台"/var/mobile/Containers/Data/Application/757966CF-345C-4348-B07F-EEF83CF9A369/Library/Pandora/apps/HBuilder/www/a.png"；
+	相对路径URL(RelativeURL) - 以"_"开头的相对路径，如"_www/a.jpg"、"_doc/b.jpg"、"_documents/c.jpg"、"_downloads/d.jpg"；
+	本地路径URL - 以“file://”开头，后面跟随系统绝对路径。
+						</p>
+</li>
+<li>dst: <em>(<font class="type">String</font>
+	类型
+)</em>压缩转换目标图片的路径<br><p>
+	支持以下图片路径：
+	绝对路径 - 系统绝对路径，如Android平台"/storage/sdcard0/Android/data/io.dcloud.HBuilder/.HBuilder/apps/HBuilder/doc/ａ.jpg"，iOS平台"/var/mobile/Containers/Data/Application/757966CF-345C-4348-B07F-EEF83CF9A369/Library/Pandora/apps/HBuilder/doc/a.png"；
+	相对路径URL(RelativeURL) - 以"_"开头的相对路径，如"_doc/b.jpg"、"_documents/c.jpg"、"_downloads/d.jpg"，注意不支持"_www"开头的路径；
+	本地路径URL - 以“file://”开头，后面跟随系统绝对路径。
+	注意：如果设置的路径无权限访问，则返回失败。
+						</p>
+</li>
+<li>overwrite: <em>(<font class="type">Boolean</font>
+	类型
+)</em>覆盖生成新文件<br><p>
+	仅在dst制定的路径文件存在时有效：
+	true表示覆盖存在的文件；
+	false表示不覆盖，如果文件存在，则返回失败。
+	默认值为false。
+						</p>
+</li>
+<li>format: <em>(<font class="type">String</font>
+	类型
+)</em>压缩转换后的图片格式<br><p>
+	支持"jpg"、"png",如果未指定则使用源图片的格式。
+						</p>
+</li>
+<li>quality: <em>(<font class="type">Number</font>
+	类型
+)</em>压缩图片的质量<br><p>
+	取值范围为1-100，1表示使用最低的图片质量（转换后的图片文件最小）、100表示使用最高的图片质量（转换后的图片文件最大）；
+	默认值为50。
+						</p>
+</li>
+<li>width: <em>(<font class="type">String</font>
+	类型
+)</em>缩放图片的宽度<br><p>
+	支持像素值（如"100px"）、百分比（如"50%"）、自动计算（如"auto"，即根据height与源图高的缩放比例计算，若未设置height则使用源图高度）；
+	默认值为"auto"。
+	注意：若设置了width属性值不合法（如"0px"），则不对图片进行缩放操作。
+						</p>
+</li>
+<li>height: <em>(<font class="type">String</font>
+	类型
+)</em>缩放图片的高度<br><p>
+	支持像素值（如"100px"）、百分比（如"50%"）、自动计算（如"auto"，即根据width与源图宽的缩放比例计算，若未设置width则使用源图高度）；
+	默认值为"auto"。
+	注意：若设置了height属性值不合法（如"0px"），则不对图片进行缩放操作。
+						</p>
+</li>
+<li>rotate: <em>(<font class="type">Number</font>
+	类型
+)</em>旋转图片的角度<br><p>
+	支持值：90-表示旋转90度；180-表示旋转180度；270-表示旋转270度。
+	注意：若设置rotate属性值不合法，则不对图片进行旋转操作。
+						</p>
+</li>
+<li>clip: <em>(<a href="#plus.zip.ClipImageOptions">ClipImageOptions</a>
+	类型
+)</em>裁剪图片的区域<br><p>
+	值参考ClipImageOptions定义，若设置clip属性值不合法，则不对图片进行裁剪操作。
+						</p>
+</li>
+</ul>
+<h1><a name="plus.zip.ClipImageOptions">ClipImageOptions</a></h1>
+<p>JSON对象，图片裁剪区域的参数</p>
+<h2>属性：</h2>
+<ul>
+<li>top: <em>(<font class="type">String</font>
+	类型
+)</em>图片裁剪区域与原图片上边界的偏移距离<br><p>
+	支持像素值（如"10px"）、百分比（如"10%"）；默认值为"0px"。
+	注意：如果top值超出原图片高度，则图片裁剪失败。
+						</p>
+</li>
+<li>left: <em>(<font class="type">Stirng</font>
+	类型
+)</em>图片裁剪区域与原图片左边界的偏移距离<br><p>
+	支持像素值（如"10px"）、百分比（如"10%"）；默认值为"0px"。
+	注意：如果left值超出原图片宽度，则图片裁剪失败。
+						</p>
+</li>
+<li>width: <em>(<font class="type">String</font>
+	类型
+)</em>图片裁剪区域的宽度<br><p>
+	支持像素值（如"100px"）、百分比（如"50%"）、自动计算（如"auto"，即从left位置到图片右边界的宽度）；默认值为"auto"。
+	注意：如果left值加width值超出原图片宽度，则使用"auto"值进行裁剪。
+						</p>
+</li>
+<li>height: <em>(<font class="type">String</font>
+	类型
+)</em>图片裁剪区域的高度<br><p>
+	支持像素值（如"100px"）、百分比（如"50%"）、自动计算（如"auto"，即从top位置到图片下边界的高度）；默认值为"auto"。
+	注意：如果top值加height值超出原图片高度，则使用"auto"值进行裁剪。
+						</p>
+</li>
+</ul>
+<h1><a name="plus.zip.CompressImageSuccessCallback">CompressImageSuccessCallback</a></h1>
+<p>图片压缩转换操作成功回调接口</p>
+<pre class="prettyprint linenums">
+void onSuccess( Event event ){
+	// Code here
+	var target = event.target; // 压缩转换后的图片url路径，以"file://"开头
+	var size = event.size; // 压缩转换后图片的大小，单位为字节（Byte）
+	var width = event.width; // 压缩转换后图片的实际宽度，单位为px
+	var height = event.height; // 压缩转换后图片的实际高度，单位为px
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>event: 
+		<em>(
+			<font class="type">Event</font>
+			)
+			可选 </em>图片压缩转换后的图片信息<br>
+	可通过event.target（String类型）获取压缩转换后的图片url路径，以"file://"开头，可直接在html页面中通过src属性引用，如Android平台"file:///storage/sdcard0/Android/data/io.dcloud.HBuilder/.HBuilder/apps/HBuilder/doc/ａ.jpg"，iOS平台"file:///var/mobile/Containers/Data/Application/757966CF-345C-4348-B07F-EEF83CF9A369/Library/Pandora/apps/HBuilder/doc/a.png"；
+	可通过event.size（Number类型）获取压缩转换后图片的大小，单位为字节（Byte）；
+	可通过event.width（Number类型）获取压缩转换后的图片的实际宽度，单位为px；
+	可通过event.height（Number类型）获取压缩转换后的图片的实际高度，单位为px。
+						</li></ul>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<h1><a name="plus.zip.ZipSuccessCallback">ZipSuccessCallback</a></h1>
+<p>操作成功回调函数接口，在解压Zip文件或压缩成Zip文件成功时调用</p>
+<pre class="prettyprint linenums">
+void onSuccess(){
+	// Code here
+}
+				</pre>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<h1><a name="plus.zip.ZipErrorCallback">ZipErrorCallback</a></h1>
+<p>操作错误回调函数接口，在解压Zip文件或压缩成Zip文件失败时调用</p>
+<pre class="prettyprint linenums">
+void onError(error){
+	// Handle the error
+	var code = error.code; // 错误编码
+	var message = error.message; // 错误描述信息
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>error: 
+		<em>(
+			<font class="type">Exception</font>
+			)
+			可选 </em>Zip操作的错误信息<br>
+	可通过error.code（Number类型）获取错误编码；
+	可通过error.message（String类型）获取错误描述信息。
+						</li></ul>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<br><br>
+</div></body>
+</html>

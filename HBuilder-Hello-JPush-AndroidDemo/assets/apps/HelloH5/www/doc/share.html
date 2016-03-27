@@ -1,0 +1,318 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<title>Hello H5+</title>
+<link rel="stylesheet" type="text/css" href="res/doc.css" charset="utf-8">
+<link rel="stylesheet" type="text/css" href="res/prettify.sons.css" charset="utf-8">
+<script type="text/javascript" src="res/doc.js" charset="utf-8"></script><script type="text/javascript" src="res/prettify.js" charset="utf-8"></script>
+</head>
+<body><div id="content" class="content">
+<h1><a name="plus.share">share</a></h1>
+<p>Share模块管理客户端的社交分享功能，提供调用终端社交软件的分享能力。通过plus.share可获取社交分享管理对象。</p>
+<h2>方法：</h2>
+<ul><li>
+<a href="#plus.share.getServices">getServices</a>: 获取分享服务</li></ul>
+<h2>对象：</h2>
+<ul>
+<li>
+<a href="#plus.share.ShareService">ShareService</a>: 分享服务对象</li>
+<li>
+<a href="#plus.share.ShareServerIdentity">ShareServerIdentity</a>: 分享服务标识</li>
+<li>
+<a href="#plus.share.ShareMessage">ShareMessage</a>: JSON对象，分享消息对象</li>
+<li>
+<a href="#plus.share.GeoPosition">GeoPosition</a>: JSON对象，用户位置信息</li>
+<li>
+<a href="#plus.share.ShareMessageExtra">ShareMessageExtra</a>: JSON对象，保存分享消息扩展信息</li>
+<li>
+<a href="#plus.share.Authorize">Authorize</a>: 分享授权控件对象</li>
+</ul>
+<h2>回调方法：</h2>
+<ul>
+<li>
+<a href="#plus.share.ServicesSuccessCallback">ServicesSuccessCallback</a>: 获取分享服务成功回调</li>
+<li>
+<a href="#plus.share.AuthorizeSuccessCallback%20">AuthorizeSuccessCallback </a>: 分享消息成功回调</li>
+<li>
+<a href="#plus.share.ShareSuccessCallback%20">ShareSuccessCallback </a>: 分享操作成功回调</li>
+<li>
+<a href="#plus.share.ShareErrorCallback%20">ShareErrorCallback </a>: 分享操作失败回调</li>
+</ul>
+<h2>权限：</h2>
+<p>permissions</p>
+<pre class="prettyprint linenums">
+"Share": {
+	"description": "访问分享插件"
+}
+			</pre>
+<h1><a name="plus.share.ShareService">ShareService</a></h1>
+<p>分享服务对象</p>
+<pre class="prettyprint linenums">
+interface plus.share.ShareService {
+	// Attributes
+	attribute DOMString id;
+	attribute DOMString description;
+	attribute Boolean authenticated;
+	attribute DOMString accessToken;
+	attribute Boolean nativeClient;
+	
+	// Methods
+	function void authorize( successCallback, errorCallback );
+	function void forbid();
+	function void send( message );
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	ShareService对象用于表示分享服务，在JS中为对象，用于向系统请求分享操作。
+				</p>
+<h2>属性：</h2>
+<ul>
+<li>
+<a href="#plus.share.ShareService.id">id</a>: 分享服务标识</li>
+<li>
+<a href="#plus.share.ShareService.description">description</a>: 分享服务描述</li>
+<li>
+<a href="#plus.share.ShareService.authenticated">authenticated</a>: 是否授权认证</li>
+<li>
+<a href="#plus.share.ShareService.accessToken">accessToken</a>: 授权认证信息</li>
+<li>
+<a href="#plus.share.ShareService.nativeClient">nativeClient</a>: 是否存在对应的分享客户端</li>
+</ul>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.share.ShareService.authorize">authorize</a>: 授权认证操作</li>
+<li>
+<a href="#plus.share.ShareService.forbid">forbid</a>: 取消授权认证</li>
+<li>
+<a href="#plus.share.ShareService.send">send</a>: 发送分享</li>
+</ul>
+<h1><a name="plus.share.ShareServerIdentity">ShareServerIdentity</a></h1>
+<p>分享服务标识</p>
+<h2>常量：</h2>
+<ul>
+<li>"sinaweibo": <em>(<font class="type">DOMString</font>
+	类型
+)</em>新浪微博<br>
+</li>
+<li>"tencentweibo": <em>(<font class="type">DOMString</font>
+	类型
+)</em>腾讯微博<br>
+</li>
+<li>"weixin": <em>(<font class="type">DOMString</font>
+	类型
+)</em>微信<br>
+</li>
+</ul>
+<h1><a name="plus.share.ShareMessage">ShareMessage</a></h1>
+<p>JSON对象，分享消息对象</p>
+<pre class="prettyprint linenums">
+interface plus.share.ShareMessage {
+	attribute String content;
+	attribute String[] pictures;
+	attribute String href;
+	attribute String title;
+	attribute JSON extra;
+	attribute GEOPosition geo;
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">ShareMessage对象用于表示分享消息内容，在JS中为JSON对象，用于向系统发送分享信息操作。</p>
+<h2>属性：</h2>
+<ul>
+<li>content: <em>(<font class="type">String</font>
+	类型
+)</em>分享消息的文字内容<br>
+</li>
+<li>pictures: <em>(<font class="type">String[]</font>
+	类型
+)</em>分享消息的图片<br><p>
+	分享消息中包含的图片路径，仅支持本地路径。
+	若分享平台仅支持提交一张图片，传入多张图片则仅提交第一张图片。
+	如果不能同时支持其它内容信息，优先级顺序为：pictures&gt;content。
+						</p>
+</li>
+<li>thumbs: <em>(<font class="type">String[]</font>
+	类型
+)</em>分享消息的缩略图<br><p>
+	分享消息中包含的缩略图路径，仅支持本地路径。
+	若分享平台仅支持提交一张图片，传入多张图片则仅提交第一张图片。
+	如果分享平台的信息不支持缩略图，则忽略其属性值。
+						</p>
+</li>
+<li>href: <em>(<font class="type">String</font>
+	类型
+)</em>分享独立的链接<br><p>
+	分享独立链接地址，仅支持网络地址（以http://或https://开头）。
+	如果不能同时支持其它内容信息，优先级顺序为：href&gt;pictures&gt;content。
+						</p>
+</li>
+<li>title: <em>(<font class="type">String</font>
+	类型
+)</em>分享消息的标题<br><p>
+	目前仅微信分享独立链接消息时支持。
+						</p>
+</li>
+<li>geo: <em>(<a href="#plus.share.GeoPosition">GeoPosition</a>
+	类型
+)</em>分享消息中包含的用户地理信息数据<br>
+</li>
+<li>extra: <em>(<a href="#plus.share.ShareMessageExtra">ShareMessageExtra</a>
+	类型
+)</em>分享消息扩展参数<br>
+</li>
+</ul>
+<h1><a name="plus.share.GeoPosition">GeoPosition</a></h1>
+<p>JSON对象，用户位置信息</p>
+<pre class="prettyprint linenums">
+interface plus.share.GeoPosition {
+	attribute Number latitude;
+	attribute Number longitude;
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	GeoPosition对象用于表示用户分享消息时的位置信息。用于标识分享操作时用户的位置信息。
+				</p>
+<h2>属性：</h2>
+<ul>
+<li>latitude: <em>(<font class="type">Number</font>
+	类型
+)</em>用户位置的纬度坐标信息<br>
+</li>
+<li>longitude: <em>(<font class="type">Number</font>
+	类型
+)</em>用户位置的经度坐标信息<br>
+</li>
+</ul>
+<h1><a name="plus.share.ShareMessageExtra">ShareMessageExtra</a></h1>
+<p>JSON对象，保存分享消息扩展信息</p>
+<pre class="prettyprint linenums">
+interface plus.share.ShareMessageExtra {
+	attribute String scene;
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	ShareMessageExtra对象用于保存各分享平台扩展的参数，用于自定义分享功能。
+				</p>
+<h2>属性：</h2>
+<ul><li>scene: <em>(<font class="type">String</font>
+	类型
+)</em>微信分享场景，仅微信分享平台有效<br><p>
+	可取值：
+	"WXSceneSession"分享到微信的“我的好友”；
+	"WXSceneTimeline"分享到微信的“朋友圈”中；
+	"WXSceneFavorite"分享到微信的“我的收藏”中。
+	默认值为"WXSceneSession"。
+						</p>
+</li></ul>
+<h1><a name="plus.share.Authorize">Authorize</a></h1>
+<p>分享授权控件对象</p>
+<pre class="prettyprint linenums">
+interface plus.share.Authorize {
+	// Methods
+	function void load( id );
+	function void setVisible( visible );
+
+	// Events
+	function void onloaded();
+	function void onauthenticated();
+	function void onerror();
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">Authorize对象表示分享控件对象，用于在窗口中显示分享控件，使用此对象可自定义分享授权界面。</p>
+<h2>构造：</h2>
+<ul><li>
+<a href="#plus.share.Authorize.Authorize(id,display)">Authorize(id,display)</a>: 创建分享授权控件对象</li></ul>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.share.Authorize.load">load</a>: 加载分享授权页面</li>
+<li>
+<a href="#plus.share.Authorize.setVisible">setVisible</a>: 设置分享授权控件是否可见</li>
+</ul>
+<h2>事件：</h2>
+<ul>
+<li>
+<a href="#plus.share.Authorize.onloaded">onloaded</a>: 分享控件加载完成事件</li>
+<li>
+<a href="#plus.share.Authorize.onauthenticated">onauthenticated</a>: 分享授权认证成功事件</li>
+<li>
+<a href="#plus.share.Authorize.onerror">onerror</a>: 分享授权认证失败事件</li>
+</ul>
+<h1><a name="plus.share.ServicesSuccessCallback">ServicesSuccessCallback</a></h1>
+<p>获取分享服务成功回调</p>
+<pre class="prettyprint linenums">
+void ServicesSuccessCallback( services ) {
+	// Get share services success code
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">当获取分享服务列表成功时的回调函数，用于返回终端支持的分享服务列表。</p>
+<h2>参数：</h2>
+<ul><li>services: 
+		<em>(
+			<a href="#plus.share.ShareService">ShareService</a>
+			)
+			必选 </em>数组，运行环境支持的分享服务列表<br>运行环境支持的分享服务列表数组，可通过services.length获取分享服务列表的数目。</li></ul>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<h1><a name="plus.share.AuthorizeSuccessCallback%20">AuthorizeSuccessCallback </a></h1>
+<p>分享消息成功回调</p>
+<pre class="prettyprint linenums">
+void AuthorizeSuccessCallback( service ) {
+	　　// Authorize success code
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">分享操作成功回调函数，当分享操作成功时调用。</p>
+<h2>参数：</h2>
+<ul><li>service: 
+		<em>(
+			<a href="#plus.share.ShareService">ShareService</a>
+			)
+			必选 </em>认证操作成功的分享服务对象<br>
+</li></ul>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<h1><a name="plus.share.ShareSuccessCallback%20">ShareSuccessCallback </a></h1>
+<p>分享操作成功回调</p>
+<pre class="prettyprint linenums">
+void ShareSuccessCallback () {
+	// Share success code
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">分享操作成功回调函数，当分享操作成功时调用。</p>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<h1><a name="plus.share.ShareErrorCallback%20">ShareErrorCallback </a></h1>
+<p>分享操作失败回调</p>
+<pre class="prettyprint linenums">
+void ShareErrorCallback ( error ) {
+	// Recognition error code
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">　　当分享操作失败时的回调函数，用于返回分享相关操作失败的错误信息。</p>
+<h2>参数：</h2>
+<ul><li>error: 
+		<em>(
+			<font class="type">DOMException</font>
+			)
+			必选 </em>分享操作失败错误信息，通过error.code获取错误代码<br>
+</li></ul>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<br><br>
+</div></body>
+</html>

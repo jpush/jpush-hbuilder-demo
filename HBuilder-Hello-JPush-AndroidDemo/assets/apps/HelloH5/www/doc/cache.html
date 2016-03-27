@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<title>Hello H5+</title>
+<link rel="stylesheet" type="text/css" href="res/doc.css" charset="utf-8">
+<link rel="stylesheet" type="text/css" href="res/prettify.sons.css" charset="utf-8">
+<script type="text/javascript" src="res/doc.js" charset="utf-8"></script><script type="text/javascript" src="res/prettify.js" charset="utf-8"></script>
+</head>
+<body><div id="content" class="content">
+<h1><a name="plus.cache">cache</a></h1>
+<p>Cache模块用于管理应用缓存，通过plus.cache获取缓存管理对象。</p>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.cache.clear">clear</a>: 清除应用的缓存数据</li>
+<li>
+<a href="#plus.cache.calculate">calculate</a>: 计算应用已使用的缓存数据大小</li>
+<li>
+<a href="#plus.cache.setMaxSize">setMaxSize</a>: 设置应用的可使用的最大缓存大小</li>
+</ul>
+<h2>回调方法：</h2>
+<ul>
+<li>
+<a href="#plus.cache.CacheClearCallback">CacheClearCallback</a>: 清除应用缓存完成回调</li>
+<li>
+<a href="#plus.cache.CacheCalculateCallback">CacheCalculateCallback</a>: 计算应用使用缓存容量回调</li>
+</ul>
+<h2>权限：</h2>
+<p>permissions</p>
+<pre class="prettyprint linenums">
+"Cache": {
+	"description": "管理应用缓存"
+}
+			</pre>
+<h1><a name="plus.cache.CacheClearCallback">CacheClearCallback</a></h1>
+<p>清除应用缓存完成回调</p>
+<pre class="prettyprint linenums">
+void onCompleted() {
+	// Clear cache completed code.
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">清除应用缓存回调函数，调用plus.cache.clear清除缓存操作时作为参数传入，在清除缓存操作完成时触发回调。</p>
+<h2>参数：</h2>
+<ul></ul>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<h1><a name="plus.cache.CacheCalculateCallback">CacheCalculateCallback</a></h1>
+<p>计算应用使用缓存容量回调</p>
+<pre class="prettyprint linenums">
+void onCompleted( size ) {
+	// Calculate cache complete code.
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">计算应用当前使用缓存容量回调函数，调用plus.cache.calculate计算缓存容量操作时作为参数传入，在计算缓存容量大小完成时触发回调。</p>
+<h2>参数：</h2>
+<ul><li>size: 
+		<em>(
+			<font class="type">Number</font>
+			)
+			必选 </em>应用当前使用缓存的大小，单位为byte<br>
+</li></ul>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<br><br>
+</div></body>
+</html>

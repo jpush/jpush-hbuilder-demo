@@ -1,0 +1,236 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<title>Hello H5+</title>
+<link rel="stylesheet" type="text/css" href="res/doc.css" charset="utf-8">
+<link rel="stylesheet" type="text/css" href="res/prettify.sons.css" charset="utf-8">
+<script type="text/javascript" src="res/doc.js" charset="utf-8"></script><script type="text/javascript" src="res/prettify.js" charset="utf-8"></script>
+</head>
+<body><div id="content" class="content">
+<h1><a name="plus.runtime">runtime</a></h1>
+<p>Runtime模块管理运行环境，可用于获取当前运行环境信息、与其它程序进行通讯等。通过plus.runtime可获取运行环境管理对象。</p>
+<h2>属性：</h2>
+<ul>
+<li>
+<a href="#plus.runtime.appid">appid</a>: 当前应用的APPID</li>
+<li>
+<a href="#plus.runtime.arguments">arguments</a>: 第三方程序调用时传递给程序的参数</li>
+<li>
+<a href="#plus.runtime.version">version</a>: 客户端的版本号</li>
+<li>
+<a href="#plus.runtime.innerVersion">innerVersion</a>: 客户端运行时环境的版本号</li>
+<li>
+<a href="#plus.runtime.launchLoadedTime">launchLoadedTime</a>: 获取当前应用首页加载的时间</li>
+</ul>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.runtime.getProperty">getProperty</a>: 获取指定APPID对应的应用信息</li>
+<li>
+<a href="#plus.runtime.install">install</a>: 安装应用</li>
+<li>
+<a href="#plus.runtime.quit">quit</a>: 退出客户端程序</li>
+<li>
+<a href="#plus.runtime.restart">restart</a>: 重启当前的应用</li>
+<li>
+<a href="#plus.runtime.setBadgeNumber">setBadgeNumber</a>: 设置程序快捷方式上显示的提示数字</li>
+<li>
+<a href="#plus.runtime.openURL">openURL</a>: 调用第三方程序打开指定的URL</li>
+<li>
+<a href="#plus.runtime.openFile">openFile</a>: 调用第三方程序打开指定的文件</li>
+<li>
+<a href="#plus.runtime.launchApplication">launchApplication</a>: 调用第三方程序</li>
+</ul>
+<h2>对象：</h2>
+<ul>
+<li>
+<a href="#plus.runtime.WidgetOption">WidgetOption</a>: JSON对象，应用安装参数</li>
+<li>
+<a href="#plus.runtime.WidgetInfo">WidgetInfo</a>: JSON对象，应用信息</li>
+<li>
+<a href="#plus.runtime.OpenFileOption">OpenFileOption</a>: JSON对象，打开文件参数</li>
+<li>
+<a href="#plus.runtime.ApplicationInf">ApplicationInf</a>: JSON对象，打开第三方程序参数</li>
+</ul>
+<h2>回调方法：</h2>
+<ul>
+<li>
+<a href="#plus.runtime.InstallSuccessCallback">InstallSuccessCallback</a>: 安装应用成功回调函数</li>
+<li>
+<a href="#plus.runtime.InstallErrorCallback">InstallErrorCallback</a>: 安装应用失败回调函数</li>
+<li>
+<a href="#plus.runtime.GetPropertyCallBack">GetPropertyCallBack</a>: 获取应用属性成功回调函数</li>
+<li>
+<a href="#plus.runtime.OpenErrorCallback">OpenErrorCallback</a>: 打开本地文件或URL失败回调函数</li>
+<li>
+<a href="#plus.runtime.LaunchErrorCallback">LaunchErrorCallback</a>: 调用第三方程序失败回调函数</li>
+</ul>
+<h2>权限：</h2>
+<p>permissions</p>
+<pre class="prettyprint linenums">
+"Runtime": {
+	"description": "访问运行环境信息"
+}
+			</pre>
+<h1><a name="plus.runtime.WidgetOption">WidgetOption</a></h1>
+<p>JSON对象，应用安装参数</p>
+<h2>说明：</h2>
+<p class="des">可通过对象设置安装的应用是否进行appid校验、版本号校验等。</p>
+<h2>属性：</h2>
+<ul>
+<li>appid: <em>(<font class="type">String</font>
+	类型
+)</em>应用的appid<br><p>默认值 null。当前正在安装的应用的appid，填写该值后应用安装时将进行校验，如安装包内的appid和指定的不同则终止当前应用的安装</p>
+</li>
+<li>force: <em>(<font class="type">Boolean</font>
+	类型
+)</em>是否强制安装<br><p>默认值 false。当取值为true，应用安装为强制安装，不再进行版本号的校验，如果为false则进行版本号校验，如果将要安装应用的版本号不高于现有应用的版本号则终止安装，并返回安装失败</p>
+</li>
+</ul>
+<h1><a name="plus.runtime.WidgetInfo">WidgetInfo</a></h1>
+<p>JSON对象，应用信息</p>
+<h2>属性：</h2>
+<ul>
+<li>appid: <em>(<font class="type">String</font>
+	类型
+)</em>应用的APPID<br>
+</li>
+<li>version: <em>(<font class="type">String</font>
+	类型
+)</em>应用的版本号<br>
+</li>
+<li>name: <em>(<font class="type">String</font>
+	类型
+)</em>应用的名称<br>
+</li>
+<li>description: <em>(<font class="type">String</font>
+	类型
+)</em>应用描述信息<br>
+</li>
+<li>author: <em>(<font class="type">String</font>
+	类型
+)</em>应用描述信息<br>
+</li>
+<li>email: <em>(<font class="type">String</font>
+	类型
+)</em>开发者邮箱地址<br>
+</li>
+<li>license: <em>(<font class="type">String</font>
+	类型
+)</em>应用授权描述信息<br>
+</li>
+<li>licensehref: <em>(<font class="type">String</font>
+	类型
+)</em>应用授权说明链接地址<br>
+</li>
+<li>features: <em>(<font class="type">String[]</font>
+	类型
+)</em>应用许可特性列表<br>
+</li>
+</ul>
+<h1><a name="plus.runtime.OpenFileOption">OpenFileOption</a></h1>
+<p>JSON对象，打开文件参数</p>
+<h2>属性：</h2>
+<ul><li>popover: <em>(<font class="type">json</font>
+	类型
+)</em>弹出系统选择程序界面指示区域<br><p>JSON对象，格式如{top:10;left:10;width:200;height:200;}，所有值为像素值，左上坐标相对于容器webview的位置。仅在iPad设备平台有效。</p>
+</li></ul>
+<h1><a name="plus.runtime.ApplicationInf">ApplicationInf</a></h1>
+<p>JSON对象，打开第三方程序参数</p>
+<h2>属性：</h2>
+<ul>
+<li>pname: <em>(<font class="type">String</font>
+	类型
+)</em>第三方程序包名<br><p>仅Android平台支持，表示程序的包名，其它平台忽略此属性值。</p>
+</li>
+<li>action: <em>(<font class="type">String</font>
+	类型
+)</em>程序的操作行为<br><p>Android平台上与系统的action值一致；iOS平台为要调用程序的URLScheme格式字符串。</p>
+</li>
+<li>extra: <em>(<font class="type">JSON</font>
+	类型
+)</em>调用程序的参数<br><p>仅Android平台支持，为JSON格式，用于传递给要调用程序的参数，如extra:{url:"http://www.html5plus.org"}。</p>
+</li>
+</ul>
+<h1><a name="plus.runtime.InstallSuccessCallback">InstallSuccessCallback</a></h1>
+<p>安装应用成功回调函数</p>
+<pre class="prettyprint linenums">
+void onSuccess(widgetInfo){
+	// Code here
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>widgetInfo: 
+		<em>(
+			<font class="type">WidgetInfo</font>
+			)
+			必选 </em><br>应用信息，参见：WidgetInfo</li></ul>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<h1><a name="plus.runtime.InstallErrorCallback">InstallErrorCallback</a></h1>
+<p>安装应用失败回调函数</p>
+<pre class="prettyprint linenums">
+void onError(error){
+	// Handle the error
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>error: 
+		<em>(
+			<font class="type">DOMException</font>
+			)
+			必选 </em><br>安装失败的错误信息</li></ul>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<h1><a name="plus.runtime.GetPropertyCallBack">GetPropertyCallBack</a></h1>
+<p>获取应用属性成功回调函数</p>
+<pre class="prettyprint linenums">
+void onGetPropertyCB(widgetInfo){
+	// Code here
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>widgetInfo: 
+		<em>(
+			<a href="#plus.runtime.WidgetInfo">WidgetInfo</a>
+			)
+			必选 </em><br>应用信息，参见：WidgetInfo</li></ul>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<h1><a name="plus.runtime.OpenErrorCallback">OpenErrorCallback</a></h1>
+<p>打开本地文件或URL失败回调函数</p>
+<pre class="prettyprint linenums">
+void onError(error){
+	// Handle the error
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>error: 
+		<em>(
+			<font class="type">DOMException</font>
+			)
+			必选 </em><br>打开操作失败的错误信息</li></ul>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<h1><a name="plus.runtime.LaunchErrorCallback">LaunchErrorCallback</a></h1>
+<p>调用第三方程序失败回调函数</p>
+<pre class="prettyprint linenums">
+void onError(error){
+	// Handle the error
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>error: 
+		<em>(
+			<font class="type">DOMException</font>
+			)
+			必选 </em><br>操作失败的错误信息</li></ul>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<br><br>
+</div></body>
+</html>

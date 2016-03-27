@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<title>Hello H5+</title>
+<link rel="stylesheet" type="text/css" href="res/doc.css" charset="utf-8">
+<link rel="stylesheet" type="text/css" href="res/prettify.sons.css" charset="utf-8">
+<script type="text/javascript" src="res/doc.js" charset="utf-8"></script><script type="text/javascript" src="res/prettify.js" charset="utf-8"></script>
+</head>
+<body><div id="content" class="content">
+<h1><a name="plus.android">android</a></h1>
+<p>Native.js for Android封装一条通过JS语法直接调用Native Java接口通道，通过plus.android可调用几乎所有的系统API。</p>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.android.importClass">importClass</a>: 导入Java类对象</li>
+<li>
+<a href="#plus.android.newObject">newObject</a>: 创建实例对象</li>
+<li>
+<a href="#plus.android.getAttribute">getAttribute</a>: 获取对象（类对象/示例对象）的属性值</li>
+<li>
+<a href="#plus.android.setAttribute">setAttribute</a>: 设置对象（类对象/示例对象）的属性值</li>
+<li>
+<a href="#plus.android.invoke">invoke</a>: 调用对象（类对象/示例对象）的方法</li>
+<li>
+<a href="#plus.android.implements">implements</a>: 实现Interface的方法</li>
+<li>
+<a href="#plus.android.runtimeMainActivity">runtimeMainActivity</a>: 获取应用主Activity实例对象</li>
+<li>
+<a href="#plus.android.currentWebview">currentWebview</a>: 获取当前Webview窗口对象的native层实例对象</li>
+</ul>
+<h2>对象：</h2>
+<ul>
+<li>
+<a href="#plus.android.ClassObject">ClassObject</a>: Java类对象</li>
+<li>
+<a href="#plus.android.InstanceObject">InstanceObject</a>: Java实例对象</li>
+</ul>
+<h2>权限：</h2>
+<p>permissions</p>
+<pre class="prettyprint linenums">
+"Invocation": {
+	"description": "Javascript桥"
+}
+			</pre>
+<h1><a name="plus.android.ClassObject">ClassObject</a></h1>
+<p>Java类对象</p>
+<pre class="prettyprint linenums">
+interface ClassObject {
+	// ...
+	function Object plusGetAttribute( String name );
+	function Object plusSetAttribute( String name, Object value );
+	// ...
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	Java类对象，可通过其属性获取类的常量，可通过方法来操作类的静态变量和方法，也通过new方法来创建类的实例对象。
+	对于类的常量，则直接通过.后面跟随常量名称调用即可。
+				</p>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.android.ClassObject.plusGetAttribute">plusGetAttribute</a>: 获取Java类对象的静态属性</li>
+<li>
+<a href="#plus.android.ClassObject.plusSetAttribute">plusSetAttribute</a>: 设置Java类对象的静态属性</li>
+</ul>
+<h1><a name="plus.android.InstanceObject">InstanceObject</a></h1>
+<p>Java实例对象</p>
+<pre class="prettyprint linenums">
+interface InstanceObject {
+	// ...
+	function Object plusGetAttribute( String name );
+	function Object plusSetAttribute( String name, Object value );
+	// ...
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	Java实例对象，可通过其方法来操作示例的变量和方法。
+	注意：必须通过plusGetAttribute()方法读取示例对象的属性值，通过plusSetAttribute()方法设置示例对象的属性值。
+				</p>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.android.InstanceObject.plusGetAttribute">plusGetAttribute</a>: 获取Java实例对象的属性</li>
+<li>
+<a href="#plus.android.InstanceObject.plusSetAttribute">plusSetAttribute</a>: 设置Java示例对象的属性</li>
+</ul>
+<br><br>
+</div></body>
+</html>

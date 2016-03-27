@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<title>Hello H5+</title>
+<link rel="stylesheet" type="text/css" href="res/doc.css" charset="utf-8">
+<link rel="stylesheet" type="text/css" href="res/prettify.sons.css" charset="utf-8">
+<script type="text/javascript" src="res/doc.js" charset="utf-8"></script><script type="text/javascript" src="res/prettify.js" charset="utf-8"></script>
+</head>
+<body><div id="content" class="content">
+<h1><a name="plus.ios">ios</a></h1>
+<p>Native.js for iOS封装一条通过JS语法直接调用Native Objective-C接口通道，通过plus.ios可调用几乎所有的系统API。</p>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.ios.importClass">importClass</a>: 导入Objective-C类对象</li>
+<li>
+<a href="#plus.ios.newObject">newObject</a>: 创建实例对象</li>
+<li>
+<a href="#plus.ios.deleteObject">deleteObject</a>: 销毁实例对象</li>
+<li>
+<a href="#plus.ios.invoke">invoke</a>: 调用对象（类对象/示例对象）的方法</li>
+<li>
+<a href="#plus.ios.implements">implements</a>: 实现代理的方法</li>
+<li>
+<a href="#plus.ios.currentWebview">currentWebview</a>: 获取当前Webview窗口对象的native层UIWebview实例对象</li>
+</ul>
+<h2>对象：</h2>
+<ul>
+<li>
+<a href="#plus.ios.ClassObject">ClassObject</a>: Objective-C类对象</li>
+<li>
+<a href="#plus.ios.InstanceObject">InstanceObject</a>: Objective-C实例对象</li>
+</ul>
+<h2>权限：</h2>
+<p>permissions</p>
+<pre class="prettyprint linenums">
+"Invocation": {
+	"description": "Javascript桥"
+}
+			</pre>
+<h1><a name="plus.ios.ClassObject">ClassObject</a></h1>
+<p>Objective-C类对象</p>
+<pre class="prettyprint linenums">
+interface ClassObject {
+	// ...
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	Objective-C类对象，可通过其属性获取类的常量，可通过方法来操作类的静态方法，也通过new方法来创建类的实例对象。
+	对于类的静态方法，则直接通过.后面跟随方法名称调用。
+				</p>
+<h1><a name="plus.ios.InstanceObject">InstanceObject</a></h1>
+<p>Objective-C实例对象</p>
+<pre class="prettyprint linenums">
+interface InstanceObject {
+	// ...
+	function Object plusGetAttribute( String name );
+	function Object plusSetAttribute( String name, Object value );
+	// ...
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	Objective-C实例对象，可通过其方法来操作示例的变量和方法。
+	注意：必须通过plusGetAttribute()方法读取示例对象的属性值，通过plusSetAttribute()方法设置示例对象的属性值。
+				</p>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.ios.InstanceObject.plusGetAttribute">plusGetAttribute</a>: 获取Objective-C实例对象的属性</li>
+<li>
+<a href="#plus.ios.InstanceObject.plusSetAttribute">plusSetAttribute</a>: 设置Objective-C示例对象的属性</li>
+</ul>
+<br><br>
+</div></body>
+</html>

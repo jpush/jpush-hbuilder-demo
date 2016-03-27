@@ -1,0 +1,213 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<title>Hello H5+</title>
+<link rel="stylesheet" type="text/css" href="res/doc.css" charset="utf-8">
+<link rel="stylesheet" type="text/css" href="res/prettify.sons.css" charset="utf-8">
+<script type="text/javascript" src="res/doc.js" charset="utf-8"></script><script type="text/javascript" src="res/prettify.js" charset="utf-8"></script>
+</head>
+<body><div id="content" class="content">
+<h1><a name="plus.oauth">oauth</a></h1>
+<p>OAuth模块管理客户端的用户授权登录验证功能，允许应用访问第三方平台的资源。</p>
+<h2>方法：</h2>
+<ul><li>
+<a href="#plus.oauth.getServices">getServices</a>: 获取授权登录认证服务列表</li></ul>
+<h2>对象：</h2>
+<ul>
+<li>
+<a href="#plus.oauth.AuthService">AuthService</a>: 授权登录认证服务对象</li>
+<li>
+<a href="#plus.oauth.AuthOptions">AuthOptions</a>: JSON对象，授权认证参数选项</li>
+</ul>
+<h2>回调方法：</h2>
+<ul>
+<li>
+<a href="#plus.oauth.ServicesSuccessCallback">ServicesSuccessCallback</a>: 获取授权登录认证服务成功回调</li>
+<li>
+<a href="#plus.oauth.AuthSuccessCallback">AuthSuccessCallback</a>: 授权登录认证服务操作成功回调函数</li>
+<li>
+<a href="#plus.oauth.AuthLogoutSuccessCallback">AuthLogoutSuccessCallback</a>: 注销授权登录认证操作成功回调函数</li>
+<li>
+<a href="#plus.oauth.AuthErrorCallback">AuthErrorCallback</a>: 授权登录认证服务操作失败回调函数</li>
+</ul>
+<h2>权限：</h2>
+<p>permissions</p>
+<pre class="prettyprint linenums">
+"OAuth": {
+	"description": "访问授权登录认证插件"
+}
+			</pre>
+<h1><a name="plus.oauth.AuthService">AuthService</a></h1>
+<p>授权登录认证服务对象</p>
+<pre class="prettyprint linenums">
+interface plus.oauth.AuthService {
+	// Attributes
+	attribute String id;
+	attribute String description;
+	attribute JSON authResult;
+	attribute JSON userInfo;
+	attribute JSON extra;
+	
+	// Methods
+	function void login( successCallback, errorCallback, options );
+	function void logout( successCallback, errorCallback );
+	function void getUserInfo( successCallback, errorCallback );
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	AuthService对象用于表示授权登录认证服务，在JS中为对象，用于向系统进行授权登录认证操作。
+				</p>
+<h2>属性：</h2>
+<ul>
+<li>
+<a href="#plus.oauth.AuthService.id">id</a>: 授权登录认证服务标识</li>
+<li>
+<a href="#plus.oauth.AuthService.description">description</a>: 授权登录认证服务描述</li>
+<li>
+<a href="#plus.oauth.AuthService.authResult">authResult</a>: 授权认证结果数据</li>
+<li>
+<a href="#plus.oauth.AuthService.userInfo">userInfo</a>: 授权登录认证用户信息</li>
+<li>
+<a href="#plus.oauth.AuthService.extra">extra</a>: 授权登录认证扩展信息</li>
+</ul>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.oauth.AuthService.login">login</a>: 请求授权登录认证操作</li>
+<li>
+<a href="#plus.oauth.AuthService.logout">logout</a>: 注销授权登录认证</li>
+<li>
+<a href="#plus.oauth.AuthService.getUserInfo">getUserInfo</a>: 获取授权登录用户信息</li>
+</ul>
+<h1><a name="plus.oauth.AuthOptions">AuthOptions</a></h1>
+<p>JSON对象，授权认证参数选项</p>
+<pre class="prettyprint linenums">
+interface plus.oauth.AuthOptions {
+	attribute String scope;
+	attribute String state;
+	attribute String appkey;
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	此对象支持的属性值由授权登录认证服务定义。
+	例如“微信”，则可配置以下参数：
+	scope - 应用授权作用域；
+	state - 用于保持请求和回调的状态参数。
+				</p>
+<h2>属性：</h2>
+<ul>
+<li>scope: <em>(<font class="type">String</font>
+	类型
+)</em>申请的权限范围<br>
+</li>
+<li>state: <em>(<font class="type">String</font>
+	类型
+)</em>客户端的当前状态，可以指定任意值，登录认证后原封不动的返回保存到AuthService对象的extra中<br>
+</li>
+<li>appkey: <em>(<font class="type">String</font>
+	类型
+)</em>360开放平台申请的生活助手应用appkey标识<br>
+</li>
+</ul>
+<h1><a name="plus.oauth.ServicesSuccessCallback">ServicesSuccessCallback</a></h1>
+<p>获取授权登录认证服务成功回调</p>
+<pre class="prettyprint linenums">
+void ServicesSuccessCallback( services ) {
+	// Get oauth services success code
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	当获取授权登录认证服务列表成功时触发，并通过services参数返回运行环境支持的授权登录认证服务列表。
+				</p>
+<h2>参数：</h2>
+<ul><li>services: 
+		<em>(
+			<font class="type">Array</font>[
+						<a href="#plus.oauth.AuthService">AuthService</a>
+						]
+					
+			)
+			必选 </em>运行环境支持的授权登录认证服务列表<br>
+	运行环境支持的授权登录认证服务列表数组，可通过services.length获取服务列表的数目。
+	如果当前运行环境没有支持的授权登录认证服务，则返回空数组。
+						</li></ul>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<h1><a name="plus.oauth.AuthSuccessCallback">AuthSuccessCallback</a></h1>
+<p>授权登录认证服务操作成功回调函数</p>
+<pre class="prettyprint linenums">
+void AuthSuccessCallback( event ) {
+	　　// auth code
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	授权登录认证服务操作如请求授权登录认证、获取授权登录用户信息成功时触发，并返回操作结果。
+				</p>
+<h2>参数：</h2>
+<ul><li>event: 
+		<em>(
+			<font class="type">JSON</font>
+			)
+			必选 </em>授权登录认证服务操作回调事件参数<br>
+	包括以下参数：
+	event.target - 表示授权登录认证服务对象，可以通过此对象的authResult、userInfo属性来获取操作结果信息。
+						</li></ul>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<h1><a name="plus.oauth.AuthLogoutSuccessCallback">AuthLogoutSuccessCallback</a></h1>
+<p>注销授权登录认证操作成功回调函数</p>
+<pre class="prettyprint linenums">
+void AuthLogoutSuccessCallback( event ) {
+	　　// logout code
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	注销授权登录认证成功时触发，并返回操作结果。
+				</p>
+<h2>参数：</h2>
+<ul><li>event: 
+		<em>(
+			<font class="type">JSON</font>
+			)
+			必选 </em>注销授权登录认证操作回调事件参数<br>
+	包括以下参数：
+	event.target - 表示授权登录认证服务对象；
+	其它属性可保存注销授权登录的扩展数据。
+						</li></ul>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<h1><a name="plus.oauth.AuthErrorCallback">AuthErrorCallback</a></h1>
+<p>授权登录认证服务操作失败回调函数</p>
+<pre class="prettyprint linenums">
+void AuthErrorCallback( error ) {
+	// Error code
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	授权登录认证服务操作如请求授权登录认证、注销授权登录认证、获取授权登录用户信息失败时触发，并返回错误信息。
+				</p>
+<h2>参数：</h2>
+<ul><li>error: 
+		<em>(
+			<font class="type">Exception</font>
+			)
+			必选 </em>操作失败错误信息<br>
+	包括以下参数：
+	error.code - 表示错误代码；
+	error.message - 错误描述信息；
+						</li></ul>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<br><br>
+</div></body>
+</html>

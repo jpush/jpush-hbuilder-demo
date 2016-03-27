@@ -1,0 +1,188 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<title>Hello H5+</title>
+<link rel="stylesheet" type="text/css" href="res/doc.css" charset="utf-8">
+<link rel="stylesheet" type="text/css" href="res/prettify.sons.css" charset="utf-8">
+<script type="text/javascript" src="res/doc.js" charset="utf-8"></script><script type="text/javascript" src="res/prettify.js" charset="utf-8"></script>
+</head>
+<body><div id="content" class="content">
+<h1><a name="plus.audio">audio</a></h1>
+<p>Audio模块用于提供音频的录制和播放功能，可调用系统的麦克风设备进行录音操作，也可调用系统的扬声器设备播放音频文件。通过plus.audio获取音频管理对象。</p>
+<h2>常量：</h2>
+<ul>
+<li>
+<a href="#plus.audio.ROUTE_SPEAKER">ROUTE_SPEAKER</a>: 设备的扬声器音频输出线路</li>
+<li>
+<a href="#plus.audio.ROUTE_EARPIECE">ROUTE_EARPIECE</a>: 设备听筒音频输出线路</li>
+</ul>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.audio.getRecorder">getRecorder</a>: 获取当前设备的录音对象</li>
+<li>
+<a href="#plus.audio.createPlayer">createPlayer</a>: 创建音频播放对象</li>
+</ul>
+<h2>对象：</h2>
+<ul>
+<li>
+<a href="#plus.audio.AudioRecorder">AudioRecorder</a>: 录音对象</li>
+<li>
+<a href="#plus.audio.AudioPlayer">AudioPlayer</a>: 音频播放对象</li>
+<li>
+<a href="#plus.audio.RecordOption">RecordOption</a>: JSON对象，调用麦克风设备进行录音的参数</li>
+</ul>
+<h2>回调方法：</h2>
+<ul>
+<li>
+<a href="#plus.audio.RecordSuccessCallback">RecordSuccessCallback</a>: 录音操作成功回调</li>
+<li>
+<a href="#plus.audio.PlaySuccessCallback">PlaySuccessCallback</a>: 播放音频文件操作成功回调</li>
+<li>
+<a href="#plus.audio.AudioErrorCallback">AudioErrorCallback</a>: 音频操作失败回调</li>
+</ul>
+<h2>权限：</h2>
+<p>permissions</p>
+<pre class="prettyprint linenums">
+"Audio": {
+	"description": "访问音频设备"
+}
+			</pre>
+<h1><a name="plus.audio.AudioRecorder">AudioRecorder</a></h1>
+<p>录音对象</p>
+<pre class="prettyprint linenums">
+interface AudioRecorder {
+	readonly attribute String[] supportedSamplerates;
+	readonly attribute String[] supportedFormats;
+	function record( option, successCB, errorCB );
+	function stop();
+}
+				</pre>
+<h2>属性：</h2>
+<ul>
+<li>
+<a href="#plus.audio.AudioRecorder.supportedSamplerates">supportedSamplerates</a>: 数组，设备录音支持的采用率</li>
+<li>
+<a href="#plus.audio.AudioRecorder.supportedFormats">supportedFormats</a>: 数组，设备录音支持的文件格式</li>
+</ul>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.audio.AudioRecorder.record">record</a>: 调用设备麦克风进行录音操作</li>
+<li>
+<a href="#plus.audio.AudioRecorder.stop">stop</a>: 结束录音操作</li>
+</ul>
+<h1><a name="plus.audio.AudioPlayer">AudioPlayer</a></h1>
+<p>音频播放对象</p>
+<pre class="prettyprint linenums">
+interface AudioPlayer {
+	function void play( successCB, errorCB );
+	function void pause();
+	function void resume();
+	function void stop();
+	function void seekTo( position );
+	function Number getDuration();
+	function Number getPosition();
+	function void setRoute( route );
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	音频播放对象，用于音频文件的播放。不能通过new方法直接创建，只能通过audio.createPlayer方法创建。
+				</p>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.audio.AudioPlayer.play">play</a>: 开始播放音频</li>
+<li>
+<a href="#plus.audio.AudioPlayer.pause">pause</a>: 暂停播放音频</li>
+<li>
+<a href="#plus.audio.AudioPlayer.resume">resume</a>: 恢复播放音频</li>
+<li>
+<a href="#plus.audio.AudioPlayer.stop">stop</a>: 停止播放音频</li>
+<li>
+<a href="#plus.audio.AudioPlayer.seekTo">seekTo</a>: 跳到指定位置播放音频</li>
+<li>
+<a href="#plus.audio.AudioPlayer.getDuration">getDuration</a>: 获取音频流的总长度</li>
+<li>
+<a href="#plus.audio.AudioPlayer.getPosition">getPosition</a>: 获取音频流当前播放的位置</li>
+<li>
+<a href="#plus.audio.AudioPlayer.setRoute">setRoute</a>: 设置音频输出线路</li>
+</ul>
+<h1><a name="plus.audio.RecordOption">RecordOption</a></h1>
+<p>JSON对象，调用麦克风设备进行录音的参数</p>
+<h2>属性：</h2>
+<ul>
+<li>filename: <em>(<font class="type">String</font>
+	类型
+)</em>保存录音文件的路径<br><p>
+	可设置具体文件名，也可只设置路径，如果以“/”结尾则表明是路径，文件名由录音程序自动生成。
+	如未设置则使用默认目录生成随机文件名称，默认目录为应用%APPID%下的documents目录。
+						</p>
+</li>
+<li>samplerate: <em>(<font class="type">String</font>
+	类型
+)</em>录音文件的采样率<br><p>
+	需通过supportedSamplerates属性获取设备支持的采样率，若设置无效的值，则使用系统默认的采样率。</p>
+</li>
+<li>format: <em>(<font class="type">String</font>
+	类型
+)</em>录音文件的格式<br><p>
+	需通过supportedFormats属性获取设备支持的录音格式，若设置无效的值，则使用系统默认的录音格式。
+						</p>
+</li>
+</ul>
+<h1><a name="plus.audio.RecordSuccessCallback">RecordSuccessCallback</a></h1>
+<p>录音操作成功回调</p>
+<pre class="prettyprint linenums">
+void onSuccess( recordFile ) {
+	// Get record file code.
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">麦克风录音操作成功的回调函数，在录音操作完成调用stop()方法时调用。</p>
+<h2>参数：</h2>
+<ul><li>recordFile: 
+		<em>(
+			<font class="type">String</font>
+			)
+			必选 </em>录音操作保存的音频文件路径<br>
+</li></ul>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<h1><a name="plus.audio.PlaySuccessCallback">PlaySuccessCallback</a></h1>
+<p>播放音频文件操作成功回调</p>
+<pre class="prettyprint linenums">
+void onCompleted() {
+	// Play audio file completed code.
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">麦克风录音操作成功的回调函数，在录音操作完成调用stop()方法时调用。</p>
+<h2>参数：</h2>
+<ul></ul>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<h1><a name="plus.audio.AudioErrorCallback">AudioErrorCallback</a></h1>
+<p>音频操作失败回调</p>
+<pre class="prettyprint linenums">
+void onError( error ) {
+	// Handle audio error
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>error: 
+		<em>(
+			<font class="type">DOMException</font>
+			)
+			必选 </em>音频操作的错误信息<br>
+</li></ul>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<br><br>
+</div></body>
+</html>

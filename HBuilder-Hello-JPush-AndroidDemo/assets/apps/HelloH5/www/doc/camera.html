@@ -1,0 +1,177 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<title>Hello H5+</title>
+<link rel="stylesheet" type="text/css" href="res/doc.css" charset="utf-8">
+<link rel="stylesheet" type="text/css" href="res/prettify.sons.css" charset="utf-8">
+<script type="text/javascript" src="res/doc.js" charset="utf-8"></script><script type="text/javascript" src="res/prettify.js" charset="utf-8"></script>
+</head>
+<body><div id="content" class="content">
+<h1><a name="plus.camera">camera</a></h1>
+<p>Camera模块管理设备的摄像头，可用于拍照、摄像操作，通过plus.camera获取摄像头管理对象。</p>
+<h2>方法：</h2>
+<ul><li>
+<a href="#plus.camera.getCamera">getCamera</a>: 获取摄像头管理对象</li></ul>
+<h2>对象：</h2>
+<ul>
+<li>
+<a href="#plus.camera.Camera">Camera</a>: 摄像头对象</li>
+<li>
+<a href="#plus.camera.CameraOption">CameraOption</a>: JSON对象，调用摄像头的参数</li>
+<li>
+<a href="#plus.camera.PopPosition">PopPosition</a>: JSON对象，弹出拍照或摄像界面指示位置</li>
+</ul>
+<h2>回调方法：</h2>
+<ul>
+<li>
+<a href="#plus.camera.CameraSuccessCallback">CameraSuccessCallback</a>: 调用摄像头操作成功回调</li>
+<li>
+<a href="#plus.camera.CameraErrorCallback">CameraErrorCallback</a>: 摄像头操作失败回调</li>
+</ul>
+<h2>权限：</h2>
+<p>permissions</p>
+<pre class="prettyprint linenums">
+"Camera": {
+	"description": "访问摄像头设备"
+}
+			</pre>
+<h1><a name="plus.camera.Camera">Camera</a></h1>
+<p>摄像头对象</p>
+<pre class="prettyprint linenums">
+interface Camera {
+	readonly attribute String[] supportedImageResolutions;
+	readonly attribute String[] supportedVideoResolutions;
+	readonly attribute String[] supportedImageFormats;
+	readonly attribute String[] supportedVideoFormats;
+	function void captureImage( successCB, errorCB, option );
+	function void startVideoCapture( successCB, errorCB, option );
+	function void stopVideoCapture();
+}
+				</pre>
+<h2>属性：</h2>
+<ul>
+<li>
+<a href="#plus.camera.Camera.supportedImageResolutions">supportedImageResolutions</a>: 字符串数组，摄像头支持的拍照分辨率</li>
+<li>
+<a href="#plus.camera.Camera.supportedVideoResolutions">supportedVideoResolutions</a>: 字符串数组，摄像头支持的摄像分辨率</li>
+<li>
+<a href="#plus.camera.Camera.supportedImageFormats">supportedImageFormats</a>: 字符串数组，摄像头支持的拍照文件格式</li>
+<li>
+<a href="#plus.camera.Camera.supportedVideoFormats">supportedVideoFormats</a>: 字符串数组，摄像头支持的摄像文件格式</li>
+</ul>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.camera.Camera.captureImage">captureImage</a>: 进行拍照操作</li>
+<li>
+<a href="#plus.camera.Camera.startVideoCapture">startVideoCapture</a>: 调用摄像头进行摄像操作</li>
+<li>
+<a href="#plus.camera.Camera.stopVideoCapture">stopVideoCapture</a>: 结束摄像操作</li>
+</ul>
+<h1><a name="plus.camera.CameraOption">CameraOption</a></h1>
+<p>JSON对象，调用摄像头的参数</p>
+<pre class="prettyprint linenums">
+interface CameraOption {
+	attribute String filename;
+	attribute String format;
+	attribute String index;
+	attribute PopPosition popover;
+}
+				</pre>
+<h2>属性：</h2>
+<ul>
+<li>filename: <em>(<font class="type">String</font>
+	类型
+)</em>拍照或摄像文件保存的路径<br><p>
+	可设置具体文件名（如"_doc/camera/a.jpg"）；也可只设置路径，以"/"结尾则表明是路径（如"_doc/camera/"）。如未设置文件名称或设置的文件名冲突则文件名由程序程序自动生成。
+						</p>
+</li>
+<li>format: <em>(<font class="type">String</font>
+	类型
+)</em>拍照或摄像的文件格式<br><p>
+	可通过Camera对象的supportedImageFormats或supportedVideoFormats获取，如果设置的参数无效则使用系统默认值。
+						</p>
+</li>
+<li>index: <em>(<font class="type">String</font>
+	类型
+)</em>拍照或摄像默认使用的摄像头<br><p>
+	拍照或摄像界面默认使用的摄像头编号，1表示主摄像头，2表示辅摄像头。
+						</p>
+</li>
+<li>popover: <em>(<a href="#plus.camera.PopPosition">PopPosition</a>
+	类型
+)</em>拍照或摄像界面弹出指示区域<br><p>
+	对于大屏幕设备如iPad，拍照或摄像界面为弹出窗口，此时可通过此参数设置弹出窗口位置，其为JSON对象，格式如{top:"10px",left:"10px",width:"200px",height:"200px"}，默认弹出位置为屏幕居中。
+						</p>
+</li>
+</ul>
+<h1><a name="plus.camera.PopPosition">PopPosition</a></h1>
+<p>JSON对象，弹出拍照或摄像界面指示位置</p>
+<h2>属性：</h2>
+<ul>
+<li>top: <em>(<font class="type">String</font>
+	类型
+)</em>指示区域距离容器顶部的距离<br><p>
+	弹出拍照或摄像窗口指示区域距离容器顶部的距离，支持像素值（如"100px"）和百分比（如"50%"）。</p>
+</li>
+<li>left: <em>(<font class="type">String</font>
+	类型
+)</em>指示区域距离容器左侧的距离<br><p>
+	弹出拍照或摄像窗口指示区域距离容器左侧的距离，支持像素值（如"100px"）和百分比（如"50%"）。</p>
+</li>
+<li>width: <em>(<font class="type">String</font>
+	类型
+)</em>指示区域的宽度<br><p>
+	弹出拍照或摄像窗口指示区域的宽度，支持像素值（如"100px"）和百分比（如"50%"）。</p>
+</li>
+<li>height: <em>(<font class="type">String</font>
+	类型
+)</em>指示区域的高度<br><p>
+	弹出拍照或摄像窗口指示区域的高度，支持像素值（如"100px"）和百分比（如"50%"）。</p>
+</li>
+</ul>
+<h1><a name="plus.camera.CameraSuccessCallback">CameraSuccessCallback</a></h1>
+<p>调用摄像头操作成功回调</p>
+<pre class="prettyprint linenums">
+void onSuccess( capturedFile ) {
+	// Caputre image/video file code.
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">调用摄像头操作成功的回调函数，在拍照或摄像操作成功时调用，用于返回图片或视频文件的路径。</p>
+<h2>参数：</h2>
+<ul><li>capturedFile: 
+		<em>(
+			<font class="type">String</font>
+			)
+			必选 </em>拍照或摄像操作保存的文件路径<br>
+</li></ul>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<h1><a name="plus.camera.CameraErrorCallback">CameraErrorCallback</a></h1>
+<p>摄像头操作失败回调</p>
+<pre class="prettyprint linenums">
+void onError( error ) {
+	// Handle camera error
+	var code = error.code; // 错误编码
+	var message = error.message; // 错误描述信息
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>error: 
+		<em>(
+			<font class="type">Exception</font>
+			)
+			必选 </em>摄像头操作的错误信息<br>
+	可通过error.code（Number类型）获取错误编码；
+	可通过error.message（String类型）获取错误描述信息。
+						</li></ul>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<br><br>
+</div></body>
+</html>

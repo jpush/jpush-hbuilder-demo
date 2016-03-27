@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EAEAEA" >
+
+    <TextView
+        android:id="@+id/tv_name_splash_dcloud"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textColor="#3A3A3A"
+        android:textSize="15sp" />
+
+    <ImageView
+        android:id="@+id/iv_icon_splash_dcloud"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_above="@id/tv_name_splash_dcloud"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"
+        android:src="@drawable/icon" />
+
+    <TextView
+        android:id="@+id/tv_copyright_splash_dcloud"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:text="Power by DCloud"
+        android:textColor="#A2A2A2"
+        android:textSize="16sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/tv_copyright_splash_dcloud"
+        android:layout_below="@id/tv_name_splash_dcloud"
+        android:gravity="center" >
+
+        <LinearLayout
+            android:id="@+id/ll_progress_splash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:indeterminateDrawable="@drawable/dcloud_snow_black_progress"
+                android:indeterminateDuration="1000" />
+
+            <TextView
+                android:id="@+id/tv_loading_splash_dcloud"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/progressBar"
+                android:text="正在缓冲流应用"
+                android:textColor="#3A3A3A"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll_progress_splash"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="#A2A2A2"
+            android:text="省流量"
+            android:textSize="13sp" />
+
+        <View
+            android:id="@+id/separator_line"
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tv_4"
+            android:layout_alignTop="@id/tv_1"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_toRightOf="@id/tv_1"
+            android:background="#DBDBDB" />
+
+        <TextView
+            android:id="@+id/tv_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll_progress_splash"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/separator_line"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="#A2A2A2"
+            android:text="省空间"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@id/tv_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/tv_2"
+            android:layout_below="@id/tv_2"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:textColor="#A2A2A2"
+            android:text="方便更新"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tv_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/tv_1"
+            android:layout_below="@id/tv_2"
+            android:layout_toLeftOf="@id/tv_4"
+            android:gravity="center_horizontal"
+            android:textColor="#A2A2A2"
+            android:text="边用边下"
+            android:textSize="13sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_above="@id/tv_4"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_alignLeft="@id/tv_3"
+            android:layout_alignRight="@id/tv_4"
+            android:layout_marginBottom="3dp"
+            android:background="#DBDBDB" />
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<title>Hello H5+</title>
+<link rel="stylesheet" type="text/css" href="res/doc.css" charset="utf-8">
+<link rel="stylesheet" type="text/css" href="res/prettify.sons.css" charset="utf-8">
+<script type="text/javascript" src="res/doc.js" charset="utf-8"></script><script type="text/javascript" src="res/prettify.js" charset="utf-8"></script>
+</head>
+<body><div id="content" class="content">
+<h1><a name="plus.Events">Events</a></h1>
+<p>Events模块管理客户端事件，包括系统事件，如扩展API加载完毕、程序前后台切换等。</p>
+<h2>常量：</h2>
+<ul>
+<li>
+<a href="#plus.Events.%22plusready%22">"plusready"</a>: 扩展API加载完成事件</li>
+<li>
+<a href="#plus.Events.%22pause%22">"pause"</a>: 运行环境从前台切换到后台事件</li>
+<li>
+<a href="#plus.Events.%22resume%22">"resume"</a>: 运行环境从后台切换到前台事件</li>
+<li>
+<a href="#plus.Events.%22netchange%22">"netchange"</a>: 设备网络状态变化事件</li>
+<li>
+<a href="#plus.Events.%22newintent%22">"newintent"</a>: 新意图事件</li>
+<li>
+<a href="#plus.Events.%22plusscrollbottom%22">"plusscrollbottom"</a>: 窗口滚动到底部事件</li>
+</ul>
+<h2>方法：</h2>
+<ul><li>
+<a href="#plus.Events.addEventListener">addEventListener</a>: 添加事件监听函数</li></ul>
+<h2>回调方法：</h2>
+<ul><li>
+<a href="#plus.Events.EventTrigCallback">EventTrigCallback</a>: 事件触发回调</li></ul>
+<h2>权限：</h2>
+<p>permissions</p>
+<pre class="prettyprint linenums">
+			
+"Events": {
+	"description": "访问应用状态变化事件"
+}
+			
+			</pre>
+<h1><a name="plus.Events.EventTrigCallback">EventTrigCallback</a></h1>
+<p>事件触发回调</p>
+<pre class="prettyprint linenums">
+				
+void onTrig() {
+	// Event trig code
+}
+				
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	指定事件触发时的回调函数，在指定的事件已经发生时调用。
+				</p>
+<h2>参数：</h2>
+<ul></ul>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<br><br>
+</div></body>
+</html>

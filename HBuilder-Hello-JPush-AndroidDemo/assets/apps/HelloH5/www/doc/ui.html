@@ -1,0 +1,871 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<title>Hello H5+</title>
+<link rel="stylesheet" type="text/css" href="res/doc.css" charset="utf-8">
+<link rel="stylesheet" type="text/css" href="res/prettify.sons.css" charset="utf-8">
+<script type="text/javascript" src="res/doc.js" charset="utf-8"></script><script type="text/javascript" src="res/prettify.js" charset="utf-8"></script>
+</head>
+<body><div id="content" class="content">
+<h1><a name="plus.ui">ui</a></h1>
+<p>UI模块管理应用界面，用于操作加载HTML页面的原生窗口，调用系统原生控件等。由于此模块功能太多，现已根据功能分拆更新为Key、NativeUI、Navigator、Webview等，并对接口和功能做了一些优化调整，请使用新API。</p>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.ui.alert">alert</a>: 弹出系统提示框</li>
+<li>
+<a href="#plus.ui.closeSplashscreen">closeSplashscreen</a>: 关闭程序启动界面</li>
+<li>
+<a href="#plus.ui.closeWindow">closeWindow</a>: 关闭原生窗口</li>
+<li>
+<a href="#plus.ui.confirm">confirm</a>: 弹出系统确认对话框</li>
+<li>
+<a href="#plus.ui.createView">createView</a>: 创建新的原生控件对象</li>
+<li>
+<a href="#plus.ui.createWaiting">createWaiting</a>: 创建等待对话框</li>
+<li>
+<a href="#plus.ui.createWindow">createWindow</a>: 创建新的原生窗口</li>
+<li>
+<a href="#plus.ui.enumWindow">enumWindow</a>: 枚举所有原生窗口</li>
+<li>
+<a href="#plus.ui.findWindowByName">findWindowByName</a>: 查找指定名称的窗口</li>
+<li>
+<a href="#plus.ui.getSelfWindow">getSelfWindow</a>: 获取自身窗口</li>
+<li>
+<a href="#plus.ui.isFullscreen">isFullscreen</a>: 判断应用当前是否全屏模式运行</li>
+<li>
+<a href="#plus.ui.pickDate">pickDate</a>: 弹出日期选择界面</li>
+<li>
+<a href="#plus.ui.pickTime">pickTime</a>: 弹出时间选择界面</li>
+<li>
+<a href="#plus.ui.prompt">prompt</a>: 弹出系统输入框</li>
+<li>
+<a href="#plus.ui.setFullscreen">setFullscreen</a>: 设置应用是否全屏模式运行</li>
+<li>
+<a href="#plus.ui.toast">toast</a>: 显示自动消失的消息</li>
+</ul>
+<h2>对象：</h2>
+<ul>
+<li>
+<a href="#plus.ui.AnimationTypeShow">AnimationTypeShow</a>: 一组用于定义页面或控件显示动画效果</li>
+<li>
+<a href="#plus.ui.AnimationTypeClose">AnimationTypeClose</a>: 一组用于定义页面或控件关闭的动画效果</li>
+<li>
+<a href="#plus.ui.DateOption">DateOption</a>: JSON对象，选择日期界面设置的参数</li>
+<li>
+<a href="#plus.ui.Metrics">Metrics</a>: JSON对象，窗口实际度量信息</li>
+<li>
+<a href="#plus.ui.NView">NView</a>: 原生控件对象，用于操作页面中显示的原生控件</li>
+<li>
+<a href="#plus.ui.NViewDock">NViewDock</a>: 原生控件在窗口中停靠的方式</li>
+<li>
+<a href="#plus.ui.NViewOption">NViewOption</a>: JSON对象，原生控件元素要设置的参数</li>
+<li>
+<a href="#plus.ui.NViewPosition">NViewPosition</a>: 原生控件在窗口中显示的位置</li>
+<li>
+<a href="#plus.ui.NWaiting">NWaiting</a>: NWaiting是等待控件对象，用于在界面中显示原生等待窗口</li>
+<li>
+<a href="#plus.ui.NWaitingOption">NWaitingOption</a>: JSON对象，原生等待控件要设置的参数</li>
+<li>
+<a href="#plus.ui.NWindow">NWindow</a>: NWindow是窗口对象，用于操作加载html页面的原生窗口</li>
+<li>
+<a href="#plus.ui.NWindowEvent">NWindowEvent</a>: 窗口事件对象</li>
+<li>
+<a href="#plus.ui.NWindowOption">NWindowOption</a>: JSON对象，原生窗口设置参数的对象</li>
+<li>
+<a href="#plus.ui.PullToRefreshOption">PullToRefreshOption</a>: JSON对象，原生窗口设置参数的对象</li>
+<li>
+<a href="#plus.ui.TimeOption">TimeOption</a>: JSON对象，选择时间界面设置的参数</li>
+<li>
+<a href="#plus.ui.ToastOption">ToastOption</a>: JSON对象，系统提示消息框要设置的参数</li>
+<li>
+<a href="#plus.ui.Transform">Transform</a>: 一组用于定义页面或控件变形的属性，暂不支持</li>
+<li>
+<a href="#plus.ui.Transition">Transition</a>: 一组用于定义页面或控件转换效果的属性</li>
+</ul>
+<h2>回调方法：</h2>
+<ul>
+<li>
+<a href="#plus.ui.AlertCallback">AlertCallback</a>: 系统提示框确认的回调函数</li>
+<li>
+<a href="#plus.ui.ConfirmCallback">ConfirmCallback</a>: 系统确认框操作的回调函数</li>
+<li>
+<a href="#plus.ui.PromptCallback">PromptCallback</a>: 系统输入框操作的回调函数</li>
+<li>
+<a href="#plus.ui.ToastCallback">ToastCallback</a>: 系统消息框消失时的回调函数</li>
+<li>
+<a href="#plus.ui.PickDatetimeSuccessCallback">PickDatetimeSuccessCallback</a>: 选择日期或时间操作成功的回调函数</li>
+<li>
+<a href="#plus.ui.PickDatetimeErrorCallback">PickDatetimeErrorCallback</a>: 选择日期或时间操作失败的回调函数</li>
+<li>
+<a href="#plus.ui.MetricsCallback">MetricsCallback</a>: 获取控件或窗口实际度量信息回调函数</li>
+<li>
+<a href="#plus.ui.EventCallback">EventCallback</a>: 窗口事件的回调函数</li>
+<li>
+<a href="#plus.ui.HistoryQueryCallback">HistoryQueryCallback</a>: 历史记录记录查询的回调函数</li>
+<li>
+<a href="#plus.ui.PullToRefreshCallback">PullToRefreshCallback</a>: 窗口刷新操作的回调函数</li>
+</ul>
+<h2>权限：</h2>
+<p>permissions</p>
+<pre class="prettyprint linenums">
+"UI": {
+	"description": "访问系统原生窗口"
+}
+			</pre>
+<h1><a name="plus.ui.AnimationTypeShow">AnimationTypeShow</a></h1>
+<p>一组用于定义页面或控件显示动画效果</p>
+<h2>常量：</h2>
+<ul>
+<li>"none": <em>(<font class="type">DOMString</font>
+	类型
+)</em>无动画效果<br><p>立即显示页面，无任何动画效果，页面显示默认的动画效果。对应关闭动画"none"。</p>
+</li>
+<li>"slide-in-right": <em>(<font class="type">DOMString</font>
+	类型
+)</em>从右侧横向滑动效果<br><p>页面从屏幕右侧外向内横向滑动显示。对应关闭动画"slide-out-right"。</p>
+</li>
+<li>"slide-in-left": <em>(<font class="type">DOMString</font>
+	类型
+)</em>从上侧竖向滑动效果<br><p>页面从屏幕上侧向内竖向滑动显示。对应关闭动画"slide-out-top"。</p>
+</li>
+<li>"slide-in-bottom": <em>(<font class="type">DOMString</font>
+	类型
+)</em>从下侧竖向滑动效果<br><p>页面从屏幕下侧向内竖向滑动显示。对应关闭动画"slide-out-bottom"。</p>
+</li>
+<li>"fade-in": <em>(<font class="type">DOMString</font>
+	类型
+)</em>从透明到不透明逐渐显示效果<br><p>页面从完全透明到不透明逐渐显示。对应关闭动画"fade-out"。</p>
+</li>
+<li>"zoom-out": <em>(<font class="type">DOMString</font>
+	类型
+)</em>从小到大逐渐放大显示效果<br><p>页面在屏幕中间从小到大逐渐放大显示。对应关闭动画"zoom-in"。</p>
+</li>
+<li>"flip-x": <em>(<font class="type">DOMString</font>
+	类型
+)</em>以x轴从上到下翻转效果<br><p>页面以x轴从上到下翻转显示。对应关闭动画"flip-rx"。</p>
+</li>
+<li>"flip-rx": <em>(<font class="type">DOMString</font>
+	类型
+)</em>以x轴从下到上翻转转效果<br><p>页面以x轴从下到上翻转显示。对应关闭动画"flip-x"。</p>
+</li>
+<li>"flip-y": <em>(<font class="type">DOMString</font>
+	类型
+)</em>以y轴从左到右翻转效果<br><p>页面以y轴从左到右翻转显示。对应关闭动画"flip-ry"。</p>
+</li>
+<li>"flip-ry": <em>(<font class="type">DOMString</font>
+	类型
+)</em>以y轴从右到左翻转效果<br><p>页面以y轴从右到左翻转显示。对应关闭动画"flip-y"。</p>
+</li>
+<li>"page-forward": <em>(<font class="type">DOMString</font>
+	类型
+)</em>向前翻书动画效果<br><p>页面以向前翻书动画显示，翻书后显示新打开的页面。对应关闭动画"page-backward"。</p>
+</li>
+</ul>
+<h1><a name="plus.ui.AnimationTypeClose">AnimationTypeClose</a></h1>
+<p>一组用于定义页面或控件关闭的动画效果</p>
+<h2>常量：</h2>
+<ul>
+<li>"none": <em>(<font class="type">DOMString</font>
+	类型
+)</em>无动画<br><p>立即关闭页面，无任何动画效果。</p>
+</li>
+<li>"slide-out-right": <em>(<font class="type">DOMString</font>
+	类型
+)</em>横向向右侧滑出屏幕动画<br><p>页面从屏幕中横向向右侧滑动到屏幕外关闭。</p>
+</li>
+<li>"slide-out-left": <em>(<font class="type">DOMString</font>
+	类型
+)</em>横向向左侧滑出屏幕动画<br><p>页面从屏幕中横向向左侧滑动到屏幕外关闭。</p>
+</li>
+<li>"slide-out-top": <em>(<font class="type">DOMString</font>
+	类型
+)</em>竖向向上侧滑出屏幕动画<br><p>页面从屏幕中竖向向上侧滑动到屏幕外关闭。</p>
+</li>
+<li>"slide-out-bottom": <em>(<font class="type">DOMString</font>
+	类型
+)</em>竖向向下侧滑出屏幕动画<br><p>页面从屏幕中竖向向下侧滑动到屏幕外关闭。</p>
+</li>
+<li>"fade-out": <em>(<font class="type">DOMString</font>
+	类型
+)</em>从不透明到透明逐渐隐藏动画<br><p>页面从不透明到透明逐渐隐藏关闭。</p>
+</li>
+<li>"zoom-in": <em>(<font class="type">DOMString</font>
+	类型
+)</em>从大逐渐缩小关闭动画<br><p>页面逐渐向页面中心缩小关闭。</p>
+</li>
+<li>"flip-x": <em>(<font class="type">DOMString</font>
+	类型
+)</em>以x轴从上到下翻转动画<br><p>页面以x轴从上到下翻转关闭，翻转后显示以前显示的页面。</p>
+</li>
+<li>"flip-rx": <em>(<font class="type">DOMString</font>
+	类型
+)</em>以x轴从下到上翻转转动画<br><p>页面以x轴从下到上翻转关闭，翻转后显示以前显示的页面。</p>
+</li>
+<li>"flip-y": <em>(<font class="type">DOMString</font>
+	类型
+)</em>以y轴从左到右翻转动画<br><p>页面以y轴从左到右翻转关闭，翻转后显示以前显示的页面。</p>
+</li>
+<li>"flip-ry": <em>(<font class="type">DOMString</font>
+	类型
+)</em>以y轴从右到左翻转动画<br><p>页面以y轴从右到左翻转关闭，翻转后显示以前显示的页面。</p>
+</li>
+<li>"page-backward": <em>(<font class="type">DOMString</font>
+	类型
+)</em>向后翻书动画<br><p>页面以向后翻书动画关闭，翻书后显示以前显示的页面。</p>
+</li>
+</ul>
+<h1><a name="plus.ui.DateOption">DateOption</a></h1>
+<p>JSON对象，选择日期界面设置的参数</p>
+<h2>属性：</h2>
+<ul>
+<li>title: <em>(<font class="type">DOMString</font>
+	类型
+)</em>日期选择界面的标题<br><p>默认标题为当前的日期。</p>
+</li>
+<li>date: <em>(<font class="type">DOMDate</font>
+	类型
+)</em>日期选择界面默认显示的日期<br><p>默认值为当前的日期。</p>
+</li>
+<li>startYear: <em>(<font class="type">Number</font>
+	类型
+)</em>日期选择界面起始的年份<br><p>数字类型，如“1940”。</p>
+</li>
+<li>endYear: <em>(<font class="type">Number</font>
+	类型
+)</em>日期选择界面结束的年份<br><p>数字类型，如“2024”，其值必须大于startYear，否则取系统默认值。</p>
+</li>
+<li>minDate: <em>(<font class="type">DOMDate</font>
+	类型
+)</em>日期选择界面显示的最小日期<br><p>日期类型对象，其优先级高于startYear属性。</p>
+</li>
+<li>maxDate: <em>(<font class="type">DOMDate</font>
+	类型
+)</em>日期选择界面显示的最大日期<br><p>日期类型对象，其值必须大于startYear，否则取系统默认值，优先级高于endYear属性。</p>
+</li>
+<li>popover: <em>(<font class="type">JSON</font>
+	类型
+)</em>时间日期选择界面弹出指示区域<br><p>JSON类型对象，格式如{top:10;left:10;width:200;height:200;}，所有值为像素值，左上坐标相对于容器webview的位置。如未设置此值，默认在屏幕居中显示。仅在iPad上有效。</p>
+</li>
+</ul>
+<h1><a name="plus.ui.Metrics">Metrics</a></h1>
+<p>JSON对象，窗口实际度量信息</p>
+<h2>属性：</h2>
+<ul>
+<li>height: <em>(<font class="type">Number</font>
+	类型
+)</em>绝对像素值，窗口的高度<br>
+</li>
+<li>left: <em>(<font class="type">Number</font>
+	类型
+)</em>绝对像素值，相对于屏幕或父容器左侧的偏移量<br>
+</li>
+<li>top: <em>(<font class="type">Number</font>
+	类型
+)</em>绝对像素值，相对于屏幕或父容器上侧的偏移量<br>
+</li>
+<li>width: <em>(<font class="type">Number</font>
+	类型
+)</em>绝对像素值，窗口的宽度<br>
+</li>
+</ul>
+<h1><a name="plus.ui.NView">NView</a></h1>
+<p>原生控件对象，用于操作页面中显示的原生控件</p>
+<h2>方法：</h2>
+<ul><li>
+<a href="#plus.ui.NView.getMetrics">getMetrics</a>: 获取窗口实际度量信息</li></ul>
+<h1><a name="plus.ui.NViewDock">NViewDock</a></h1>
+<p>原生控件在窗口中停靠的方式</p>
+<h2>常量：</h2>
+<ul>
+<li>"top": <em>(<font class="type">DOMString</font>
+	类型
+)</em>控件停靠则页面顶部<br>
+</li>
+<li>"bottom": <em>(<font class="type">DOMString</font>
+	类型
+)</em>控件停靠在页面中底部<br>
+</li>
+<li>"right": <em>(<font class="type">DOMString</font>
+	类型
+)</em>控件停靠在页面右侧<br>
+</li>
+<li>"left": <em>(<font class="type">DOMString</font>
+	类型
+)</em>控件停靠在页面左侧<br>
+</li>
+</ul>
+<h1><a name="plus.ui.NViewOption">NViewOption</a></h1>
+<p>JSON对象，原生控件元素要设置的参数</p>
+<h2>属性：</h2>
+<ul>
+<li>id: <em>(<font class="type">DOMString</font>
+	类型
+)</em>控件的标识<br>
+</li>
+<li>top: <em>(<font class="type">DOMString</font>
+	类型
+)</em>控件在所属窗口垂直向下的偏移量，可设置像素值或百分比，默认值为0px<br>
+</li>
+<li>left: <em>(<font class="type">DOMString</font>
+	类型
+)</em>控件在所属窗口水平向右的偏移量，可设置像素值或百分比，默认值为0px<br>
+</li>
+<li>width: <em>(<font class="type">DOMString</font>
+	类型
+)</em>控件的宽度，可设置像素值或百分比，默认为控件内部计算的高度（参考扩展自定义控件）<br>
+</li>
+<li>height: <em>(<font class="type">DOMString</font>
+	类型
+)</em>控件的高度，可设置像素值或百分比，默认为控件内部计算的高度（参考扩展自定义控件）<br>
+</li>
+<li>position: <em>(<a href="#plus.ui.NViewPosition">NViewPosition</a>
+	类型
+)</em>控件的排版位置，默认值为"static"<br>
+</li>
+<li>dock: <em>(<a href="#plus.ui.NViewDock">NViewDock</a>
+	类型
+)</em>控件的停靠方式，默认值为"top"<br>
+</li>
+</ul>
+<h1><a name="plus.ui.NViewPosition">NViewPosition</a></h1>
+<p>原生控件在窗口中显示的位置</p>
+<h2>常量：</h2>
+<ul>
+<li>"static": <em>(<font class="type">DOMString</font>
+	类型
+)</em>控件在页面中正常定位，如果页面存在滚动条则随窗口内容滚动<br>
+</li>
+<li>"absolute": <em>(<font class="type">DOMString</font>
+	类型
+)</em>控件在页面中绝对定位，如果页面存在滚动条不随窗口内容滚动<br>
+</li>
+<li>"dock": <em>(<font class="type">DOMString</font>
+	类型
+)</em>控件在页面中停靠，停靠的位置通过dock属性进行定义<br>
+</li>
+</ul>
+<h1><a name="plus.ui.NWaiting">NWaiting</a></h1>
+<p>NWaiting是等待控件对象，用于在界面中显示原生等待窗口</p>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.ui.NWaiting.setTitle">setTitle</a>: 设置等待控件上显示的文字</li>
+<li>
+<a href="#plus.ui.NWaiting.close">close</a>: 关闭等待控件</li>
+</ul>
+<h2>事件：</h2>
+<ul><li>
+<a href="#plus.ui.NWaiting.onclose">onclose</a>: 关闭等待控件事件</li></ul>
+<h1><a name="plus.ui.NWaitingOption">NWaitingOption</a></h1>
+<p>JSON对象，原生等待控件要设置的参数</p>
+<h2>属性：</h2>
+<ul>
+<li>width: <em>(<font class="type">DOMString</font>
+	类型
+)</em>等待框背景区域的宽度，默认根据内容自动计算<br>
+</li>
+<li>height: <em>(<font class="type">DOMString</font>
+	类型
+)</em>等待框背景区域的高度，默认根据内容自动计算<br>
+</li>
+<li>color: <em>(<font class="type">DOMString</font>
+	类型
+)</em>等待框中文字的颜色<br><p>颜色值支持(参考CSS颜色规范)：颜色名称(参考CSS Color Names)/十六进制值/rgb值/rgba值，默认值为白色。</p>
+</li>
+<li>textalign: <em>(<font class="type">DOMString</font>
+	类型
+)</em>等待框中的文字的水平对齐方式<br><p>
+	对齐方式可选值包括："left"：水平居左对齐显示，"center"：水平居中对齐显示，"right"：水平居右对齐显示。默认值为水平居中对齐显示。
+						</p>
+</li>
+<li>padding: <em>(<font class="type">DOMString</font>
+	类型
+)</em>等待框的内边距<br><p>支持像素值和百分比，百分比相对于屏幕的宽计算，默认值为"3%"。</p>
+</li>
+<li>background: <em>(<font class="type">DOMString</font>
+	类型
+)</em>等待框显示区域的背景色<br><p>背景色的值支持(参考CSS颜色规范)：颜色名称(参考CSS Color Names)/十六进制值/rgb值/rgba值，默认值为rgba(0,0,0,0.8)。</p>
+</li>
+<li>style: <em>(<font class="type">DOMString</font>
+	类型
+)</em>等待框样式，可取值"black"、"white"<br><p>
+	black表示等待框为黑色雪花样式，通常在背景主色为浅色时使用；white表示等待框为白色雪花样式，通常在背景主色为深色时使用；仅在iOS平台有效，其它平台忽略此值，默认值为white。
+						</p>
+</li>
+<li>modal: <em>(<font class="type">Boolen</font>
+	类型
+)</em>等待框是否模态显示<br><p>模态显示则用户不可操作直到等待框关闭，否则用户在等待框显示时也可操作，默认为true。</p>
+</li>
+<li>round: <em>(<font class="type">Number</font>
+	类型
+)</em>等待框显示区域的圆角，默认值为10px<br>
+</li>
+<li>padlock: <em>(<font class="type">Boolen</font>
+	类型
+)</em>点击等待显示区域是否自动关闭，默认值为false<br>
+</li>
+</ul>
+<h1><a name="plus.ui.NWindow">NWindow</a></h1>
+<p>NWindow是窗口对象，用于操作加载html页面的原生窗口</p>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.ui.NWindow.addEventListener">addEventListener</a>: 添加事件监听器</li>
+<li>
+<a href="#plus.ui.NWindow.append">append</a>: 在窗口中添加原生界面控件</li>
+<li>
+<a href="#plus.ui.NWindow.appendPreloadJsFile">appendPreloadJsFile</a>: 添加页面预先加载的js文件</li>
+<li>
+<a href="#plus.ui.NWindow.back">back</a>: 窗口后退到上次加载的页面内容</li>
+<li>
+<a href="#plus.ui.NWindow.canBack">canBack</a>: 查询窗口是否可后退到上次加载的页面内容</li>
+<li>
+<a href="#plus.ui.NWindow.canForward">canForward</a>: 查询窗口是否可前进到上次加载的页面内容</li>
+<li>
+<a href="#plus.ui.NWindow.clear">clear</a>: 清空原生窗口加载的内容</li>
+<li>
+<a href="#plus.ui.NWindow.close">close</a>: 关闭创建新的原生窗口</li>
+<li>
+<a href="#plus.ui.NWindow.endPullToRefresh">endPullToRefresh</a>: 关闭原生窗口刷新状态</li>
+<li>
+<a href="#plus.ui.NWindow.evalJS">evalJS</a>: 在窗口中执行脚本</li>
+<li>
+<a href="#plus.ui.NWindow.findViewById">findViewById</a>: 在界面中通过id查找控件对象</li>
+<li>
+<a href="#plus.ui.NWindow.forward">forward</a>: 窗口前进到上次加载的页面内容</li>
+<li>
+<a href="#plus.ui.NWindow.getMetrics">getMetrics</a>: 获取窗口实际度量信息</li>
+<li>
+<a href="#plus.ui.NWindow.getOption">getOption</a>: 获取窗口当前的属性值</li>
+<li>
+<a href="#plus.ui.NWindow.getTitle">getTitle</a>: 获取窗口加载页面的标题</li>
+<li>
+<a href="#plus.ui.NWindow.getUrl">getUrl</a>: 获取窗口加载页面的地址</li>
+<li>
+<a href="#plus.ui.NWindow.load">load</a>: 窗口加载新的页面</li>
+<li>
+<a href="#plus.ui.NWindow.reload">reload</a>: 重新加载窗口当前显示的页面</li>
+<li>
+<a href="#plus.ui.NWindow.removeEventListener">removeEventListener</a>: 移除事件监听器</li>
+<li>
+<a href="#plus.ui.NWindow.setContentVisible">setContentVisible</a>: 设置页面内容是否可见</li>
+<li>
+<a href="#plus.ui.NWindow.setOption">setOption</a>: 设置原生窗口的参数</li>
+<li>
+<a href="#plus.ui.NWindow.setPreloadJsFile">setPreloadJsFile</a>: 设置页面预先加载的js文件</li>
+<li>
+<a href="#plus.ui.NWindow.setPullToRefresh">setPullToRefresh</a>: 设置窗口的下拉刷新功能</li>
+<li>
+<a href="#plus.ui.NWindow.setVisible">setVisible</a>: 设置窗口是否可见</li>
+<li>
+<a href="#plus.ui.NWindow.show">show</a>: 显示创建新的原生窗口</li>
+<li>
+<a href="#plus.ui.NWindow.stop">stop</a>: 窗口停止加载页面内容</li>
+</ul>
+<h1><a name="plus.ui.NWindowEvent">NWindowEvent</a></h1>
+<p>窗口事件对象</p>
+<h2>常量：</h2>
+<ul>
+<li>"close": <em>(<font class="type">DOMString</font>
+	类型
+)</em>当窗口关闭时触发此事件<br>
+</li>
+<li>"loading": <em>(<font class="type">DOMString</font>
+	类型
+)</em>当窗口开始加载新内容时触发此事件<br>
+</li>
+<li>"loaded": <em>(<font class="type">DOMString</font>
+	类型
+)</em>当窗口内容加载完成时触发此事件<br>
+</li>
+<li>"failed": <em>(<font class="type">DOMString</font>
+	类型
+)</em>当窗口内容加载失败时触发此事件<br>
+</li>
+<li>"back": <em>(<font class="type">DOMString</font>
+	类型
+)</em>设备“返回”按钮按键事件<br>
+</li>
+<li>"menu": <em>(<font class="type">DOMString</font>
+	类型
+)</em>设备“菜单”按钮按键事件<br>
+</li>
+<li>"search": <em>(<font class="type">DOMString</font>
+	类型
+)</em>设备“搜索”按钮按键事件<br>
+</li>
+<li>"volumeup": <em>(<font class="type">DOMString</font>
+	类型
+)</em>设备“音量+”按钮按键事件<br>
+</li>
+<li>"volumedown": <em>(<font class="type">DOMString</font>
+	类型
+)</em>设备“音量-”按钮按键事件<br>
+</li>
+</ul>
+<h1><a name="plus.ui.NWindowOption">NWindowOption</a></h1>
+<p>JSON对象，原生窗口设置参数的对象</p>
+<h2>属性：</h2>
+<ul>
+<li>background: <em>(<font class="type">DOMString</font>
+	类型
+)</em>窗口的背景颜色<br><p>
+	窗口空白区域的背景，设置了background则窗口为独占模式显示（占整个屏幕区域），否则为非独占模式，目前仅支持背景色的设置(参考CSS颜色规范)：颜色名称(参考CSS Color Names)/十六进制值/rgb值/rgba值。
+						</p>
+</li>
+<li>bottom: <em>(<font class="type">DOMString</font>
+	类型
+)</em>窗口垂直向上的偏移量<br><p>
+	支持百分比、像素值，当设置了top和height值时，此属性值忽略；当设置top和bottom属性则自动计算窗口的高度。
+						</p>
+</li>
+<li>bounce: <em>(<font class="type">DOMString</font>
+	类型
+)</em>窗口遇到边框是否有反弹效果<br><p>
+	可取值：none表示没有反弹效果；vertical表示垂直方向有反弹效果；horizontal表示水平方向有反弹效果；all表示垂直和水平方向都有反弹效果。
+						</p>
+</li>
+<li>height: <em>(<font class="type">DOMString</font>
+	类型
+)</em>窗口的高度<br><p>支持百分比、像素值，默认为100%。</p>
+</li>
+<li>left: <em>(<font class="type">DOMString</font>
+	类型
+)</em>窗口水平向右的偏移量<br><p>支持百分比、像素值，默认值为0px。</p>
+</li>
+<li>margin: <em>(<font class="type">DOMString</font>
+	类型
+)</em>窗口的边距<br><p>
+	用于定位窗口的位置，支持auto，auto表示居中。若设置了left、right、top、bottom则对应的边距值失效。
+						</p>
+</li>
+<li>name: <em>(<font class="type">DOMString</font>
+	类型
+)</em>窗口的名称<br><p>作为窗口的标识，可用于窗口的查找。</p>
+</li>
+<li>opacity: <em>(<font class="type">Number</font>
+	类型
+)</em>窗口的不透明度<br><p>0为全透明，1为不透明，默认值为1，即不透明。</p>
+</li>
+<li>right: <em>(<font class="type">DOMString</font>
+	类型
+)</em>窗口水平向左的偏移量<br><p>支持百分比、像素值，默认无值。当设置了left和width值时，此属性值忽略；当设置left和right属性则自动计算窗口的宽度。</p>
+</li>
+<li>scalable: <em>(<font class="type">Boolean</font>
+	类型
+)</em>窗口是否可缩放<br><p>
+	默认值为true，即可缩放。
+	窗口设置为可缩放（scalable:true）时，用户可通过双指操作放大或缩小页面，这时html页面可通过meta节点name="viewport"来限制页面是否可缩放。
+	窗口设置为不可缩放（scalable:false）时，用户不可通过双指操作放大或缩小页面，即使页面中的meta节点也无法开启可缩放功能。
+	窗口的默认值为可缩放（scalable:true）。
+						</p>
+</li>
+<li>scrollIndicator: <em>(<font class="type">DOMString</font>
+	类型
+)</em>窗口是否显示滚动条<br><p>
+	用于控制窗口滚动条样式，可取值："all"：垂直和水平滚动条都显示，"vertical"：仅显示垂直，"horizontal"：仅显示水平滚动条，"none"：垂直和水平滚动条都不显示。默认值为"all"，即垂直和水平滚动条都显示。
+	注意：显示滚动条的前提条件是窗口中的内容超过窗口显示的宽或高。
+						</p>
+</li>
+<li>top: <em>(<font class="type">DOMString</font>
+	类型
+)</em>窗口垂直向下的偏移量<br><p>支持百分比、像素值，默认值为0px。</p>
+</li>
+<li>transition: <em>(<a href="#plus.ui.Transition">Transition</a>
+	类型
+)</em>窗口定义窗口变换的动画效果，参考Transition<br>
+</li>
+<li>transform: <em>(<a href="#plus.ui.Transform">Transform</a>
+	类型
+)</em>窗口定义窗口变形效果，参考Transform<br>
+</li>
+<li>width: <em>(<font class="type">DOMString</font>
+	类型
+)</em>窗口的宽度<br><p>支持百分比、像素值，默认为100%。</p>
+</li>
+<li>zindex: <em>(<font class="type">Number</font>
+	类型
+)</em>窗口的堆叠顺序值<br><p>拥有更高堆叠顺序的窗口总是会处于堆叠顺序较低的窗口的前面，拥有相同堆叠顺序的窗口后调用show方法则在前面。</p>
+</li>
+</ul>
+<h1><a name="plus.ui.PullToRefreshOption">PullToRefreshOption</a></h1>
+<p>JSON对象，原生窗口设置参数的对象</p>
+<h2>属性：</h2>
+<ul>
+<li>support: <em>(<font class="type">Boolean</font>
+	类型
+)</em>是否开启下拉刷新功能<br><p>
+	true表示开启下拉刷新功能，false表示关闭下拉刷新功能，默认值为true。
+						</p>
+</li>
+<li>height: <em>(<font class="type">String</font>
+	类型
+)</em>下拉刷新控件的高度<br><p>
+	当用户下拉操作的高度大于或等于此值事，松开后则进入刷新状态。
+	可支持像素值和百分比，像素值为绝对值，以px结尾；百分比相对窗口的高度，以%结尾；如“60px”、“10%”，默认值为“100px”。
+	注：当下拉的高度大于等于刷新控件的高度时，控件居底显示。
+						</p>
+</li>
+<li>range: <em>(<font class="type">String</font>
+	类型
+)</em>下拉刷新控件可下拉的最大高度<br><p>
+	用户可下拉的最大高度，此值必须大于height值，否则将会导致无法触发刷新事件。
+	可支持像素值和百分比，像素值为绝对值，以px结尾；百分比相对窗口的高度，以%结尾；
+	如“60px”、“10%”，默认值为height值。
+						</p>
+</li>
+<li>contentdown: <em>(<font class="type">JSON</font>
+	类型
+)</em>下拉刷新控件在下拉状态时显示的内容<br><p>
+	仅支持caption字段，用于设置下拉状态时显示的文本内容。
+						</p>
+</li>
+<li>contentover: <em>(<font class="type">JSON</font>
+	类型
+)</em>下拉刷新控件在达到可刷新状态时显示的内容<br><p>
+	仅支持caption字段，用于设置可刷新状态时显示的文本内容。
+						</p>
+</li>
+<li>contentrefresh: <em>(<font class="type">JSON</font>
+	类型
+)</em>下拉刷新控件正在刷新状态时显示的内容<br><p>
+	仅支持caption字段，用于设置在刷新状态时显示的文本内容。
+						</p>
+</li>
+</ul>
+<h1><a name="plus.ui.TimeOption">TimeOption</a></h1>
+<p>JSON对象，选择时间界面设置的参数</p>
+<h2>属性：</h2>
+<ul>
+<li>title: <em>(<font class="type">DOMString</font>
+	类型
+)</em>时间选择操作界面显示的标题<br><p>字符串类型，默认标题为当前选择的时间。</p>
+</li>
+<li>is24Hour: <em>(<font class="type">Boolean</font>
+	类型
+)</em>是否24小时制模式，默认值为true<br>
+</li>
+<li>popover: <em>(<font class="type">JSON</font>
+	类型
+)</em>时间日期选择界面弹出指示区域<br><p>JSON对象，格式如{top:10;left:10;width:200;height:200;}，所有值为像素值，左上坐标相对于容器webview的位置。如未设置此值，默认在屏幕居中显示。</p>
+</li>
+</ul>
+<h1><a name="plus.ui.ToastOption">ToastOption</a></h1>
+<p>JSON对象，系统提示消息框要设置的参数</p>
+<h2>属性：</h2>
+<ul>
+<li>icon: <em>(<font class="type">DOMString</font>
+	类型
+)</em>提示消息框上显示的图标<br>
+</li>
+<li>duration: <em>(<font class="type">DOMString</font>
+	类型
+)</em>提示消息框显示的时间<br><p>可选值为"long"、"short"，值为"long"约为3.5s，值为"short"时约为2s，默认值为"short"。</p>
+</li>
+<li>align: <em>(<font class="type">DOMString</font>
+	类型
+)</em>提示消息框在屏幕中的水平位置<br><p>可选值为"left"、"center"、"right"，分别为水平居左、居中、居右，默认值为"center"。</p>
+</li>
+<li>verticalAlign: <em>(<font class="type">DOMString</font>
+	类型
+)</em>提示消息框在屏幕中的垂直位置<br><p>可选值为"top"、"center"、"bottom"，分别为垂直居顶、居中、居底，默认值为"bottom"。</p>
+</li>
+</ul>
+<h1><a name="plus.ui.Transform">Transform</a></h1>
+<p>一组用于定义页面或控件变形的属性，暂不支持</p>
+<h2>属性：</h2>
+<ul>
+<li>rotate: <em>(<font class="type">DOMString</font>
+	类型
+)</em>暂不支持<br>
+</li>
+<li>translate: <em>(<font class="type">DOMString</font>
+	类型
+)</em>暂不支持<br>
+</li>
+<li>scale: <em>(<font class="type">DOMString</font>
+	类型
+)</em>暂不支持<br>
+</li>
+<li>skew: <em>(<font class="type">DOMString</font>
+	类型
+)</em>暂不支持<br>
+</li>
+<li>matrix: <em>(<font class="type">DOMString</font>
+	类型
+)</em>暂不支持<br>
+</li>
+</ul>
+<h1><a name="plus.ui.Transition">Transition</a></h1>
+<p>一组用于定义页面或控件转换效果的属性</p>
+<h2>属性：</h2>
+<ul>
+<li>property: <em>(<font class="type">DOMString</font>
+	类型
+)</em>产生变换效果的属性<br><p>默认值为"all"，暂不支持其它值。</p>
+</li>
+<li>duration: <em>(<font class="type">DOMString</font>
+	类型
+)</em>变换持续的时间<br><p>默认值为0，即无动画效果。</p>
+</li>
+<li>timingfunction: <em>(<font class="type">DOMString</font>
+	类型
+)</em>窗口变换效果<br><p>可取值linear、ease-in、ease-out、ease-in-out，默认值为linear。</p>
+</li>
+</ul>
+<h1><a name="plus.ui.AlertCallback">AlertCallback</a></h1>
+<p>系统提示框确认的回调函数</p>
+<pre class="prettyprint linenums">
+void onAlerted() {
+	// Alert handled code.
+}
+				</pre>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<h1><a name="plus.ui.ConfirmCallback">ConfirmCallback</a></h1>
+<p>系统确认框操作的回调函数</p>
+<pre class="prettyprint linenums">
+void onConfirmed( Number index ) {
+	// Confirm handled code.
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>index: 
+		<em>(
+			<font class="type">Number</font>
+			)
+			必选 </em>用户点击按钮的索引值，从0开始<br>
+</li></ul>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<h1><a name="plus.ui.PromptCallback">PromptCallback</a></h1>
+<p>系统输入框操作的回调函数</p>
+<pre class="prettyprint linenums">
+function void onPrompted( Number index, DOMString value ) {
+	// Prompt handled code.
+}
+				</pre>
+<h2>参数：</h2>
+<ul>
+<li>index: 
+		<em>(
+			<font class="type">Number</font>
+			)
+			必选 </em>用户点击按钮的索引值，从0开始<br>
+</li>
+<li>value: 
+		<em>(
+			<font class="type">DOMString</font>
+			)
+			可选 </em>用户输入的内容，若没有输入则返回空字符串<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<h1><a name="plus.ui.ToastCallback">ToastCallback</a></h1>
+<p>系统消息框消失时的回调函数</p>
+<pre class="prettyprint linenums">
+void onToast() {
+	// Toast close handled code.
+}
+				</pre>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<h1><a name="plus.ui.PickDatetimeSuccessCallback">PickDatetimeSuccessCallback</a></h1>
+<p>选择日期或时间操作成功的回调函数</p>
+<pre class="prettyprint linenums">
+function void onPickSuccess( DOMDate date ) {
+	// Date picked code.
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>date: 
+		<em>(
+			<font class="type">DOMDate</font>
+			)
+			必选 </em>用户选择的日期或时间数据<br>若调用的是日期选择操作则仅年、月、日信息有效，若调用的是时间选择操作则仅时、分信息有效。</li></ul>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<h1><a name="plus.ui.PickDatetimeErrorCallback">PickDatetimeErrorCallback</a></h1>
+<p>选择日期或时间操作失败的回调函数</p>
+<pre class="prettyprint linenums">
+function void onPickError( DOMException error ) {
+	// Date picked error.
+	alert( error.message );
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>error: 
+		<em>(
+			<font class="type">DOMException</font>
+			)
+			必选 </em>用户选择操作失败信息<br>
+</li></ul>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<h1><a name="plus.ui.MetricsCallback">MetricsCallback</a></h1>
+<p>获取控件或窗口实际度量信息回调函数</p>
+<pre class="prettyprint linenums">
+void onMetricsCompleted( Metrics metrics ) {
+	// Get metrics completed code.
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>metrics: 
+		<em>(
+			<a href="#plus.ui.Metrics">Metrics</a>
+			)
+			必选 </em>获取到的窗口或控件的度量信息，参考Metrics<br>
+</li></ul>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<h1><a name="plus.ui.EventCallback">EventCallback</a></h1>
+<p>窗口事件的回调函数</p>
+<pre class="prettyprint linenums">
+void onEvent() {
+	// Event handled code.
+}
+				</pre>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<h1><a name="plus.ui.HistoryQueryCallback">HistoryQueryCallback</a></h1>
+<p>历史记录记录查询的回调函数</p>
+<pre class="prettyprint linenums">
+void onQuery( able ) {
+	// Event handled code.
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>able: 
+		<em>(
+			<font class="type">Boolean</font>
+			)
+			必选 </em>历史记录操作是否可用，true表示可用，false表示不可用<br>
+</li></ul>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<h1><a name="plus.ui.PullToRefreshCallback">PullToRefreshCallback</a></h1>
+<p>窗口刷新操作的回调函数</p>
+<pre class="prettyprint linenums">
+void onRefresh() {
+	// Event handled code.
+}
+				</pre>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<br><br>
+</div></body>
+</html>

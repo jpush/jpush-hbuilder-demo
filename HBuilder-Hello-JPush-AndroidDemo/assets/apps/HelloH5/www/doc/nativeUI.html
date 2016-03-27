@@ -1,0 +1,391 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<title>Hello H5+</title>
+<link rel="stylesheet" type="text/css" href="res/doc.css" charset="utf-8">
+<link rel="stylesheet" type="text/css" href="res/prettify.sons.css" charset="utf-8">
+<script type="text/javascript" src="res/doc.js" charset="utf-8"></script><script type="text/javascript" src="res/prettify.js" charset="utf-8"></script>
+</head>
+<body><div id="content" class="content">
+<h1><a name="plus.nativeUI">nativeUI</a></h1>
+<p>nativeUI管理系统原生界面，可用于弹出系统原生提示对话框窗口、时间日期选择对话框、等待对话框等。</p>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.nativeUI.actionSheet">actionSheet</a>: 弹出系统选择按钮框</li>
+<li>
+<a href="#plus.nativeUI.alert">alert</a>: 弹出系统提示对话框</li>
+<li>
+<a href="#plus.nativeUI.confirm">confirm</a>: 弹出系统确认对话框</li>
+<li>
+<a href="#plus.nativeUI.closeWaiting">closeWaiting</a>: 关闭系统等待对话框</li>
+<li>
+<a href="#plus.nativeUI.showWaiting">showWaiting</a>: 显示系统等待对话框</li>
+<li>
+<a href="#plus.nativeUI.pickDate">pickDate</a>: 弹出系统日期选择对话框</li>
+<li>
+<a href="#plus.nativeUI.pickTime">pickTime</a>: 弹出系统时间选择对话框</li>
+<li>
+<a href="#plus.nativeUI.prompt">prompt</a>: 弹出系统输入对话框</li>
+<li>
+<a href="#plus.nativeUI.toast">toast</a>: 显示自动消失的提示消息</li>
+</ul>
+<h2>对象：</h2>
+<ul>
+<li>
+<a href="#plus.nativeUI.ActionButtonStyle">ActionButtonStyle</a>: JSON对象，原生选择按钮框上按钮的样式参数</li>
+<li>
+<a href="#plus.nativeUI.ActionSheetStyle">ActionSheetStyle</a>: JSON对象，原生选择按钮框的样式参数</li>
+<li>
+<a href="#plus.nativeUI.PickDateOption">PickDateOption</a>: JSON对象，日期选择对话框的参数</li>
+<li>
+<a href="#plus.nativeUI.PickTimeOption">PickTimeOption</a>: JSON对象，时间选择对话框的参数</li>
+<li>
+<a href="#plus.nativeUI.Waiting">Waiting</a>: 系统等待对话框对象</li>
+<li>
+<a href="#plus.nativeUI.WaitingOption">WaitingOption</a>: JSON对象，原生等待对话框的参数</li>
+<li>
+<a href="#plus.nativeUI.ToastOption">ToastOption</a>: JSON对象，系统提示消息框要设置的参数</li>
+</ul>
+<h2>回调方法：</h2>
+<ul>
+<li>
+<a href="#plus.nativeUI.ActionSheetCallback">ActionSheetCallback</a>: 系统选择按钮框的回调函数</li>
+<li>
+<a href="#plus.nativeUI.AlertCallback">AlertCallback</a>: 系统提示框确认的回调函数</li>
+<li>
+<a href="#plus.nativeUI.ConfirmCallback">ConfirmCallback</a>: 关闭确认对话框的回调函数</li>
+<li>
+<a href="#plus.nativeUI.PromptCallback">PromptCallback</a>: 系统输入对话框关闭后的回调函数</li>
+<li>
+<a href="#plus.nativeUI.PickDatetimeSuccessCallback">PickDatetimeSuccessCallback</a>: 选择日期或时间操作成功的回调函数</li>
+<li>
+<a href="#plus.nativeUI.PickDatetimeErrorCallback">PickDatetimeErrorCallback</a>: 选择日期或时间操作取消或失败的回调函数</li>
+</ul>
+<h1><a name="plus.nativeUI.ActionButtonStyle">ActionButtonStyle</a></h1>
+<p>JSON对象，原生选择按钮框上按钮的样式参数</p>
+<h2>属性：</h2>
+<ul>
+<li>title: <em>(<font class="type">String</font>
+	类型
+)</em>按钮上显示的文字内容<br>
+</li>
+<li>style: <em>(<font class="type">String</font>
+	类型
+)</em>按钮的样式，可取值“destructive”、“default”<br><p>
+	“destructive”表示警示按钮样式、“default”表示默认按钮样式，默认为“default”。
+						</p>
+</li>
+</ul>
+<h1><a name="plus.nativeUI.ActionSheetStyle">ActionSheetStyle</a></h1>
+<p>JSON对象，原生选择按钮框的样式参数</p>
+<h2>属性：</h2>
+<ul>
+<li>title: <em>(<font class="type">String</font>
+	类型
+)</em>选择按钮框的标题<br>
+</li>
+<li>cancel: <em>(<font class="type">String</font>
+	类型
+)</em>取消按钮上显示的文字内容<br><p>
+	不设置此属性，则不显示取消按钮。
+						</p>
+</li>
+<li>buttons: <em>(<font class="type">Array</font>[
+				<a href="#plus.nativeUI.ActionButtonStyle">ActionButtonStyle</a>
+				]
+			
+	类型
+)</em>选择框上的按钮，ActionButtonStyle对象数组<br>
+</li>
+</ul>
+<h1><a name="plus.nativeUI.PickDateOption">PickDateOption</a></h1>
+<p>JSON对象，日期选择对话框的参数</p>
+<h2>属性：</h2>
+<ul>
+<li>title: <em>(<font class="type">String</font>
+	类型
+)</em>日期选择对话框显示的标题<br><p>
+	如果未设置标题，则默认显示标题为当前选择的日期。
+						</p>
+</li>
+<li>date: <em>(<font class="type">Date</font>
+	类型
+)</em>日期选择对话框默认显示的日期<br><p>
+	如果未设置默认显示的日期，则显示当前的日期。
+						</p>
+</li>
+<li>minDate: <em>(<font class="type">Date</font>
+	类型
+)</em>日期选择对话框可选择的最小日期<br><p>
+	Date类型对象，如果未设置可选择的最小日期，则使用系统默认可选择的最小日期值。
+						</p>
+</li>
+<li>maxDate: <em>(<font class="type">Date</font>
+	类型
+)</em>日期选择对话框可选择的最大日期<br><p>
+	Date类型对象，如果未设置可选择的最大日期，则使用系统默认可选择的最大日期值。
+	其值必须大于minDate设置的值，否则使用系统默认可选择的最大日期值。
+						</p>
+</li>
+<li>popover: <em>(<font class="type">JSON</font>
+	类型
+)</em>时间选择对话框弹出指示区域<br><p>
+	JSON类型对象，格式如{top:10;left:10;width:200;height:200;}，所有值为像素值，其值为相对于容器Webview的位置。
+	如未设置此值，默认在屏幕居中显示。仅在iPad上有效，其它设备忽略此值。
+						</p>
+</li>
+</ul>
+<h1><a name="plus.nativeUI.PickTimeOption">PickTimeOption</a></h1>
+<p>JSON对象，时间选择对话框的参数</p>
+<h2>属性：</h2>
+<ul>
+<li>time: <em>(<font class="type">Date</font>
+	类型
+)</em>时间选择对话框默认显示的时间<br><p>
+	如果未设置标题，则默认显示标题为当前选择的时间。
+						</p>
+</li>
+<li>title: <em>(<font class="type">String</font>
+	类型
+)</em>时间选择对话框显示的标题<br><p>
+	如果未设置标题，则默认显示标题为当前选择的时间。
+						</p>
+</li>
+<li>is24Hour: <em>(<font class="type">Boolean</font>
+	类型
+)</em>是否24小时制模式<br><p>
+	true表示使用24小时制模式显示，fale表示使用12小时制模式显示，默认值为true。
+						</p>
+</li>
+<li>popover: <em>(<font class="type">JSON</font>
+	类型
+)</em>日期选择对话框弹出指示区域<br><p>
+	JSON类型对象，格式如{top:10;left:10;width:200;height:200;}，所有值为像素值，其值相对于容器webview的位置。
+	如未设置此值，默认在屏幕居中显示。仅在iPad上有效，其它设备忽略此值。
+						</p>
+</li>
+</ul>
+<h1><a name="plus.nativeUI.Waiting">Waiting</a></h1>
+<p>系统等待对话框对象</p>
+<h2>说明：</h2>
+<p class="des">
+	可通过plus.nativeUI.showWaiting方法创建，用于控制系统样式等待对话框的操作，如关闭、设置标题内容等。
+				</p>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.nativeUI.Waiting.setTitle">setTitle</a>: 设置等待对话框上显示的文字内容</li>
+<li>
+<a href="#plus.nativeUI.Waiting.close">close</a>: 关闭显示的系统等待对话框</li>
+</ul>
+<h2>事件：</h2>
+<ul><li>
+<a href="#plus.nativeUI.Waiting.onclose">onclose</a>: 等待对话框关闭事件</li></ul>
+<h1><a name="plus.nativeUI.WaitingOption">WaitingOption</a></h1>
+<p>JSON对象，原生等待对话框的参数</p>
+<h2>属性：</h2>
+<ul>
+<li>width: <em>(<font class="type">String</font>
+	类型
+)</em>等待框背景区域的宽度<br><p>
+	值支持像素值（"500px"）或百分比（"50%"），百分比相对于屏幕的宽计算，如果不设置则根据内容自动计算合适的宽度。
+						</p>
+</li>
+<li>height: <em>(<font class="type">String</font>
+	类型
+)</em>等待框背景区域的高度<br><p>
+	值支持像素绝对值（"500px"）或百分比（"50%"），如果不设置则根据内容自动计算合适的高度。
+						</p>
+</li>
+<li>color: <em>(<font class="type">String</font>
+	类型
+)</em>等待框中文字的颜色<br><p>
+	颜色值支持(参考CSS颜色规范)：颜色名称(参考CSS Color Names)/十六进制值/rgb值/rgba值，默认值为白色。
+						</p>
+</li>
+<li>textalign: <em>(<font class="type">String</font>
+	类型
+)</em>等待对话框中标题文字的水平对齐方式<br><p>
+	对齐方式可选值包括："left"：水平居左对齐显示，"center"：水平居中对齐显示，"right"：水平居右对齐显示。默认值为水平居中对齐显示，即"center"。
+						</p>
+</li>
+<li>padding: <em>(<font class="type">String</font>
+	类型
+)</em>等待对话框的内边距<br><p>
+	值支持像素值（"10px"）和百分比（"5%"），百分比相对于屏幕的宽计算，默认值为"3%"。
+						</p>
+</li>
+<li>background: <em>(<font class="type">String</font>
+	类型
+)</em>等待对话框显示区域的背景色<br><p>
+	背景色的值支持(参考CSS颜色规范)：颜色名称(参考CSS Color Names)/十六进制值/rgb值/rgba值，默认值为rgba(0,0,0,0.8)。
+						</p>
+</li>
+<li>style: <em>(<font class="type">String</font>
+	类型
+)</em>等待对话框样式<br><p>
+	可取值"black"、"white"，black表示等待框为黑色雪花样式，通常在背景主色为浅色时使用；white表示等待框为白色雪花样式，通常在背景主色为深色时使用。
+	仅在iOS平台有效，其它平台忽略此值，未设置时默认值为white。
+						</p>
+</li>
+<li>modal: <em>(<font class="type">Boolen</font>
+	类型
+)</em>等待框是否模态显示<br><p>
+	模态显示时用户不可操作直到等待对话框关闭，否则用户在等待对话框显示时也可操作下面的内容，未设置时默认为true。
+						</p>
+</li>
+<li>round: <em>(<font class="type">Number</font>
+	类型
+)</em>等待框显示区域的圆角<br><p>
+	值支持像素值（"10px"），未设置时使用默认值"10px"。
+						</p>
+</li>
+<li>padlock: <em>(<font class="type">Boolen</font>
+	类型
+)</em>点击等待显示区域是否自动关闭<br><p>
+	true表示点击等待对话框显示区域时自动关闭，false则不关闭，未设置时默认值为false。
+						</p>
+</li>
+</ul>
+<h1><a name="plus.nativeUI.ToastOption">ToastOption</a></h1>
+<p>JSON对象，系统提示消息框要设置的参数</p>
+<h2>属性：</h2>
+<ul>
+<li>icon: <em>(<font class="type">String</font>
+	类型
+)</em>提示消息框上显示的图标<br>
+</li>
+<li>duration: <em>(<font class="type">String</font>
+	类型
+)</em>提示消息框显示的时间<br><p>
+	可选值为"long"、"short"，值为"long"时显示时间约为3.5s，值为"short"时显示时间约为2s，未设置时默认值为"short"。
+						</p>
+</li>
+<li>align: <em>(<font class="type">String</font>
+	类型
+)</em>提示消息框在屏幕中的水平位置<br><p>
+	可选值为"left"、"center"、"right"，分别为水平居左、居中、居右，未设置时默认值为"center"。
+						</p>
+</li>
+<li>verticalAlign: <em>(<font class="type">String</font>
+	类型
+)</em>提示消息在屏幕中的垂直位置<br><p>
+	可选值为"top"、"center"、"bottom"，分别为垂直居顶、居中、居底，未设置时默认值为"bottom"。
+						</p>
+</li>
+</ul>
+<h1><a name="plus.nativeUI.ActionSheetCallback">ActionSheetCallback</a></h1>
+<p>系统选择按钮框的回调函数</p>
+<pre class="prettyprint linenums">
+void onActioned( Event event ){
+	// actionsheet handled code.
+	var index=event.index; // 用户关闭时点击按钮的索引值
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>event: 
+		<em>(
+			<font class="type">Event</font>
+			)
+			必选 </em>用户操作选择按钮框关闭后返回的数据<br>
+	可通过event.index（Number类型）获取用户关闭时点击按钮的索引值，索引值从0开始；
+	0表示用户点击取消按钮，大于0值表示用户点击ActionSheetStyle中buttons属性定义的按钮，索引值从1开始（即1表示点击buttons中定义的第一个按钮）。
+						</li></ul>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<h1><a name="plus.nativeUI.AlertCallback">AlertCallback</a></h1>
+<p>系统提示框确认的回调函数</p>
+<pre class="prettyprint linenums">
+void onAlerted(){
+	// Alert handled code.
+}
+				</pre>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<h1><a name="plus.nativeUI.ConfirmCallback">ConfirmCallback</a></h1>
+<p>关闭确认对话框的回调函数</p>
+<pre class="prettyprint linenums">
+void onConfirmed( Event event ) {
+	// Confirm handled code.
+	var index=event.index; // 用户关闭确认对话框点击按钮的索引值
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>event: 
+		<em>(
+			<font class="type">Event</font>
+			)
+			必选 </em>用户操作确认对话框关闭后返回的数据<br>
+	可通过event.index（Number类型）获取用户关闭确认对话框点击按钮的索引值，索引值从0开始；
+						</li></ul>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<h1><a name="plus.nativeUI.PromptCallback">PromptCallback</a></h1>
+<p>系统输入对话框关闭后的回调函数</p>
+<pre class="prettyprint linenums">
+function void onPrompted( Event event ) {
+	// Prompt handled code.
+	var index=event.index; // 用户关闭输入对话框点击按钮的索引值
+	var value=event.value; // 用户输入的内容
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>event: 
+		<em>(
+			<font class="type">Event</font>
+			)
+			必选 </em>用户操作输入对话框关闭后返回的数据<br>
+	可通过event.index（Number类型）获取用户关闭输入对话框点击按钮的索引值，索引值从0开始；
+	通过event.value（String类型）获取用户输入的内容，如果没有输入则返回空字符串。
+						</li></ul>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<h1><a name="plus.nativeUI.PickDatetimeSuccessCallback">PickDatetimeSuccessCallback</a></h1>
+<p>选择日期或时间操作成功的回调函数</p>
+<pre class="prettyprint linenums">
+function void onPickSuccess( Event event ) {
+	// Date picked code.
+	var date = event.date;// 用户选择的日期或时间
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>event: 
+		<em>(
+			<font class="type">Event</font>
+			)
+			必选 </em>用户完成选择日期或时间后返回的数据<br>
+	可通过event.date（Date类型）获取选择的日期或时间值。
+	若调用的是日期选择操作则仅年、月、日信息有效，若调用的是时间选择操作则仅时、分信息有效。
+						</li></ul>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<h1><a name="plus.nativeUI.PickDatetimeErrorCallback">PickDatetimeErrorCallback</a></h1>
+<p>选择日期或时间操作取消或失败的回调函数</p>
+<pre class="prettyprint linenums">
+function void onPickError( Exception error ) {
+	// Date picked error.
+	var code = error.code; // 错误编码
+	var message = error.message; // 错误描述信息
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>error: 
+		<em>(
+			<font class="type">Exception</font>
+			)
+			必选 </em>用户选择操作失败信息<br>
+	可通过error.code（Number类型）获取错误编码；
+	可通过error.message（String类型）获取错误描述信息。
+						</li></ul>
+<h2>返回值：</h2>
+<font class="type">void</font>
+			: 无<br><br>
+</div></body>
+</html>
