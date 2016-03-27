@@ -130,7 +130,7 @@
     <!-- Push(推送)只能选择一个推送组件 -->
     <!-- Push(推送)-MKeyPush begin -->
     <!--
-    <uses-permission android:name="android.permission.INTERNET"/>   
+    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
@@ -138,7 +138,7 @@
     <!-- Push(推送)-MKeyPush  end -->
 
 
-    <!-- Push(推送)-个推  begin -->
+    <!-- Push(推送)-极光推送  begin -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -148,8 +148,9 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="getui.permission.GetuiService" />
-    <!-- Push(推送)-个推    end -->
+    <permission android:name="com.jpushphonegapdemo.jpush.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
+    <!-- Push(推送)-极光推送  end -->
 
 
     <!-- Share(分享)  begin -->
@@ -356,11 +357,10 @@
         <meta-data
             android:name="JPUSH_APPKEY"
             android:value="39660e62478a510247c8711c" /> <!-- </>值来自开发者平台取得的AppKey -->
-            
+
             <receiver android:name="io.dcloud.feature.aps.NotificationReceiver" >
 
             <!-- 如下配置用于处理推送消息 -->
-
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="com.HBuilder.integrate.__CREATE_NOTIFICATION" />

@@ -104,7 +104,7 @@
             "description": "支付"
         },
         "Push": {
-            "description": "消息推送"
+        	"description": "推送"
         },
         "Share": {
             "description": "社交分享"

@@ -159,8 +159,7 @@
 
             <module 
                 name="Jpush" 
-                value="io.dcloud.feature.jPush.JPushService"/>
-          
+                value="io.dcloud.feature.jPush.JPushService" />
         </feature>
 
         <feature

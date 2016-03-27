@@ -22,34 +22,28 @@ public class JPushService extends AbsPushService {
 
 	@Override
 	public String getClientInfo(Context context) {
-		
-		if(clientid == null)
-		{
+		if(clientid == null) {
 			clientid = JPushInterface.getRegistrationID(context);
 		}
-		
-		if(appkey == null)
-		{
+		if(appkey == null) {
 			appkey = AndroidResources.getMetaValue("JPUSH_APPKEY");
 		}
 		appid = "";
 		appsecret = "";
 		saveClientId(context);
-		
 		return super.getClientInfo(context);
 	}
 	
 	@Override
-	public boolean setAutoNotification(IWebview pWebViewImpl,
-			JSONArray pJsArgs, String _appId) throws JSONException {
-		boolean needPush = super.setAutoNotification(pWebViewImpl, pJsArgs,
-				_appId);
+	public boolean setAutoNotification(IWebview pWebViewImpl, JSONArray pJsArgs,
+			String _appId) throws JSONException {
+		boolean needPush = super.setAutoNotification(pWebViewImpl, pJsArgs, _appId);
 		if (needPush) {
-			if(JPushInterface.isPushStopped(pWebViewImpl.getContext()))
+			if(JPushInterface.isPushStopped(pWebViewImpl.getContext())) {
 				JPushInterface.resumePush(pWebViewImpl.getContext());
+			}
 		} else {
 			JPushInterface.stopPush(pWebViewImpl.getContext());
-
 		}
 		return needPush;
 	}
