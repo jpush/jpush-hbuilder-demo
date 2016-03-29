@@ -1,5 +1,5 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.HBuilder.integrate"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" 
+    package="com.jpush.hbuilderdemo"
     android:versionCode="570"
     android:versionName="5.7.0" >
 
@@ -11,37 +11,13 @@
         android:smallScreens="true" />
 
     <uses-sdk android:minSdkVersion="8" />
+
     <!-- HBuilder Runtime 基础权限   begin -->
     <!-- 联网 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 使用存储卡 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!-- Html5Plus runtime基础权限   end -->
-
-
-    <!-- Audio begin -->
-    <!-- 访问录音设备 -->
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <!-- 修改播放声音通道 -->
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <!-- Audio end -->
-
-
-    <!-- Camera  begin -->
-    <!-- 调用摄像头 -->
-    <uses-permission android:name="android.permission.CAMERA" />
-
-    <uses-feature android:name="android.hardware.camera" />
-    <!-- Camera  end -->
-
-
-    <!-- Contacts  begin -->
-    <!-- 访问联系人 -->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <!-- Contacts  end -->
-
 
     <!-- Device begin -->
     <!-- 屏幕保持唤醒 不锁屏  plus.device.setWakelock();plus.device.isWakelock(); -->
@@ -57,18 +33,6 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!-- Device end -->
 
-
-    <!-- Messaging begin -->
-    <!-- 拨打电话权限 -->
-    <!-- 发短信权限 -->
-    <!-- 读/写短/彩信箱权限 -->
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="android.permission.WRITE_SMS" />
-    <uses-permission android:name="android.permission.READ_SMS" />
-    <!-- Messaging end -->
-
-
     <!-- Invocation - JSB begin -->
     <!-- 调用系统API，通过Native.js调用系统API需要的权限添加到这里 -->
     <!-- 安装快捷方式 -->
@@ -76,56 +40,6 @@
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
     <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
     <!-- Invocation - JSB end -->
-
-
-    <!-- Barcode(二维码)  begin -->
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.camera.autofocus" />
-
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.FLASHLIGHT" />
-    <!-- Barcode(二维码)  end -->
-
-
-    <!-- Maps(地图) begin -->
-    <!-- Maps - 百度地图 begin -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <uses-permission android:name="android.permission.READ_LOGS" />
-
-    <!-- 高德地图 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" >
-    </uses-permission>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" >
-    </uses-permission>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" >
-    </uses-permission>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" >
-    </uses-permission>
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" >
-    </uses-permission>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" >
-    </uses-permission>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" >
-    </uses-permission>
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" >
-    </uses-permission>
-    <uses-permission android:name="android.permission.READ_LOGS" >
-    </uses-permission>
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <!-- Maps(地图) end -->
-
 
     <!-- Push(推送)只能选择一个推送组件 -->
     <!-- Push(推送)-MKeyPush begin -->
@@ -138,7 +52,8 @@
     <!-- Push(推送)-MKeyPush  end -->
 
 
-    <!-- Push(推送)-极光推送  begin -->
+    <!-- Push(推送)-个推  begin -->
+    <!--
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -148,57 +63,26 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    <permission android:name="com.jpushphonegapdemo.jpush.permission.JPUSH_MESSAGE"
-        android:protectionLevel="signature" />
-    <!-- Push(推送)-极光推送  end -->
-
-
-    <!-- Share(分享)  begin -->
-    <!-- Share - 新浪微博分享 -->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!-- Share - 腾讯微博分享 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
-    <!-- Share - 微信分享 -->
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <!-- Push(推送)   end -->
-
-
-    <!-- Speech(语音识别)  begin -->
-    <!-- Speech - 讯飞语音云 -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <!-- Speech(语音识别)  end -->
-
-
-    <!-- Statistic(统计)  begin -->
-    <!-- Statistic - 友盟统计 -->
-    <uses-permission android:name="android.permission.READ_LOGS" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="getui.permission.GetuiService"/>
+    -->
+    <!-- Push(推送)-个推  end -->
+    
+    <!-- Push(推送)-极光推送 start -->
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
-    <!-- Statistic(统计)  end -->
-
-
-    <!-- QQ分享 begin -->
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <!-- QQ分享  end -->
-
-    <permission
-        android:name="com.HBuilder.integrate.permission.JPUSH_MESSAGE"
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="com.jpush.hbuilderdemo.permission.JPUSH_MESSAGE"/>
+    <permission android:name="com.jpush.hbuilderdemo.permission.JPUSH_MESSAGE" 
         android:protectionLevel="signature" />
+    <!-- Push(推送)-极光推送 end -->
+
     <!-- Required  一些系统要求的权限，如访问网络等 -->
-    <uses-permission android:name="com.HBuilder.integrate.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -225,6 +109,7 @@
         android:label="@string/app_name"
         android:largeHeap="true"
         android:theme="@style/CustomTheme" >
+
         <activity
             android:name="io.dcloud.PandoraEntry"
             android:configChanges="orientation|keyboardHidden"
@@ -234,10 +119,10 @@
             android:windowSoftInputMode="adjustResize" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name="io.dcloud.PandoraEntryActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -272,9 +157,10 @@
                 <action android:name="cn.jpush.android.ui.PushActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="com.HBuilder.integrate" />
+                <category android:name="com.jpush.hbuilderdemo" />
             </intent-filter>
         </activity>
+
         <!-- Required  SDK核心功能 -->
         <service
             android:name="cn.jpush.android.service.DownloadService"
@@ -304,7 +190,7 @@
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.DaemonService" />
 
-                <category android:name="com.HBuilder.integrate" />
+                <category android:name="com.jpush.hbuilderdemo" />
             </intent-filter>
         </service>
 
@@ -315,7 +201,7 @@
             android:exported="false" >
             <intent-filter android:priority="1000" >
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" /> <!-- Required  显示通知栏 -->
-                <category android:name="com.HBuilder.integrate" />
+                <category android:name="com.jpush.hbuilderdemo" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.USER_PRESENT" />
@@ -346,7 +232,7 @@
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!-- Required  用户打开自定义通知栏的intent -->
                 <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK" /> <!-- Optional 用户接受Rich Push Javascript 回调函数的intent -->
                 <action android:name="cn.jpush.android.intent.CONNECTION" /> <!-- 接收网络变化 连接/断开 since 1.6.3 -->
-                <category android:name="com.HBuilder.integrate" />
+                <category android:name="com.jpush.hbuilderdemo" />
             </intent-filter>
         </receiver>
 
@@ -356,21 +242,19 @@
             android:value="developer-default" />
         <meta-data
             android:name="JPUSH_APPKEY"
-            android:value="39660e62478a510247c8711c" /> <!-- </>值来自开发者平台取得的AppKey -->
+            android:value="a5eeb49151e4fcb44a7ad95a" /> <!-- </>值来自开发者平台取得的AppKey -->
 
-            <receiver android:name="io.dcloud.feature.aps.NotificationReceiver" >
-
+       	<receiver android:name="io.dcloud.feature.aps.NotificationReceiver" >
             <!-- 如下配置用于处理推送消息 -->
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="com.HBuilder.integrate.__CREATE_NOTIFICATION" />
-                <action android:name="com.HBuilder.integrate.__REMOVE_NOTIFICATION" />
-                <action android:name="com.HBuilder.integrate.__CLEAR_NOTIFICATION" />
-                <action android:name="com.HBuilder.integrate.__CLILK_NOTIFICATION" />
+                <action android:name="com.jpush.hbuilderdemo.__CREATE_NOTIFICATION" />
+                <action android:name="com.jpush.hbuilderdemo.__REMOVE_NOTIFICATION" />
+                <action android:name="com.jpush.hbuilderdemo.__CLEAR_NOTIFICATION" />
+                <action android:name="com.jpush.hbuilderdemo.__CLILK_NOTIFICATION" />
             </intent-filter>
         </receiver>
         <!-- 极光推送配置 end -->
 
     </application>
-
 </manifest>

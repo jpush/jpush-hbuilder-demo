@@ -16,10 +16,10 @@ public class JPushService extends AbsPushService {
 
 	@Override
 	public void onStart(Context pContext, Bundle arg1, String[] arg2) {
-		JPushInterface.setDebugMode(false);
 		JPushInterface.init(pContext);
+		JPushInterface.setDebugMode(false);
 	}
-
+	
 	@Override
 	public String getClientInfo(Context context) {
 		if(clientid == null) {

@@ -1,7 +1,7 @@
 
 package io.dcloud;
 
-import com.HBuilder.integrate.R;
+import com.jpush.hbuilderdemo.R;
 
 
 public class RInformation {
