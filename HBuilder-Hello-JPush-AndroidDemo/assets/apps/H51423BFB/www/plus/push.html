@@ -8,7 +8,6 @@
 		<title>Hello H5+</title>
 		<script type="text/javascript" src="../js/common.js"></script>
 		<script type="text/javascript">
-			var pushServer = "http://demo.dcloud.net.cn/helloh5/push/";
 			var message = null;
 			// 监听plusready事件  
 			document.addEventListener("plusready", function() {
@@ -16,6 +15,7 @@
 
 				// 监听点击消息事件
 				plus.push.addEventListener("click", function(msg) {
+					console.log("--------click---------");
 					// 判断是从本地创建还是离线推送的消息
 					switch(msg.payload) {
 						case "LocalMSG":
@@ -117,64 +117,6 @@
 				plus.push.clear();
 				outSet("清空所有推送消息成功！");
 			}
-
-			/**
-			 * 请求‘简单通知’推送消息
-			 */
-			function requireNotiMsg() {
-				var url = pushServer + 'notiPush.php?appid=' + encodeURIComponent(plus.runtime.appid);
-				url += ('&cid=' + encodeURIComponent(plus.push.getClientInfo().clientid));
-				url += ('&title=' + encodeURIComponent('Hello H5+'));
-				url += ('&content=' + encodeURIComponent('欢迎回来体验HTML5 plus应用！'));
-				url += ('&version=' + encodeURIComponent(plus.runtime.version));
-				plus.runtime.openURL(url);
-			}
-
-			/**
-			 * 请求‘打开网页’推送消息
-			 */
-			function requireLinkMsg() {
-				var url = pushServer + "linkPush.php?appid=" + encodeURIComponent(plus.runtime.appid);
-				url += ('&cid=' + encodeURIComponent(plus.push.getClientInfo().clientid));
-				url += ('&title=' + encodeURIComponent('HBuilder飞一样的编码'));
-				url += ('&content=' + encodeURIComponent('看HBuilder如何追求代码编写速度的极致！立即去瞧一瞧？'));
-				url += ('&url=' + encodeURIComponent('http://www.dcloud.io/'));
-				url += ('&version=' + encodeURIComponent(plus.runtime.version));
-				plus.runtime.openURL(url);
-			}
-
-			/**
-			 * 请求‘下载链接’推送消息
-			 */
-			function requireDownMsg() {
-				if (plus.os.name != "Android") {
-					plus.nativeUI.alert("此平台不支持！");
-					return;
-				}
-				var url = pushServer + 'downPush.php?appid=' + encodeURIComponent(plus.runtime.appid);
-				url += ('&cid=' + encodeURIComponent(plus.push.getClientInfo().clientid));
-				url += ('&title=' + encodeURIComponent('Hello H5+'));
-				url += ('&content=' + encodeURIComponent('新版本发布了！立即下载体验？'));
-				url += ('&poptitle=' + encodeURIComponent('Hello H5+'));
-				url += ('&popcontent=' + encodeURIComponent('1. 优化用户体验;\n2. 修复在Android2.3.x某些设备可能异常退出的问题.'));
-				url += ('&downtitle=' + encodeURIComponent('下载Hello H5+'));
-				url += ('&downurl=' + encodeURIComponent('http://d.m3w.cn/helloh5p/HelloH5.apk'));
-				url += ('&version=' + encodeURIComponent(plus.runtime.version));
-				plus.runtime.openURL(url);
-			}
-
-			/**
-			 * 请求‘透传数据’推送消息
-			 */
-			function requireTranMsg() {
-				var url = pushServer + 'tranPush.php?appid=' + encodeURIComponent(plus.runtime.appid);
-				url += ('&cid=' + encodeURIComponent(plus.push.getClientInfo().clientid));
-				url += ('&title=' + encodeURIComponent('Hello H5+'));
-				url += ('&content=' + encodeURIComponent('带透传数据推送通知，可通过plus.push API获取数据并进行业务逻辑处理！'));
-				url += ('&payload=' + encodeURIComponent('{title:"Hello H5+ Test",content:"test content",payload:{id:"1234567890"}}'));
-				url += ('&version=' + encodeURIComponent(plus.runtime.version));
-				plus.runtime.openURL(url);
-			}
 		</script>
 		<link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8"/>
 	</head>
@@ -185,11 +127,6 @@
 			<div class="nvbt idoc" onclick="openDoc('Push Document','/doc/push.html')"></div>
 		</header>
 		<div id="dcontent" class="dcontent">
-			<div class="button" onclick="requireNotiMsg()">发送"普通通知"消息</div>
-			<div class="button" onclick="requireLinkMsg()">发送"打开网页"消息</div>
-			<div class="button" onclick="requireDownMsg()">发送"下载链接"消息</div>
-			<div class="button" onclick="requireTranMsg()">发送"透传数据"消息</div>
-			<br/>
 			<ul id="dlist" class="dlist">
 				<li class="ditem" onclick="getPushInfo()">获取客户端推送标识</li>
 				<li class="ditem" onclick="createLocalPushMsg()">创建本地消息</li>

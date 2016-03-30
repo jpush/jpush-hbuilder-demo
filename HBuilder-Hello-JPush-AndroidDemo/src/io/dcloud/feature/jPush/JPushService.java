@@ -2,7 +2,9 @@ package io.dcloud.feature.jPush;
 
 import io.dcloud.common.DHInterface.IWebview;
 import io.dcloud.common.adapter.util.AndroidResources;
+import io.dcloud.common.util.JSUtil;
 import io.dcloud.feature.aps.AbsPushService;
+import io.dcloud.feature.aps.PushMessage;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -10,6 +12,7 @@ import org.json.JSONException;
 import android.content.Context;
 import android.os.Bundle;
 import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.data.JPushLocalNotification;
 
 public class JPushService extends AbsPushService {
 	public static final String ID = "JPush";
@@ -47,5 +50,20 @@ public class JPushService extends AbsPushService {
 		}
 		return needPush;
 	}
+	
+	/**
+	 * 创建本地通知
+	 */
+	@Override
+	public String createMessage(IWebview pWebViewImpl, JSONArray pJsArgs,
+			final String appName, final Context context) throws JSONException {
+		PushMessage pushMsg = new PushMessage(pWebViewImpl, pJsArgs.getString(0)); 
+		JPushLocalNotification ln = new JPushLocalNotification();
+		ln.setContent(pushMsg.mContent);
+		ln.setTitle(pushMsg.mTitle);
+		JPushInterface.addLocalNotification(pWebViewImpl.getContext(), ln);
+        return JSUtil.wrapJsVar(pushMsg.mUUID);
+	}
+	
 
 }
