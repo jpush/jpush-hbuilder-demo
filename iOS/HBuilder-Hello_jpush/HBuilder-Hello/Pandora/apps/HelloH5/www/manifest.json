@@ -19,6 +19,9 @@
         "portrait"
     ],
     "permissions": {
+    		"JPushPlugin":{
+			"description": "极光推送插件"
+    		},
         "Accelerometer": {
             "description": "访问加速度感应器"
         },

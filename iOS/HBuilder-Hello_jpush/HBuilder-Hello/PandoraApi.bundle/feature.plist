@@ -16,20 +16,6 @@
 		<key>global</key>
 		<false/>
 	</dict>
-	<key>Maps</key>
-	<dict>
-		<key>class</key>
-		<string>PGMap</string>
-		<key>global</key>
-		<false/>
-		<key>server</key>
-		<dict>
-			<key>class</key>
-			<string>PGBaiduKeyVerify</string>
-			<key>identifier</key>
-			<string>com.baidu.keyverify</string>
-		</dict>
-	</dict>
 	<key>Device</key>
 	<dict>
 		<key>class</key>
@@ -79,7 +65,7 @@
 		<key>global</key>
 		<false/>
 	</dict>
-	<key>Push</key>
+	<key>JPushPlugin</key>
 	<dict>
 		<key>class</key>
 		<string>PGJigungPush</string>
@@ -148,13 +134,6 @@
 		<key>autostart</key>
 		<true/>
 	</dict>
-	<key>Camera</key>
-	<dict>
-		<key>class</key>
-		<string>PGCamera</string>
-		<key>global</key>
-		<true/>
-	</dict>
 	<key>Console</key>
 	<dict>
 		<key>class</key>
@@ -170,100 +149,6 @@
 		<true/>
 		<key>global</key>
 		<true/>
-	</dict>
-	<key>Gallery</key>
-	<dict>
-		<key>class</key>
-		<string>PGGallery</string>
-		<key>global</key>
-		<true/>
-	</dict>
-	<key>Downloader</key>
-	<dict>
-		<key>class</key>
-		<string>PGDownload</string>
-		<key>global</key>
-		<true/>
-	</dict>
-	<key>Messaging</key>
-	<dict>
-		<key>class</key>
-		<string>PGMessaging</string>
-		<key>global</key>
-		<true/>
-	</dict>
-	<key>Uploader</key>
-	<dict>
-		<key>class</key>
-		<string>PGUpload</string>
-		<key>global</key>
-		<true/>
-	</dict>
-	<key>Payment</key>
-	<dict>
-		<key>class</key>
-		<string>PGPayManager</string>
-		<key>global</key>
-		<true/>
-		<key>extend</key>
-		<dict>
-			<key>pingpp</key>
-			<string>PGPingpp</string>
-			<key>alix</key>
-			<string>PGAlixPay</string>
-			<key>weixin</key>
-			<string>PGWXPay</string>
-			<key>appleiap</key>
-			<string>PGPayIAP</string>
-		</dict>
-	</dict>
-	<key>Speech</key>
-	<dict>
-		<key>class</key>
-		<string>PGSpeech</string>
-		<key>global</key>
-		<true/>
-		<key>extend</key>
-		<dict>
-			<key>ifly</key>
-			<string>PGIFLYSpeech</string>
-		</dict>
-	</dict>
-	<key>OAuth</key>
-	<dict>
-		<key>extend</key>
-		<dict>
-			<key>weibo</key>
-			<string>PGSinaWBOauth</string>
-			<key>qq</key>
-			<string>PGQQOauth</string>
-			<key>qihoo</key>
-			<string>PGQHOauth</string>
-			<key>weixin</key>
-			<string>PGWXOauth</string>
-		</dict>
-		<key>global</key>
-		<true/>
-		<key>class</key>
-		<string>PGOauthManager</string>
-	</dict>
-	<key>Share</key>
-	<dict>
-		<key>class</key>
-		<string>PGShareManager</string>
-		<key>global</key>
-		<true/>
-		<key>extend</key>
-		<dict>
-			<key>qq</key>
-			<string>PGTencentQQShare</string>
-			<key>tencentweibo</key>
-			<string>PGQQShare</string>
-			<key>sinaweibo</key>
-			<string>PGSinaShare</string>
-			<key>weixin</key>
-			<string>PGWXShare</string>
-		</dict>
 	</dict>
 	<key>NativeObj</key>
 	<dict>

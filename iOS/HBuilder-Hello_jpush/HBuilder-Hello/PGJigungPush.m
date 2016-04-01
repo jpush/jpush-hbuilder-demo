@@ -12,19 +12,13 @@
 #import "PDRCommonString.h"
 
 @interface PGJigungPush()
-{
-    NSString* pUserClientID;
-}
 
 @end
 
 @implementation PGJigungPush
-@synthesize appKey, appSecret, appID, clientId, ptoken;
-
 
 - (void)onAppStarted:(NSDictionary*)options
 {
-    // Override point for customization after application launch.
     if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
         //可以添加自定义categories
         [JPUSHService registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge |
@@ -40,13 +34,9 @@
     }
 
     //启动sdk
-    [JPUSHService setupWithOption:options appKey:@"0ee788c4561cae4acb572f40" channel:@"" apsForProduction:NO];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(jpushDidConnectServer) name:kJPFNetworkDidSetupNotification object:nil];
+    [JPUSHService setupWithOption:options appKey:@"abcacdf406411fa656ee11c3" channel:@"" apsForProduction:NO];
+    [JPUSHService setDebugMode];
     [super onAppStarted:options];
-}
-
--(void)jpushDidConnectServer{
-    pUserClientID = [JPUSHService registrationID];
 }
 
 - (void)onRegRemoteNotificationsError:(NSError *)error {
@@ -65,33 +55,9 @@
     [super onRevLocationNotification:userInfo];
 }
 
-
 - (void)onRevDeviceToken:(NSString *)deviceToken
 {
     [JPUSHService registerDeviceToken:[self convertHexStrToData:deviceToken]];
-    ptoken = deviceToken;
-}
-
-- (NSMutableDictionary*)getClientInfoJSObjcet
-{
-    NSMutableDictionary* clientInfo = [super getClientInfoJSObjcet];
-    
-    if (clientInfo != nil) {
-        NSString* pAppkey = nil;
-        NSURL *pFileUrl = [[NSBundle mainBundle] URLForResource:@"PushConfig" withExtension:@"plist"];
-        if (pFileUrl) {
-            NSDictionary* pDic = [NSDictionary dictionaryWithContentsOfURL: pFileUrl];
-            if (pDic != nil) {
-                pAppkey = [pDic  objectForKey:@"APP_KEY"];
-            }
-        }
-        
-        [clientInfo setObject:@"" forKey:g_pdr_string_appid];
-        [clientInfo setObject:pAppkey ? pAppkey : @"" forKey:g_pdr_string_appkey];
-        [clientInfo setObject:pUserClientID ? pUserClientID : @"" forKey:@"clientid"];
-        [clientInfo setObject:ptoken ? ptoken : @""  forKey:@"token"];
-    }
-    return clientInfo;
 }
 
 - (NSData *)convertHexStrToData:(NSString *)str {
@@ -122,35 +88,80 @@
     return hexData;
 }
 
-- (void)dealloc
-{
-    if(appKey)
-    {
-        [appKey release];
-        appKey = nil;
+#pragma mark - jpush methods
+
+//-(void)setTagsWithAlias:(PGMethod*)command;
+//-(void)setTags:(PGMethod*)command;
+//-(void)setAlias:(PGMethod*)command;
+
+-(void)getRegistrationID:(PGMethod*)command{
+    if (command) {
+        NSString *rid = [JPUSHService registrationID];
+        [self handleResultWithValue:rid andCommand:command];
     }
-    if(appSecret)
-    {
-        [appSecret release];
-        appSecret = nil;
-    }
-    
-    if(appID)
-    {
-        [appID release];
-        appID = nil;
-    }
-    if(clientId)
-    {
-        [clientId release];
-        clientId = nil;
-    }
-    if(ptoken)
-    {
-        [ptoken release];
-        ptoken = nil;
-    }
-    [super dealloc];
 }
+
+-(void)handleResultWithValue:(id)value andCommand:(PGMethod*)command{
+
+    PDRPluginResult *result = nil;
+    PDRCommandStatus status = PDRCommandStatusOK;
+
+    if ([value isKindOfClass:[NSString class]]) {
+        value  = [value stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        result = [PDRPluginResult resultWithStatus:status messageAsString:value];
+    }else if ([value isKindOfClass:[NSArray class]]) {
+        result = [PDRPluginResult resultWithStatus:status messageAsArray:value];
+    }else if ([value isKindOfClass:[NSDictionary class]]){
+        result = [PDRPluginResult resultWithStatus:status messageAsDictionary:value];
+    }else if ([value isKindOfClass:[NSNull class]]){
+        result = [PDRPluginResult resultWithStatus:status];
+    }else if ([value isKindOfClass:[NSNumber class]]){
+        CFNumberType numberType = CFNumberGetType((CFNumberRef)value);
+        if (numberType == kCFNumberIntType) {
+            result = [PDRPluginResult resultWithStatus:status messageAsInt:[value intValue]];
+        } else  {
+            result = [PDRPluginResult resultWithStatus:status messageAsDouble:[value doubleValue]];
+        }
+    }else{
+        NSString *error = [NSString stringWithFormat:@"unrecognized type: %@",NSStringFromClass([value class])];
+        NSLog(@"%@",error);
+        result = [PDRPluginResult resultWithStatus:PDRCommandStatusError messageAsString:error];
+    }
+
+    [self toCallback:command.arguments[0] withReslut:[result toJSONString]];
+}
+
+//-(void)startLogPageView:(PGMethod*)command;
+//-(void)stopLogPageView:(PGMethod*)command;
+//-(void)beginLogPageView:(PGMethod*)command;
+//
+//
+//
+//-(void)setBadge:(PGMethod*)command;
+//
+//-(void)resetBadge:(PGMethod*)command;
+//
+//
+//-(void)setApplicationIconBadgeNumber:(PGMethod*)command;
+//-(void)getApplicationIconBadgeNumber:(PGMethod*)command;
+//
+//
+//-(void)stopPush:(PGMethod*)command;
+//-(void)resumePush:(PGMethod*)command;
+//-(void)isPushStopped:(PGMethod*)command;
+//
+//
+//-(void)setDebugModeFromIos:(PGMethod*)command;
+//-(void)setLogOFF:(PGMethod*)command;
+//-(void)crashLogON:(PGMethod*)command;
+//
+//
+//-(void)setLocalNotification:(PGMethod*)command;
+//-(void)deleteLocalNotificationWithIdentifierKey:(PGMethod*)command;
+//-(void)clearAllLocalNotifications:(PGMethod*)command;
+//
+//
+//-(void)setLocation:(PGMethod*)command;
+
 
 @end
