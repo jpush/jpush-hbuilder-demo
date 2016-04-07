@@ -30,7 +30,7 @@
 		7A6D778D19FB5AAD0076EEFE /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A6D778A19FB5AAD0076EEFE /* Default-667h@2x.png */; };
 		7A6D778E19FB5AAD0076EEFE /* Default-736h@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A6D778B19FB5AAD0076EEFE /* Default-736h@3x.png */; };
 		7A6D778F19FB5AAD0076EEFE /* Default-Landscape-736h@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A6D778C19FB5AAD0076EEFE /* Default-Landscape-736h@3x.png */; };
-		8E77E7541B8F2DFB00F11D45 /* PGJigungPush.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E77E7531B8F2DFB00F11D45 /* PGJigungPush.m */; };
+		8E77E7541B8F2DFB00F11D45 /* JPushPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E77E7531B8F2DFB00F11D45 /* JPushPlugin.m */; };
 		8E77E7831B9045E000F11D45 /* PushConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8E77E7821B9045E000F11D45 /* PushConfig.plist */; };
 		8EED62A6198A1D13000A4449 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8EED62A4198A1D13000A4449 /* InfoPlist.strings */; };
 		8EED62A8198A1D13000A4449 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EED62A7198A1D13000A4449 /* main.m */; };
@@ -104,8 +104,8 @@
 		7A6D778A19FB5AAD0076EEFE /* Default-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-667h@2x.png"; sourceTree = "<group>"; };
 		7A6D778B19FB5AAD0076EEFE /* Default-736h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-736h@3x.png"; sourceTree = "<group>"; };
 		7A6D778C19FB5AAD0076EEFE /* Default-Landscape-736h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape-736h@3x.png"; sourceTree = "<group>"; };
-		8E77E7521B8F2DFB00F11D45 /* PGJigungPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGJigungPush.h; sourceTree = "<group>"; };
-		8E77E7531B8F2DFB00F11D45 /* PGJigungPush.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGJigungPush.m; sourceTree = "<group>"; };
+		8E77E7521B8F2DFB00F11D45 /* JPushPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPushPlugin.h; sourceTree = "<group>"; };
+		8E77E7531B8F2DFB00F11D45 /* JPushPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPushPlugin.m; sourceTree = "<group>"; };
 		8E77E7821B9045E000F11D45 /* PushConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PushConfig.plist; sourceTree = "<group>"; };
 		8EED6298198A1D13000A4449 /* HBuilder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HBuilder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EED62A3198A1D13000A4449 /* HBuilder-Hello-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HBuilder-Hello-Info.plist"; sourceTree = "<group>"; };
@@ -173,8 +173,8 @@
 			children = (
 				0D2077301CAA8EA500DA7FFC /* libjpush-ios-2.1.0.a */,
 				0D2077221CAA89A100DA7FFC /* JPUSHService.h */,
-				8E77E7521B8F2DFB00F11D45 /* PGJigungPush.h */,
-				8E77E7531B8F2DFB00F11D45 /* PGJigungPush.m */,
+				8E77E7521B8F2DFB00F11D45 /* JPushPlugin.h */,
+				8E77E7531B8F2DFB00F11D45 /* JPushPlugin.m */,
 			);
 			name = JPush_Support;
 			sourceTree = "<group>";
@@ -395,6 +395,11 @@
 				TargetAttributes = {
 					8EED6297198A1D13000A4449 = {
 						DevelopmentTeam = 234W92SLHH;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -461,7 +466,7 @@
 			files = (
 				8EED62B5198A1D14000A4449 /* ViewController.m in Sources */,
 				8EED62AC198A1D13000A4449 /* AppDelegate.m in Sources */,
-				8E77E7541B8F2DFB00F11D45 /* PGJigungPush.m in Sources */,
+				8E77E7541B8F2DFB00F11D45 /* JPushPlugin.m in Sources */,
 				8EED62A8198A1D13000A4449 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -68,7 +68,7 @@
 	<key>JPushPlugin</key>
 	<dict>
 		<key>class</key>
-		<string>PGJigungPush</string>
+		<string>JPushPlugin</string>
 		<key>baseclass</key>
 		<string>PGPush</string>
 		<key>global</key>

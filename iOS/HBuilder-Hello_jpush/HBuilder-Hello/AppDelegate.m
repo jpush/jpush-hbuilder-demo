@@ -102,6 +102,11 @@
     [PDRCore handleSysEvent:PDRCoreSysEventRevRemoteNotification withObject:userInfo];
 }
 
+-(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{
+    [PDRCore handleSysEvent:PDRCoreSysEventRevRemoteNotification withObject:userInfo];
+    completionHandler(UIBackgroundFetchResultNewData);
+}
+
 /*
  * @Summary:程序收到本地消息
  */

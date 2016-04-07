@@ -99,6 +99,10 @@
 	<string></string>
 	<key>StatusBarBackground</key>
 	<string>#FFFFFF</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchImages</key>
 	<array>
 		<dict>

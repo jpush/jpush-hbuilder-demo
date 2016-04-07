@@ -11,11 +11,17 @@
 #include "PGPush.h"
 #import <Foundation/Foundation.h>
 
+//启动配置
+NSString *const kJPushSetupOption_appkey  = @"abcacdf406411fa656ee11c3";
+NSString *const kJPushSetupOption_channel = @"channel";
+BOOL kJPushSetupOption_production         = NO;//是否为发布环境
 
+//以下为js中可监听到的事件
+NSString *const kJPushReceiveMessage    = @"jpush.receiveMessage";     //收到自定义消息
+NSString *const kJPushReceiveAPNS       = @"jpush.receiveNotification";//前台收到推送消息或点击推送消息唤醒app
+NSString *const kJPushLaunchWithAPNS    = @"jpush.clickNotificcation"; //点击推送消息启动app
 
-@interface PGJigungPush : PGPush{
-    
-}
+@interface JPushPlugin : PGPush
 
 - (void)onRegRemoteNotificationsError:(NSError *)error;
 - (void)onRevDeviceToken:(NSString *)deviceToken;
@@ -52,7 +58,7 @@
 -(void)isPushStopped:(PGMethod*)command;
 
 //开关日志
--(void)setDebugModeFromIos:(PGMethod*)command;
+-(void)setDebugMode:(PGMethod*)command;
 -(void)setLogOFF:(PGMethod*)command;
 -(void)crashLogON:(PGMethod*)command;
 
