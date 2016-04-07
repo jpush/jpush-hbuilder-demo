@@ -59,12 +59,8 @@
         </feature>
 
         <feature
-            name="Push"
-            value="io.dcloud.feature.aps.APSFeatureImpl" >
-
-            <module 
-                name="Jpush" 
-                value="io.dcloud.feature.jPush.JPushService" />
+            name="JPush"
+            value="io.dcloud.feature.jPush.JPushService" >
         </feature>
     </features>
 

@@ -40,7 +40,10 @@
 		"File": {},
 		"Storage": {},
 		"XMLHttpRequest": {},
-		"Device": {}
+		"Device": {},
+		"JPush": {
+		  "description": "消息推送"
+		}
 	},
 	"plus": {
 		"splashscreen": {

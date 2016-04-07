@@ -1,81 +1,75 @@
 package io.dcloud.feature.jPush;
 
-import io.dcloud.common.util.JSONUtil;
-import io.dcloud.common.util.PdrUtil;
-import io.dcloud.feature.aps.APSFeatureImpl;
-import io.dcloud.feature.aps.AbsPushService;
-import io.dcloud.feature.aps.PushMessage;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import org.json.JSONObject;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.os.Bundle;
 import cn.jpush.android.api.JPushInterface;
 
 public class JPushReceiver extends BroadcastReceiver {
 	private static final String TAG = "JPush";
 
-	private static String appid;
+    private static final List<String> IGNORED_EXTRAS_KEYS =
+            Arrays.asList(
+                    "cn.jpush.android.TITLE",
+                    "cn.jpush.android.MESSAGE",
+                    "cn.jpush.android.APPKEY",
+                    "cn.jpush.android.NOTIFICATION_CONTENT_TITLE"
+            );
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		Bundle bundle = intent.getExtras();
-
-		if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent.getAction())) {
-			String data = bundle.getString(JPushInterface.EXTRA_EXTRA);
-
-			if (PdrUtil.isEmpty(data)) {
-
-			} else {
-				boolean createNotifcation = true;
-				JSONObject jsobj = JSONUtil.createJSONObject(data);
-				String title = JSONUtil.getString(jsobj, "title");
-				if (PdrUtil.isEmpty(title)) {
-					createNotifcation = false;
-					title = getApplicationName(context);
-				}
-
-				String content = JSONUtil.getString(jsobj, "content");
-				if (PdrUtil.isEmpty(content)) {
-					content = data;
-					createNotifcation = false;
-				}
-
-				String appid = JSONUtil.getString(jsobj, "appid");
-				String payload = JSONUtil.getString(jsobj, "payload");
-				if (PdrUtil.isEmpty(payload)) {
-					payload = data;
-					createNotifcation = false;
-				}
-
-				PushMessage _pushMessage = new PushMessage(title, content, appid);
-				_pushMessage.mPayload = payload;
-				boolean needPush = AbsPushService.getAutoNotification(context,
-						appid, bundle.getString(JPushInterface.EXTRA_NOTIFICATION_ID));
-				if (needPush && createNotifcation) {
-					_pushMessage.setNotificationID();
-					APSFeatureImpl.sendCreateNotificationBroadcast(context, appid,
-						_pushMessage);
-				} else if (!APSFeatureImpl.execScript(context, "receive",
-						_pushMessage.toJSON())) {
-					APSFeatureImpl.addNeedExecReceiveMessage(context, _pushMessage);
-				}
-				APSFeatureImpl.addPushMessage(context, appid, _pushMessage);
-			}
-		} else if (JPushInterface.ACTION_CONNECTION_CHANGE.equals(intent.getAction())) {
-			String clientid = JPushInterface.getRegistrationID(context);
-			SharedPreferences _sp = context.getSharedPreferences(
-				AbsPushService.CLIENTID + JPushService.ID, Context.MODE_PRIVATE);
-			Editor ed = _sp.edit();
-			ed.putString(AbsPushService.PUSH_CLIENT_ID_NAME, clientid);
-			ed.commit();
+		String action = intent.getAction();
+		if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(action)) {
+			handleNotificationReceived(context, intent);
+		} else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(action)) {
+			handleMessageReceived(intent);
+		} else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(action)) {
+			handleNotificationOpened(context, intent);
 		}
+	}
+	
+	private void handleNotificationReceived(Context context, Intent intent) {
+        Intent launch = context.getPackageManager().getLaunchIntentForPackage(
+        		context.getPackageName());
+        launch.addCategory(Intent.CATEGORY_LAUNCHER);
+        launch.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+        String alert = intent.getStringExtra(JPushInterface.EXTRA_ALERT);
+        JPushService.notificationAlert = alert;
+
+        Map<String, Object> extras = getNotificationExtras(intent);
+        JPushService.notificationExtras = extras;
+
+        JPushService.transmitReceive(alert, extras);
+	}
+	
+	private void handleNotificationOpened(Context context, Intent intent) {
+		String alert = intent.getStringExtra(JPushInterface.EXTRA_ALERT);
+		JPushService.openNotificationAlert = alert;
+        Map<String, Object> extras = getNotificationExtras(intent);
+        JPushService.openNotificationExtras = extras;
+
+        JPushService.transmitOpen(alert, extras);
+
+        Intent launch = context.getPackageManager().getLaunchIntentForPackage(
+            context.getPackageName());
+        launch.addCategory(Intent.CATEGORY_LAUNCHER);
+        launch.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        context.startActivity(launch);
+	}
+
+	private void handleMessageReceived(Intent intent) {
+		String msg = intent.getStringExtra(JPushInterface.EXTRA_MESSAGE);  
+		Map<String, Object> extras = getNotificationExtras(intent);
+		JPushService.transmitPush(msg, extras);
 	}
 
 	public String getApplicationName(Context context) {
@@ -91,6 +85,20 @@ public class JPushReceiver extends BroadcastReceiver {
 		String applicationName = (String) packageManager.getApplicationLabel(
 			applicationInfo);
 		return applicationName;
+	}
+	
+	private Map<String, Object> getNotificationExtras(Intent intent) {
+        Map<String, Object> extrasMap = new HashMap<String, Object>();
+        for (String key : intent.getExtras().keySet()) {
+            if (!IGNORED_EXTRAS_KEYS.contains(key)) {
+                if (key.equals(JPushInterface.EXTRA_NOTIFICATION_ID)) {
+                    extrasMap.put(key, intent.getIntExtra(key, 0));
+                } else {
+                    extrasMap.put(key, intent.getStringExtra(key));
+                }
+            }
+        }
+        return extrasMap;
 	}
 
 }

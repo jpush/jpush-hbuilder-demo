@@ -58,7 +58,9 @@
 		},
 		"NativeObj": {},
 		"Device": {},
-		"Push":{}
+		"JPush":{
+		  "description": "消息推送"
+		}
 	},
 	"plus": {
 		"distribute": {
