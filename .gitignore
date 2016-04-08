@@ -1,3 +1,9 @@
 android/bin
+android/gen
 android/.settings
 android/.DS_Store
+android/.classpath
+android/.project
+*.apk
+*.ap_
+*.log

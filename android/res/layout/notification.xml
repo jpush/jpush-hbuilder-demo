@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#FFFFFF" > 
+    
+    <ImageView android:id="@+id/notification_background" 
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+    	android:scaleType="centerCrop" />
+    
+	<LinearLayout android:id="@+id/notification_layout" 
+		android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+	    android:layout_weight="2"
+	    android:orientation="vertical"
+	    android:paddingLeft="6dp">
+	
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal"
+	        android:paddingTop="10dp" >
+	        <ImageView
+	            android:id="@+id/notification_icon"
+	            android:layout_width="25dp"
+	            android:layout_height="25dp"
+	            android:scaleType="centerInside" />
+	        <TextView
+	            android:id="@+id/notification_title"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_toRightOf="@id/notification_icon"
+	            android:paddingLeft="3dp"
+	            android:textColor="#000000"
+	            android:textSize="16sp"
+	            android:textStyle="bold"
+	            android:singleLine="true"
+	            android:gravity="center_vertical" />
+	    </LinearLayout>
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal"
+	        android:paddingTop="1dp" >
+	        <TextView
+	            android:id="@+id/notification_name"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:paddingLeft="4dp"
+	            android:textColor="#111111"
+	            android:textSize="14sp"
+	            android:textStyle="normal"
+	            android:singleLine="true"
+	            android:gravity="center_vertical"/>
+	        <LinearLayout
+	            android:id="@+id/update_notification_progressblock"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="5dip"
+	            android:layout_marginRight="5dip"
+	            android:orientation="horizontal" >
+	
+	            <ProgressBar
+	                android:id="@+id/update_notification_progressbar"
+	                style="?android:attr/progressBarStyleHorizontal"
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content" />
+	        </LinearLayout>
+	    </LinearLayout>
+	
+	</LinearLayout>
+</RelativeLayout>
