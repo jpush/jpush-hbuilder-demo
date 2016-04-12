@@ -3,10 +3,10 @@ package io.dcloud.feature.jPush;
 import io.dcloud.common.DHInterface.IWebview;
 import io.dcloud.common.DHInterface.StandardFeature;
 import io.dcloud.common.util.JSUtil;
-import io.dcloud.feature.internal.sdk.SDK;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
@@ -15,22 +15,23 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.iflytek.ui.r;
 
 import android.content.Context;
 import android.os.Bundle;
 import cn.jpush.android.api.BasicPushNotificationBuilder;
-import cn.jpush.android.api.CustomPushNotificationBuilder;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
 import cn.jpush.android.data.JPushLocalNotification;
 
 public class JPushService extends StandardFeature {
-	public static final String ID = "JPush";
+	public static final String TAG = "JPushService";
 
+	public static String notificationTitle;
 	public static String notificationAlert;
-	public static String openNotificationAlert;
 	public static Map<String, Object> notificationExtras = new HashMap<String, Object>();
+
+	public static String openNotificationTitle;
+	public static String openNotificationAlert;
 	public static Map<String, Object> openNotificationExtras = new HashMap<String, Object>();
 	
 	private static IWebview mIWebview;
@@ -45,14 +46,16 @@ public class JPushService extends StandardFeature {
 	// 需要手动调用
 	public void init(IWebview webview, JSONArray data) {
 		mIWebview = webview;
-        //如果同时缓存了打开事件 openNotificationAlert 和消息事件 notificationAlert，只向 UI 发打开事件。
-        //这样做是为了和 iOS 统一
+        //如果同时缓存了打开事件 openNotificationAlert 和消息事件 notificationAlert，
+		//只向 UI 发打开事件，这样做是为了和 iOS 统一。
         if (openNotificationAlert != null) {
             notificationAlert = null;
-            transmitOpen(openNotificationAlert, openNotificationExtras);
+            transmitNotificationOpen(openNotificationTitle,
+            		openNotificationAlert, openNotificationExtras);
         }
         if (notificationAlert != null) {
-            transmitReceive(notificationAlert, notificationExtras);
+            transmitNotificationReceive(notificationTitle,
+            		notificationAlert, notificationExtras);
         }
 	}
 	
@@ -68,10 +71,12 @@ public class JPushService extends StandardFeature {
 		shouldCacheMsg = false;
         if (openNotificationAlert != null) {
             notificationAlert = null;
-            transmitOpen(openNotificationAlert, openNotificationExtras);
+            transmitNotificationOpen(openNotificationTitle,
+            		openNotificationAlert, openNotificationExtras);
         }
         if (notificationAlert != null) {
-            transmitReceive(notificationAlert, notificationExtras);
+            transmitNotificationReceive(notificationTitle,
+            		notificationAlert, notificationExtras);
         }
 	}
 	
@@ -97,8 +102,9 @@ public class JPushService extends StandardFeature {
 		}
 	}
 	
-	public static void transmitPush(String msg, Map<String, Object> extras) {
-        JSONObject data = getNotificationObject(msg, extras);
+	public static void transmitMessageReceive(String msg, 
+			Map<String, Object> extras) {
+        JSONObject data = getMessageObject(msg, extras);
         String format = "plus.JPush.receiveMessageInAndroidCallback(%s);";
         final String js = String.format(format, data.toString());
         mIWebview.getActivity().runOnUiThread(new Runnable() {
@@ -109,11 +115,12 @@ public class JPushService extends StandardFeature {
         });
 	}
 
-    public static void transmitOpen(String alert, Map<String, Object> extras) {
+    public static void transmitNotificationOpen(String title, String alert,
+    		Map<String, Object> extras) {
         if (shouldCacheMsg) {
             return;
         }
-        JSONObject data = openNotificationObject(alert, extras);
+        JSONObject data = getNotificationObject(title, alert, extras);
         String format = "plus.JPush.openNotificationInAndroidCallback(%s);";
         final String js = String.format(format, data.toString());
         mIWebview.getActivity().runOnUiThread(new Runnable() {
@@ -122,11 +129,13 @@ public class JPushService extends StandardFeature {
                 mIWebview.loadUrl("javascript:" + js);
             }
         });
+        openNotificationTitle = null;
         openNotificationAlert = null;
     }
 
-    public static void transmitReceive(String alert, Map<String, Object> extras) {
-        JSONObject data = openNotificationObject(alert, extras);
+    public static void transmitNotificationReceive(String title, String alert,
+    		Map<String, Object> extras) {
+        JSONObject data = getNotificationObject(title, alert, extras);
         String format = "plus.JPush.receiveNotificationInAndroidCallback(%s);";
         final String js = String.format(format, data.toString());
         mIWebview.getActivity().runOnUiThread(new Runnable() {
@@ -135,6 +144,7 @@ public class JPushService extends StandardFeature {
                 mIWebview.loadUrl("javascript:" + js);
             }
         });
+        notificationTitle = null;
         notificationAlert = null;
     }
 	
@@ -319,7 +329,6 @@ public class JPushService extends StandardFeature {
 	public void setSilenceTime(IWebview webview, JSONArray data) {
 		try {
 			String callbackId = data.getString(0);
-
 			int startHour = data.getInt(1);
 			int startMin = data.getInt(2);
 			int endHour = data.getInt(3);
@@ -342,13 +351,13 @@ public class JPushService extends StandardFeature {
 	 *  http://docs.jpush.io/client/android_api/#android-60
 	 */
 	public void requestPermission(IWebview webview, JSONArray data) {
-		int currentVersion = android.os.Build.VERSION.SDK_INT;
-		if (currentVersion > android.os.Build.VERSION_CODES.LOLLIPOP) {
-			JPushInterface.requestPermission(webview.getContext());
-		}
+//		int currentVersion = android.os.Build.VERSION.SDK_INT;
+//		if (currentVersion > android.os.Build.VERSION_CODES.LOLLIPOP) {
+//			JPushInterface.requestPermission(webview.getContext());
+//		}
 	}
 	
-	private static JSONObject getNotificationObject(String msg,
+	private static JSONObject getMessageObject(String msg,
 			Map<String, Object> extras) {
         JSONObject data = new JSONObject();
         try {
@@ -357,6 +366,12 @@ public class JPushService extends StandardFeature {
             for (Entry<String, Object> entry : extras.entrySet()) {
                 if (entry.getKey().equals("cn.jpush.android.EXTRA")) {
                     JSONObject jo = new JSONObject((String) entry.getValue());
+                    String key;
+                    Iterator<String> keys = jo.keys();
+                    while(keys.hasNext()) {
+                        key = keys.next().toString();
+                        jExtras.put(key, jo.getString(key));
+                    }
                     jExtras.put("cn.jpush.android.EXTRA", jo);
                 } else {
                     jExtras.put(entry.getKey(), entry.getValue());
@@ -369,17 +384,24 @@ public class JPushService extends StandardFeature {
             e.printStackTrace();
         }
         return data;
-	}
+    }
 	
-    private static JSONObject openNotificationObject(String alert,
+    private static JSONObject getNotificationObject(String title, String alert,
             Map<String, Object> extras) {
         JSONObject data = new JSONObject();
         try {
+            data.put("title", title);
             data.put("alert", alert);
             JSONObject jExtras = new JSONObject();
             for (Entry<String, Object> entry : extras.entrySet()) {
                 if (entry.getKey().equals("cn.jpush.android.EXTRA")) {
                     JSONObject jo = new JSONObject((String) entry.getValue());
+                    String key;
+                    Iterator<String> keys = jo.keys();
+                    while(keys.hasNext()) {
+                        key = keys.next().toString();
+                        jExtras.put(key, jo.getString(key));
+                    }
                     jExtras.put("cn.jpush.android.EXTRA", jo);
                 } else {
                     jExtras.put(entry.getKey(), entry.getValue());
@@ -391,7 +413,7 @@ public class JPushService extends StandardFeature {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return data;
+        return data; 
     }
     
     private TagAliasCallback mTagAliasCallback = new TagAliasCallback() {

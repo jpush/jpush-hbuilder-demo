@@ -8,7 +8,8 @@ document.addEventListener("plusready", function() {
     	receiveNotification : {},
 		callNative : function(fname, args, successCallback) {
 			if (successCallback != null) {
-				var callbackId = this.getCallbackId(successCallback, this.errorCallback);
+				var callbackId = this.getCallbackId(successCallback, 
+						this.errorCallback);
 				if (args != null) {
 					args.unshift(callbackId);
 				} else {
@@ -119,8 +120,8 @@ document.addEventListener("plusready", function() {
 		receiveMessageInAndroidCallback : function(data) {
 			data = JSON.stringify(data);
 			var jsonObj = JSON.parse(data);
-			this.receiveMessage = msgObj;
-			this.fireDocumentEvent("jpush.receiveMessage", null);
+			this.receiveMessage = jsonObj;
+			this.fireDocumentEvent("jpush.receiveMessage", null);	
 		},
 		openNotificationInAndroidCallback : function(data) {
 			data = JSON.stringify(data);

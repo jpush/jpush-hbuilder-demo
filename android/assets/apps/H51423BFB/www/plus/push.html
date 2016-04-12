@@ -31,20 +31,25 @@
       
       var getRegistrationId = function() {
     	  plus.JPush.getRegistrationId(function(data) {
-    		  if(data.length != 0) {
-    	          $("#registrationid").html(data);
-    		  }
-    	  });
+			  if(data.length != 0) {
+				  $("#registrationId").html(data);
+			  }
+		  });
       };
       
       var receiveNotification = function() {
-    	  var content = plus.JPush.receiveNotification.alert;
-          $("#notificationResult").html(content);
+    	 var content = plus.JPush.receiveNotification.alert;
+         $("#notificationResult").html(content);
       };
       
       var openNotification = function() {
-    	  var message = plus.JPush.openNotification.alert;
-    	  alert(message);
+    	 var content = plus.JPush.openNotification.alert;
+    	 alert(content);
+      };
+      
+      var receiveMessage = function() {
+    	 var msg = plus.JPush.receiveMessage.message;
+    	 $("#messageResult").html(msg);
       };
 
       var onAliasAndTagsSeted = function(event) {
@@ -54,7 +59,7 @@
           $("#tagAliasResult").html(result);
       };
       
-      
+      document.addEventListener("jpush.receiveMessage", receiveMessage, false);
       document.addEventListener("jpush.receiveNotification", receiveNotification, false);
       document.addEventListener("jpush.openNotification", openNotification, false);
       document.addEventListener("jpush.setTagsWithAlias", onAliasAndTagsSeted, false);
@@ -74,7 +79,7 @@
             <span id="alias"></span>
             <hr/>
             <label>RegistrationID: </label>
-            <label id="registrationid">null</label>
+            <label id="registrationId">null</label>
           </div>
 
           <div data-role="fieldcontain">

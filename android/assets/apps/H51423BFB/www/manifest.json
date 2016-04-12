@@ -19,26 +19,21 @@
 		"portrait"
 	],
 	"permissions": {
-
 		"Cache": {
 			"description": "缓存管理"
 		},
-
 		"Console": {
 			"description": "调试输出日志"
 		},
-
 		"Events": {
 			"description": "扩展事件"
 		},
 		"File": {
 			"description": "本地文件系统"
 		},
-
 		"Invocation": {
 			"description": "Native.js能力"
 		},
-
 		"Storage": {
 			"description": "本地数据存储"
 		},
@@ -48,8 +43,8 @@
 		"NativeUI": {
 			"description": "原生UI控件"
 		},
-		"Navigator": {},
-
+		"Navigator": {
+		},
 		"Runtime": {
 			"description": "运行环境"
 		},
