@@ -43,14 +43,14 @@
         		if (tag2 != "") {
         			tags.push(tag2);
       		}
-        		window.plugins.jPushPlugin.setTagsWithAlias(tags,alias,function(msg){
+        		window.plus.jPushPlugin.setTagsWithAlias(tags,alias,function(msg){
         			alert(decodeURIComponent(msg));
         		});
 		}
 		
 		// 监听plusready事件  
 		document.addEventListener("plusready", function(){
-			window.plugins.jPushPlugin.getRegistrationID(function(rid){
+			window.plus.jPushPlugin.getRegistrationID(function(rid){
 				document.getElementById("registrationID").innerHTML = rid;
 			});
 		}, false );

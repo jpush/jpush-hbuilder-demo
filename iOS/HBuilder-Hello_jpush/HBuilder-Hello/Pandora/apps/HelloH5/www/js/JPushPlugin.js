@@ -1,25 +1,21 @@
-var JPushPlugin = function(){
-};
-
-if(!window.plugins) {
-	window.plugins = {};
-}
-
-if(!window.plugins.jPushPlugin){
-	window.plugins.jPushPlugin = new JPushPlugin();
-}
-
-JPushPlugin.prototype.call_native = function(name, args, callback) {
+document.addEventListener( "plusready",  function()
+{
+	//插件名称
+	var plugin_name = "JPushPlugin";
+    var jPushPlugin = 
+	{   
+		
+call_native : function(name, args, callback) {
 	var b = window.plus.bridge;
 	var error_callback = function(msg){
-		console.log("Javascript Callback Error: " + msg);
+	console.log("Javascript Callback Error: " + msg);	
 	}
-	return window.plus.bridge.exec("JPushPlugin",name,[b.callbackId(callback,error_callback),args]);
-}
+	return window.plus.bridge.exec("JPushPlugin",name,[b.callbackId(callback,error_callback),args]);	
+},
 
 //public plugin function
 
-JPushPlugin.prototype.setTagsWithAlias = function(tags, alias, callback) {
+setTagsWithAlias : function(tags, alias, callback) {
 	try {
   		if(tags == null) {
   			this.setAlias(alias);
@@ -35,101 +31,101 @@ JPushPlugin.prototype.setTagsWithAlias = function(tags, alias, callback) {
 	} catch(exception) {
     	console.log(exception);
 	}
-}
+},
 
-JPushPlugin.prototype.setTags = function(tags) {
+setTags : function(tags) {
 	try {
 		this.call_native("setTags", tags, null);
 	} catch(exception) {
 		console.log(exception);
 	}
-}
+},
 
-JPushPlugin.prototype.setAlias = function(alias) {
+setAlias : function(alias) {
 	try {
 		this.call_native("setAlias", [alias], null);
 	} catch(exception) {
 		console.log(exception);
 	}
-}
+},
 
-JPushPlugin.prototype.getRegistrationID = function(callback) {
+getRegistrationID : function(callback) {
 	try {
 		this.call_native("getRegistrationID", [], callback);
 	} catch(exception) {
 		console.log(exception);
 	}
-}
+},
 
-JPushPlugin.prototype.setBadge = function(value) {
+setBadge : function(value) {
 	try {
 		this.call_native("setBadge", [value], null);
 	} catch(exception) {
 		console.log(exception);
 	}
-}
+},
 
-JPushPlugin.prototype.resetBadge = function() {
+resetBadge : function() {
 	try {
 		this.call_native("resetBadge", [], null);
 	} catch(exception) {
 		console.log(exception);
 	}
-}
+},
 
-JPushPlugin.prototype.setApplicationIconBadgeNumber = function(badge) {
+setApplicationIconBadgeNumber : function(badge) {
 	this.call_native("setApplicationIconBadgeNumber", [badge], null);
-}
+},
 
-JPushPlugin.prototype.getApplicationIconBadgeNumber = function(callback) {
+getApplicationIconBadgeNumber : function(callback) {
 	this.call_native("getApplicationIconBadgeNumber", [], callback);
-}
+},
 
-JPushPlugin.prototype.startLogPageView = function(pageName) {
+startLogPageView : function(pageName) {
 	this.call_native("startLogPageView", [pageName], null);
-}
+},
 
-JPushPlugin.prototype.stopLogPageView = function(pageName) {
+stopLogPageView : function(pageName) {
 	this.call_native("stopLogPageView", [pageName], null);
-}
+},
 
-JPushPlugin.prototype.beginLogPageView = function(pageName, duration) {
+beginLogPageView : function(pageName, duration) {
 	this.call_native("beginLogPageView", [pageName, duration], null);
-}
+},
 
-JPushPlugin.prototype.setDebugMode = function() {
+setDebugMode : function() {
     	this.call_native("setDebugMode", [], null);
-}
+},
 
-JPushPlugin.prototype.setLogOFF = function() {
+setLogOFF : function() {
     	this.call_native("setLogOFF", [], null);
-}
+},
 
-JPushPlugin.prototype.setCrashLogON = function() {
+setCrashLogON : function() {
 	this.call_native("crashLogON", [], null);
-}
+},
 
-JPushPlugin.prototype.addLocalNotification = function(delayTime, content,
+addLocalNotification : function(delayTime, content,
 	badge, notificationID, extras) {
 	var data = [delayTime, content, badge, notificationID, extras];
 	this.call_native("setLocalNotification", data, null);
-}
+},
 
-JPushPlugin.prototype.deleteLocalNotificationWithIdentifierKeyIn = function(
+deleteLocalNotificationWithIdentifierKeyIn : function(
 	identifierKey) {
 	var data = [identifierKey];
 	this.call_native("deleteLocalNotificationWithIdentifierKey", data, null);
-}
+},
  
-JPushPlugin.prototype.clearAllLocalNotifications = function(){
+clearAllLocalNotifications : function(){
 	this.call_native("clearAllLocalNotifications", [], null);
-}
+},
 
-JPushPlugin.prototype.setLocation = function(latitude, longitude){
+setLocation : function(latitude, longitude){
 	this.call_native("setLocation", [latitude, longitude], null);
-}
+},
 
-JPushPlugin.prototype.receiveMessage = function(data) {
+receiveMessage : function(data) {
 	try {
 		console.log("JPushPlugin:receiveMessage--data:" + data);
 		var bToObj = JSON.parse(data);
@@ -138,16 +134,21 @@ JPushPlugin.prototype.receiveMessage = function(data) {
 	} catch(exception) {
 		console.log("JPushPlugin:receiveMessage" + exception);
 	}
-}
+},
 
-JPushPlugin.prototype.stopPush = function() {
+stopPush : function() {
 	this.call_native("stopPush", [], null);
-}
+},
 
-JPushPlugin.prototype.resumePush = function() {
+resumePush : function() {
 	this.call_native("resumePush", [], null);
-}
+},
 
-JPushPlugin.prototype.isPushStopped = function(callback) {
+isPushStopped : function(callback) {
 	this.call_native("isPushStopped", [], callback);
-}
+},
+	
+    };
+    
+    window.plus.jPushPlugin = jPushPlugin;
+}, true );
