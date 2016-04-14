@@ -59,7 +59,7 @@
         </feature>
 
         <feature
-            name="JPush"
+            name="Push"
             value="io.dcloud.feature.jPush.JPushService" >
         </feature>
     </features>

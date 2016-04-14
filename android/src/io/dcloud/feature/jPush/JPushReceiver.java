@@ -44,8 +44,6 @@ public class JPushReceiver extends BroadcastReceiver {
     }
 
     private void handlingNotificationOpen(Context context, Intent intent) {
-        Log.i(TAG, "----------------  handlingNotificationOpen");
-
         String title = intent.getStringExtra(JPushInterface.EXTRA_NOTIFICATION_TITLE);
         JPushService.openNotificationTitle = title;
 
@@ -65,8 +63,6 @@ public class JPushReceiver extends BroadcastReceiver {
     }
 
     private void handlingNotificationReceive(Context context, Intent intent) {
-        Log.i(TAG, "----------------  handlingNotificationReceive");
-
         Intent launch = context.getPackageManager().getLaunchIntentForPackage(
                 context.getPackageName());
         launch.addCategory(Intent.CATEGORY_LAUNCHER);

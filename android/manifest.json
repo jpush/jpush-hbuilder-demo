@@ -41,7 +41,7 @@
 		"Storage": {},
 		"XMLHttpRequest": {},
 		"Device": {},
-		"JPush": {
+		"Push": {
 		  "description": "消息推送"
 		}
 	},
@@ -152,7 +152,6 @@
 			"assets/apps/HelloH5/www/index.html": {
 				"resources": [
 					"assets/apps/HelloH5/www/css/common.css",
-					"assets/apps/HelloH5/www/js/update.js"
 				],
 				"refer": [
 					"assets/apps/HelloH5/www/plus/push.html",
