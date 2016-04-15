@@ -25,8 +25,10 @@
 - (void)onAppStarted:(NSDictionary*)options
 {
     [JPushPlugin registerForRemoteNotification];
-    //启动sdk
-    [JPUSHService setupWithOption:options appKey:kJPushSetupOption_appkey channel:kJPushSetupOption_channel apsForProduction:kJPushSetupOption_production];
+
+    NSString *path = [[NSBundle mainBundle]pathForResource:@"PushConfig" ofType:@"plist"];
+    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:path];
+    [JPUSHService setupWithOption:options appKey:dict[kJPushConfig_appkey] channel:dict[kJPushConfig_channel] apsForProduction:[dict[kJPushConfig_production] boolValue]];
     [JPUSHService setDebugMode];
     [super onAppStarted:options];
 

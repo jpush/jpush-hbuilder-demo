@@ -1,4 +1,7 @@
+![JPush Dev logo](http://community.jpush.cn/uploads/default/original/1X/a1dbd54304178079e65cdc36810fdf528fdebe24.png)
+
 ## JPush HBuilder Demo ##
+
 JPush 官方支持的 HBuilder Demo，支持 iOS, Android
 
 
@@ -10,63 +13,15 @@ JPush 官方支持的 HBuilder Demo，支持 iOS, Android
 
 
 ## 安装 ##
-###准备工作
-
-1. cordova create 文件夹名字 包名 应用名字
-
-		cordova create Myproj com.myproj.jpush MyTestProj
-
-2. 添加平台
-
-		cd Myproj
-		cordova platform add android  
-		cordova platform add ios
-
-		ps:这里请注意iOS平台，必须先执行 `cordova platform add ios`,
-		然后再执行 `cordova plugin add xxxxx` 命令，不然有一些必须要的链接库需要手动添加
-
-
-###Cordova CLI / PhoneGap 安装 Android & iOS
-
-1). 安装 JPush PhoneGap Plugin, 有两种方法：
-
-方法一：在线安装
-
-通过 cordova plugins 安装，要求 phonegap/cordova CLI 5.0+ (current stable v2.1.1)
-
-	cordova plugin add jpush-phonegap-plugin --variable API_KEY=your_jpush_appkey
-
-直接通过 url 安装（unstable）
-
-    cordova plugin add https://github.com/jpush/jpush-phonegap-plugin.git --variable API_KEY=your_jpush_appkey  
-
-方法二：下载到本地再安装
-
-使用 git 命令将 JPush PhoneGap 插件下载的本地,将这个目录标记为 `$JPUSH_PLUGIN_DIR`
-
-    git clone https://github.com/jpush/jpush-phonegap-plugin.git
-    cordova plugin add $JPUSH_PLUGIN_DIR  --variable API_KEY=your_jpush_appkey
-
-
-2). 安装 org.apache.cordova.device
-
-     cordova plugin add org.apache.cordova.device
-
-
-3). 在 js 中调用函数,初始化 JPush SDK
-
-    //由于 PhoneGap 插件采用了 Lazy load 的特性，所以建议在 js 文件能执行的最开始就添加
-    window.plugins.jPushPlugin.init();
-
 
 ### Android 手动安装
 
-[Android 手动安装文档地址](document/Android_handle_install.md)
+
 
 
 ### iOS 手动安装
 
-[IOS手动安装文档地址](document/iOS_handle_install.md)
+
 
 
 ###示例
@@ -81,9 +36,11 @@ JPush 官方支持的 HBuilder Demo，支持 iOS, Android
 
 该项目基于 cordova 实现，目前无法使用 'PhoneGap build' 云服务进行打包，建议使用本地环境进行打包
 
-### API 说明
+## API 说明
 
-插件的 API 集中在 JPushPlugin.js 文件中,该文件的具体位置如下：
+iOS、Android [完整 API 详细说明](API/API.md)
+
+插件的 API 集中在 jpush.js 文件中,该文件的具体位置如下：
 
 Android:
 
@@ -91,28 +48,29 @@ Android:
 
 iOS:
 
-	[Project]/www/plugins/cn.jpush.phonegap.JPushPlugin/www
+	.../jpush-hbuilder-demo/iOS/HBuilder-Hello_jpush/HBuilder-Hello/Pandora/apps/HelloH5/www/js/jpush.js
 
-具体的 API 请参考下面：
+
+###API 简介 请参考下面：
 
 #### iOS 和 Android 通用 API 简介
 
 + 停止与恢复推送服务
 
-		window.plugins.jPushPlugin.init()
-		window.plugins.jPushPlugin.stopPush()
-		window.plugins.jPushPlugin.resumePush()
-		window.plugins.jPushPlugin.isPushStopped(callback)
+		window.plus.Push.init()
+		window.plus.Push.stopPush()
+		window.plus.Push.resumePush()
+		window.plus.Push.isPushStopped(callback)
 
 + 获取 RegistrationID
 
-		window.plugins.jPushPlugin.getRegistrationID(callback)
+		window.plus.Push.getRegistrationID(callback)
 
 + 别名与标签
 
-		window.plugins.jPushPlugin.setTagsWithAlias(tags, alias)
-		window.plugins.jPushPlugin.setTags(tags)
-		window.plugins.jPushPlugin.setAlias(alias)
+		window.plus.Push.setTagsWithAlias(tags, alias)
+		window.plus.Push.setTags(tags)
+		window.plus.Push.setAlias(alias)
 
 	 	event - jpush.setTagsWithAlias //三个方法都是触发该回调事件
 
@@ -129,92 +87,88 @@ iOS:
 		event - jpush.receiveMessage
 
 
-	[通用 API 详细说明](document/Common_detail_api.md)
 
 #### iOS API简介
 
 + 获取自定义消息推送内容
 
 		//推荐使用事件的方式传递，但同时保留了 receiveMessageIniOSCallback 的回调函数，兼容以前的代码
-		window.plugins.jPushPlugin.receiveMessageIniOSCallback(data)
+		window.plus.Push.receiveMessageIniOSCallback(data)
 
 		event - jpush.receiveMessage
 
 + 页面的统计
 
-		window.plugins.jPushPlugin.startLogPageView(pageName)
-		window.plugins.jPushPlugin.stopLogPageView(pageName)
-		window.plugins.jPushPlugin.beginLogPageView(pageName, duration)
+		window.plus.Push.startLogPageView(pageName)
+		window.plus.Push.stopLogPageView(pageName)
+		window.plus.Push.beginLogPageView(pageName, duration)
 
 + 设置 Badge
 
-		window.plugins.jPushPlugin.setBadge(value)
-		window.plugins.jPushPlugin.resetBadge()
-		window.plugins.jPushPlugin.setApplicationIconBadgeNumber(badge)
-		window.plugins.JPushPlugin.getApplicationIconBadgeNumber(callback)
+		window.plus.Push.setBadge(value)
+		window.plus.Push.resetBadge()
+		window.plus.Push.setApplicationIconBadgeNumber(badge)
+		window.plus.Push.getApplicationIconBadgeNumber(callback)
 
 + 本地通知
 
-		window.plugins.JPushPlugin.addLocalNotificationForIOS(delayTime, content,
+		window.plus.Push.addLocalNotificationForIOS(delayTime, content,
 			badge, notificationID, extras)
-		window.plugins.JPushPlugin.deleteLocalNotificationWithIdentifierKeyInIOS()
-		window.plugins.JPushPlugin.clearAllLocalNotifications()
+		window.plus.Push.deleteLocalNotificationWithIdentifierKeyInIOS()
+		window.plus.Push.clearAllLocalNotifications()
 
 + 日志等级设置
 
-		window.plugins.jPushPlugin.setDebugModeFromIos()
-		window.plugins.jPushPlugin.setLogOFF()
-		window.plugins.JPushPlugin.setCrashLogON()
+		window.plus.Push.setDebugModeFromIos()
+		window.plus.Push.setLogOFF()
+		window.plus.Push.setCrashLogON()
 
 + 地理位置上报
 
-		window.plugins.JPushPlugin.setLocation(latitude, longitude)
-
-	[iOS API 详细说明](document/iOS_detail_api.md)
+		window.plus.Push.setLocation(latitude, longitude)
 
 
 #### Android API简介
 
 + 获取集成日志
 
-		window.plugins.jPushPlugin.setDebugMode(mode)
+		window.plus.Push.setDebugMode(mode)
 
 + 接收推送消息和点击通知
 
 		//下面这两个 API 是兼容旧有的代码
-		window.plugins.jPushPlugin.receiveMessageInAndroidCallback(data)
-		window.plugins.jPushPlugin.openNotificationInAndroidCallback(data)
+		window.plus.Push.receiveMessageInAndroidCallback(data)
+		window.plus.Push.openNotificationInAndroidCallback(data)
 
 + 统计分析
 
-		window.plugins.jPushPlugin.setStatisticsOpen(boolean)
+		window.plus.Push.setStatisticsOpen(boolean)
 
 	或在 MainActivity 中的 onPause() 和 onResume() 方法中分别调用
 	JPushInterface.onPause(this) 和 JPushInterface.onResume(this) 来启用统计分析功能,
-	如果使用这种方式启用统计分析功能，则 window.plugins.jPushPlugin.setStatisticsOpen(boolean)
+	如果使用这种方式启用统计分析功能，则 window.plus.Push.setStatisticsOpen(boolean)
 	方法不再有效，建议不要同时使用。
 
 + 清除通知
 
-		window.plugins.jPushPlugin.clearAllNotification()
+		window.plus.Push.clearAllNotification()
 
 + 通知栏样式定制
 
-		window.plugins.jPushPlugin.setBasicPushNotificationBuilder = function()
-		window.plugins.jPushPlugin.setCustomPushNotificationBuilder = function()
+		window.plus.Push.setBasicPushNotificationBuilder = function()
+		window.plus.Push.setCustomPushNotificationBuilder = function()
 
 + 设置保留最近通知条数
 
-		window.plugins.jPushPlugin.setLatestNotificationNum(num)
+		window.plus.Push.setLatestNotificationNum(num)
 
 + 本地通知
 
-		window.plugins.jPushPlugin.addLocalNotification(builderId, content,
+		window.plus.Push.addLocalNotification(builderId, content,
 				title, notificaitonID, broadcastTime, extras)
-		window.plugins.jPushPlugin.removeLocalNotification(notificationID)
-		window.plugins.jPushPlugin.clearLocalNotifications()
+		window.plus.Push.removeLocalNotification(notificationID)
+		window.plus.Push.clearLocalNotifications()
 
-	[Android API 详细说明](document/Android_detail_api.md)
 
 ###常见问题
 

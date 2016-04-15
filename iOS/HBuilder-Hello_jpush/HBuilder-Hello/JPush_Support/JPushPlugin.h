@@ -12,9 +12,9 @@
 #import <Foundation/Foundation.h>
 
 //启动配置
-NSString *const kJPushSetupOption_appkey  = @"abcacdf406411fa656ee11c3";
-NSString *const kJPushSetupOption_channel = @"channel";
-BOOL kJPushSetupOption_production         = NO;//是否为发布环境
+NSString *const kJPushConfig_appkey     = @"APP_KEY";
+NSString *const kJPushConfig_channel    = @"CHANNEL";
+NSString *const kJPushConfig_production = @"PRODUCTION";
 
 //以下为js中可监听到的事件
 NSString *const kJPushReceiveMessage    = @"jpush.receiveMessage";     //收到自定义消息
