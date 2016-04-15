@@ -39,13 +39,13 @@ document.addEventListener("plusready", function() {
 		getRegistrationID : function(successCallback) {
 			this.callNative("getRegistrationID", null, successCallback);
 		},
-		setTags : function(tags) {
-			this.callNative("setTags", tags, null);
+		setTags : function(tags,callback) {
+			this.callNative("setTags", tags, callback);
 		},
-		setAlias : function(alias) {
-			this.callNative("setAlias", [alias], null);
+		setAlias : function(alias,callback) {
+			this.callNative("setAlias", [alias], callback);
 		},
-		setTagsWithAlias : function(tags, alias) {
+		setTagsWithAlias : function(tags, alias, callback) { 
 			if(alias == null) {
 				this.setTags(tags);
 				return;
@@ -56,7 +56,7 @@ document.addEventListener("plusready", function() {
 			}
 			var arrayTagWithAlias = [tags];
 			arrayTagWithAlias.unshift(alias);
-			this.callNative("setTagsWithAlias", arrayTagWithAlias, null);
+			this.callNative("setTagsWithAlias", arrayTagWithAlias, callback);
 		},
 		stopPush : function() {
 			this.callNative("stopPush", null, null);
@@ -221,22 +221,21 @@ document.addEventListener("plusready", function() {
 				this.callNative("setLocation", [latitude, longitude], null);
         	}
         },
-        addLocalNotificationIniOS : function(delayTime, content, badge,
-        		notificationID, extras) {
+        addLocalNotificationIniOS : function(delayTime, content, badge, notificationID, extras) {
         	if(plus.os.name == 'iOS') {
 				var data = [delayTime, content, badge, notificationID, extras];
-				this.call_native("setLocalNotification", data, null);
+				this.callNative("setLocalNotification", data, null);
         	}
 		},
 		deleteLocalNotificationWithIdentifierKeyIniOS : function(identifierKey) {
 			if(plus.os.name == 'iOS') {
 				var data = [identifierKey];
-				this.call_native("deleteLocalNotificationWithIdentifierKey", data, null);
+				this.callNative("deleteLocalNotificationWithIdentifierKey", data, null);
 			}
 		},
 		clearAllLocalNotificationsIniOS : function(){
 			if(plus.os.name == 'iOS') {
-				this.call_native("clearAllLocalNotifications", [], null);
+				this.callNative("clearAllLocalNotifications", [], null);
 			}
 		}
     };

@@ -12,7 +12,7 @@
 		<script type="text/javascript" src="../js/common.js"></script>
 		<script type="text/javascript" src="../js/jpush.js"></script>
   		<script type="text/javascript">
-    		  var setTagsWithAlias = function() {
+    		var setTagsWithAlias = function() {
 		  var tag1 = $("#tagText1").attr("value");
 		  var tag2 = $("#tagText2").attr("value");
 		  var tag3 = $("#tagText3").attr("value");
@@ -28,7 +28,11 @@
 		  if (tag3 != "") {
 			  tags.push(tag3);
 		  }
-		  plus.Push.setTagsWithAlias(tags, alias); 
+		  plus.Push.setTagsWithAlias(tags, alias, function(event){
+		  	var msg = decodeURIComponent(event);
+		  	alert(msg);
+          	document.getElementById("tagAliasResult").innerHTML = msg;
+		  });
       };
       
       var getRegistrationID = function() {
@@ -39,36 +43,32 @@
 		  });
       };
       
-      var receiveNotification = function() {
-		 var content = plus.Push.receiveNotification.alert;
-		 $("#notificationResult").html(content);
+      var receiveNotification = function(event) {
+		 openNotification(event);
       };
       
-      var openNotification = function() {
-		 var content = plus.Push.openNotification.alert;
-		 alert(content);
+      var openNotification = function(event) {
+      		var msg = JSON.parse(event.arguments);
+			document.getElementById("notificationResult").innerHTML = msg.aps.alert;
+			console.log("jpushReceiveNotification:" + msg);
+			window.setTimeout(function(){
+				alert(JSON.stringify(msg));
+			},0);
       };
       
-      var receiveMessage = function() {
-		 var msg = plus.Push.receiveMessage.message;
-		 $("#messageResult").html(msg);
-      };
-
-      var onAliasAndTagsSeted = function(event) {
-          var result = "result code: " + event.arguments.resultCode + " ";
-          result += "tags: " + event.arguments.tags + " ";
-          result += "alias: " + event.arguments.alias + " ";
-          $("#tagAliasResult").html(result);
-      };
-      
-      var init = function() {
-          plus.Push.init();
+      var receiveMessage = function(msg) {
+      		var msg = JSON.parse(event.arguments);
+			document.getElementById("messageResult").innerHTML = msg.content;
+			console.log("ReceiveMessage:" + msg.content);
+			window.setTimeout(function(){
+				alert(msg.content);
+			},0);
       };
       
       document.addEventListener("jpush.receiveMessage", receiveMessage, false);
       document.addEventListener("jpush.receiveNotification", receiveNotification, false);
       document.addEventListener("jpush.openNotification", openNotification, false);
-      document.addEventListener("jpush.setTagsWithAlias", onAliasAndTagsSeted, false);
+
   </script>
 </head>
 
@@ -118,8 +118,8 @@
             <input type="button" value="Add tag and alias" 
                 onclick="setTagsWithAlias()" />
 
-            <input type="button" onclick="plus.Push.addLocalNotification(0,
-            		'local notification', 'title', 1, 0, null)" 
+            <input type="button" onclick="plus.Push.addLocalNotificationIniOS('5',
+            		'local notification', '3', 'id', {'key':'value'})" 
                 value="Add local notification" />
 
             <input type="button" onclick="getRegistrationID()" 

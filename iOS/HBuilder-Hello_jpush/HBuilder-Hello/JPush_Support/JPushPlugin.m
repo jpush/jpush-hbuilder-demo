@@ -68,8 +68,8 @@
 
 -(void)setTagsWithAlias:(PGMethod*)command{
     self.aliasAndTagsCommand = command;
-    NSString *alias = command.arguments[1][0];
-    NSArray  *tags  = command.arguments[1][1];
+    NSString *alias = command.arguments[1];
+    NSArray  *tags  = command.arguments[2];
 
     NSLog(@"#### setTagsWithAlias alias is %@, tags is %@",alias,tags);
 
@@ -80,7 +80,7 @@
 }
 
 -(void)setTags:(PGMethod*)command{
-    self.aliasAndTagsCommand = [command copy];
+    self.aliasAndTagsCommand = command;
 
     NSArray *tags = command.arguments[1];
 
@@ -92,7 +92,7 @@
 }
 
 -(void)setAlias:(PGMethod*)command{
-    self.aliasAndTagsCommand = [command copy];
+    self.aliasAndTagsCommand = command;
     NSLog(@"#### setAlias %@",command.arguments);
     [JPUSHService setAlias:command.arguments[1]
           callbackSelector:@selector(tagsWithAliasCallback:tags:alias:)
