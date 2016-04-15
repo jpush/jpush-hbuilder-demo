@@ -15,8 +15,23 @@ JPush 官方支持的 HBuilder Demo，支持 iOS, Android
 ## 安装 ##
 
 ### Android 手动安装
+如果想要在自己的项目中集成 JPush，可以按照以下步骤：
+ - 将 Demo 项目中的 /libs/jpush-android-x.x.x.jar 和 x86 等文件夹下的 libjpushXXX.so 拷贝到对应文件中
+ - 拷贝 /src/io.dcloud.feature.jPush 文件夹
+ - 拷贝 /assets/apps/H51423BFB/js/jpush.js
+ - 修改 /src/io.dcloud/RInformation.java 文件中的包名
+ - 按照 Demo 中的 AndroidManifest.xml ，添加需要的权限和组件，替换包名和 JPush_APPKEY
+ - 在 /assets/apps/[yourAppName]/www/manifest.json 文件中添加：
 
+        "Push": {
+            "description": "消息推送"
+        }
+ - 在 /assets/data/properties.xml 中添加：
 
+        <feature
+            name="Push"
+            value="io.dcloud.feature.jPush.JPushService" >
+        </feature>
 
 
 ### iOS 手动安装
@@ -32,10 +47,6 @@ JPush 官方支持的 HBuilder Demo，支持 iOS, Android
 		src/example/css/* to www/css
 		src/example/js/* to www/js
 
-###关于'PhoneGap build'云服务
-
-该项目基于 cordova 实现，目前无法使用 'PhoneGap build' 云服务进行打包，建议使用本地环境进行打包
-
 ## API 说明
 
 iOS、Android [完整 API 详细说明](API/API.md)
@@ -44,7 +55,7 @@ iOS、Android [完整 API 详细说明](API/API.md)
 
 Android:
 
-	[Project]/assets/www/plugins/cn.jpush.phonegap.JPushPlugin/www
+	[Project]/android/assets/apps/H51423BFB/www/js/jpush.js
 
 iOS:
 

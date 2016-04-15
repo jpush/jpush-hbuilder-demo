@@ -109,7 +109,7 @@
         </activity>
 
         <service
-            android:name="io.dcloud.adapter.io.MiniServerService"
+            android:name="io.dcloud.common.adapter.io.MiniServerService"
             android:exported="true" />
 
         <activity android:name="io.dcloud.imagepick.CustomGalleryActivity" >
