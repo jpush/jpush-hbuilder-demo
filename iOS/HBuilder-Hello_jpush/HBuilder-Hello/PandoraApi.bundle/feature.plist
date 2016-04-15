@@ -65,7 +65,7 @@
 		<key>global</key>
 		<false/>
 	</dict>
-	<key>JPushPlugin</key>
+	<key>Push</key>
 	<dict>
 		<key>class</key>
 		<string>JPushPlugin</string>

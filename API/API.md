@@ -15,7 +15,7 @@ RegistrationID 定义
 
 #### 接口定义
 
-	getRegistrationID : function(callback)
+	window.plus.Push.getRegistrationID = function(callback)
 
 ##### 参数说明
 无
@@ -66,9 +66,9 @@ RegistrationID 定义
 
 #### 接口定义
 
-	setTagsWithAlias : function(tags,alias)
-	setTags : function(tags)
-	setAlias : function(alias)
+	window.plus.Push.setTagsWithAlias = function(tags,alias)
+	window.plus.Push.setTags = function(tags)
+	window.plus.Push.setAlias = function(alias)
 
 ####使用平台
 android iOS
@@ -411,7 +411,7 @@ JPush SDK 会恢复正常的默认行为。（因为保存在本地的状态数�
 
 ##### 接口定义
 
-	window.plus.Push.receiveMessageInAndroidCallback : function(data)
+	window.plus.Push.receiveMessageInAndroidCallback = function(data)
 
 ##### 参数说明
 - data 接收到的js字符串，包含的key:value请进入该函数体查看
@@ -425,7 +425,7 @@ JPush SDK 会恢复正常的默认行为。（因为保存在本地的状态数�
 
 ##### 接口定义
 
-	window.plus.Push.openNotificationInAndroidCallback : function(data)
+	window.plus.Push.openNotificationInAndroidCallback = function(data)
 
 ##### 参数说明
 - data js字符串
@@ -503,7 +503,7 @@ JPush SDK 会恢复正常的默认行为。（因为保存在本地的状态数�
 
 ##### 接口定义
 
-	window.plus.Push.clearAllNotification : function()
+	window.plus.Push.clearAllNotification = function()
 
 ###  设置允许推送时间 API
 ###  设置通知静默时间 API
@@ -523,8 +523,8 @@ JPush SDK 会恢复正常的默认行为。（因为保存在本地的状态数�
 
 ##### 接口定义
 
-	window.plus.Push.setBasicPushNotificationBuilder : function()
-	window.plus.Push.setCustomPushNotificationBuilder : function()
+	window.plus.Push.setBasicPushNotificationBuilder = function()
+	window.plus.Push.setCustomPushNotificationBuilder = function()
 
 
 ###  设置保留最近通知条数 API
@@ -561,14 +561,14 @@ JPush SDK 会恢复正常的默认行为。（因为保存在本地的状态数�
 
 #####接口定义
 
-	window.plus.Push.addLocalNotification : function(builderId,
+	window.plus.Push.addLocalNotification = function(builderId,
 											    content,
 												title,
 												notificaitonID,
 												broadcastTime,
 												extras)
-	window.plus.Push.removeLocalNotification : function(notificationID)
-	window.plus.Push.clearLocalNotifications : function()
+	window.plus.Push.removeLocalNotification = function(notificationID)
+	window.plus.Push.clearLocalNotifications = function()
 
 ##### 参数说明
 
@@ -743,9 +743,9 @@ API 用于统计用户应用崩溃日志
 本 API 用于“用户指定页面使用时长”的统计，并上报到服务器，在 Portal 上展示给开发者。页面统计集成正确，才能够获取正确的页面访问路径、访问深度（PV）的数据。
 
 ##### 接口定义
-	window.plus.Push.startLogPageView : function(pageName)
-	window.plus.Push.stopLogPageView : function(pageName)
-	window.plus.Push.beginLogPageView : function(pageName, duration)
+	window.plus.Push.startLogPageView = function(pageName)
+	window.plus.Push.stopLogPageView = function(pageName)
+	window.plus.Push.beginLogPageView = function(pageName, duration)
 #####参数说明
 pageName 需要统计页面自定义名称
 

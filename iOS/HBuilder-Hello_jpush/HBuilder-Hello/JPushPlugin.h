@@ -19,7 +19,7 @@ BOOL kJPushSetupOption_production         = NO;//是否为发布环境
 //以下为js中可监听到的事件
 NSString *const kJPushReceiveMessage    = @"jpush.receiveMessage";     //收到自定义消息
 NSString *const kJPushReceiveAPNS       = @"jpush.receiveNotification";//前台收到推送消息或点击推送消息唤醒app
-NSString *const kJPushLaunchWithAPNS    = @"jpush.clickNotificcation"; //点击推送消息启动app
+NSString *const kJPushLaunchWithAPNS    = @"jpush.openNotification"; //点击推送消息启动app
 
 @interface JPushPlugin : PGPush
 
