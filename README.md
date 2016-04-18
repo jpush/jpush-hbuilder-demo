@@ -35,17 +35,36 @@ JPush 官方支持的 HBuilder Demo，支持 iOS, Android
 
 
 ### iOS 手动安装
+- 配置 manifest.json ，首先用源码的方式打开工程 /Pandora/ 目录下的 manifest.json ，在 "permissions" 中添加新的插件名称：
+	
+```json
+ "permissions": {
+	"Push":{
+		"description": "极光推送插件"
+	}
+},
+```
+
+ 
+- 配置 feature.plist ，在 Xcode 中打开 /PandoraApi.bundle/ 目录下的 feature.plist ，为插件添加新的 item：
+
+![01](https://raw.githubusercontent.com/Yasashi/Yasashi.github.io/master/images/resource/blog01/01.png)
+
+- 将 JPush_Support 文件夹中所有内容在 Xcode 中拖到自己的工程里
+
+- 添加以下框架，打开 xcode，点击 project，选择(Target -> Build Phases -> Link Binary With Libraries)
+
+```
+	CFNetwork.framework
+	CoreFoundation.framework
+	CoreTelephony.framework
+	SystemConfiguration.framework
+	CoreGraphics.framework
+	Foundation.framework
+	UIKit.framework
+```
 
 
-
-
-###示例
-
-"$JPUSH_PLUGIN_DIR/example"文件夹内找到并拷贝以下文件
-
-		src/example/index.html to www/index.html
-		src/example/css/* to www/css
-		src/example/js/* to www/js
 
 ## API 说明
 
