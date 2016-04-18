@@ -48,21 +48,13 @@ JPush 官方支持的 HBuilder Demo，支持 iOS, Android
  
 - 配置 feature.plist ，在 Xcode 中打开 /PandoraApi.bundle/ 目录下的 feature.plist ，为插件添加新的 item：
 
-![01](https://raw.githubusercontent.com/Yasashi/Yasashi.github.io/master/images/resource/blog01/01.png)
 
 - 将 JPush_Support 文件夹中所有内容在 Xcode 中拖到自己的工程里
 
-- 添加以下框架，打开 xcode，点击 project，选择(Target -> Build Phases -> Link Binary With Libraries)
+- 添加必要框架，打开 xcode，点击 project，选择(Targets -> Build Phases -> Link Binary With Libraries)
 
-```
-	CFNetwork.framework
-	CoreFoundation.framework
-	CoreTelephony.framework
-	SystemConfiguration.framework
-	CoreGraphics.framework
-	Foundation.framework
-	UIKit.framework
-```
+![01](https://raw.githubusercontent.com/jpush/jpush-hbuilder-demo/blob/dev/iOS/HBuilder-Hello_jpush/HBuilder-Hello/img/01.png?raw=true)
+
 
 
 
