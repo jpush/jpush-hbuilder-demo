@@ -300,7 +300,8 @@
 -(void)evaluatingJavaScriptFromString:(NSString*)string{
     UIWindow *window = [[UIApplication sharedApplication] keyWindow];
     NSArray *views = [[[window rootViewController] view] subviews];
-    for (PDRCoreAppFrame *appFrame in [self searchViews:views]) {
+    NSArray *frames = [self searchViews:views];
+    for (PDRCoreAppFrame *appFrame in frames) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [appFrame stringByEvaluatingJavaScriptFromString:string];
         });

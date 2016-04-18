@@ -7,7 +7,7 @@
 		<meta name="HandheldFriendly" content="true"/>
 		<meta name="MobileOptimized" content="320"/>
 		<title>Hello H5+</title>
-		<script type="text/javascript" src="js/update.js"></script>
+		<!--<script type="text/javascript" src="js/update.js"></script>-->
 		<script type="text/javascript" charset="utf-8">
 //取消浏览器的所有事件，使得active的样式在手机上正常生效
 document.addEventListener('touchstart',function(){
@@ -55,9 +55,9 @@ function compatibleAdjust(){
 	// 预创建二级窗口
 //	preateWebviews();
 	// 关闭启动界面
-	setTimeout(function(){
-		plus.navigator.closeSplashscreen();
-	},500);
+//	setTimeout(function(){
+//		plus.navigator.closeSplashscreen();
+//	},500);
 }
 // 处理点击事件
 var _openw=null;
