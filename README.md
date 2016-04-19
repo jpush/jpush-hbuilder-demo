@@ -58,11 +58,11 @@ JPush 官方支持的 HBuilder Demo，支持 iOS, Android
 - 添加必要框架，打开 xcode，点击 project，选择(Targets -> Build Phases -> Link Binary With Libraries)
 
 <!--![01](https://raw.githubusercontent.com/jpush/jpush-hbuilder-demo/dev/iOS/HBuilder-Hello_jpush/HBuilder-Hello/img/01.png)-->
-<img src="https://raw.githubusercontent.com/jpush/jpush-hbuilder-demo/dev/iOS/HBuilder-Hello_jpush/HBuilder-Hello/img/01.png" width="700px"></img>
+<img src="/iOS/HBuilder-Hello_jpush/HBuilder-Hello/img/01.png" width="700px"></img>
 
 ## API 说明
 
-iOS、Android [完整 API 详细说明](API/API.md)
+iOS、Android 详细 API 文档请参阅 [JPush Hbuilder demo API 文档](API/API.md)
 
 插件的 API 集中在 jpush.js 文件中,该文件的具体位置如下：
 
@@ -74,10 +74,6 @@ iOS:
 
 	.../jpush-hbuilder-demo/iOS/HBuilder-Hello_jpush/HBuilder-Hello/Pandora/apps/HelloH5/www/js/jpush.js
 
-
-### 详细 API 请参考：
-
-[JPush Hbuilder demo API](https://github.com/jpush/jpush-hbuilder-demo/blob/dev/API/API.md)
 
 
 ###常见问题
