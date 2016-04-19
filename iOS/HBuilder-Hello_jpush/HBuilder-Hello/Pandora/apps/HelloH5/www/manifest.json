@@ -20,11 +20,10 @@
     ],
     "permissions": {
 
-    "Push":{
-        "description": "极光推送插件"
-    }
+		"Push":{
+			"description": "极光推送插件"
+		}
         
-
     },
     "plus": {
         "splashscreen": {

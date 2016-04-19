@@ -35,8 +35,8 @@
 		  });
       };
       
-      var getRegistrationID = function() {
-		  plus.Push.getRegistrationID(function(data) {
+		var getRegistrationID = function() {
+			plus.Push.getRegistrationID(function(data) {
 			  if(data.length != 0) {
 				  $("#registrationID").html(data);
 			  }

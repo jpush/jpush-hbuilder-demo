@@ -51,6 +51,8 @@ JPush 官方支持的 HBuilder Demo，支持 iOS, Android
 
 - 将 JPush_Support 文件夹中所有内容在 Xcode 中拖到自己的工程里
 
+- 在 JPush_Support/PushConfig.plist 中配置 APP_KEY 和 PRODUCTION （0开发/1发布）
+
 - 添加必要框架，打开 xcode，点击 project，选择(Targets -> Build Phases -> Link Binary With Libraries)
 
 <!--![01](https://raw.githubusercontent.com/jpush/jpush-hbuilder-demo/dev/iOS/HBuilder-Hello_jpush/HBuilder-Hello/img/01.png)-->

@@ -68,7 +68,6 @@ document.addEventListener("plusready", function() {
 			this.callNative("isPushStopped", null, successCallback);
 		},
 		// Android methods
-		JPushPlugin.init();
 		
 		init : function() {
 			if(plus.os.name == 'Android') {
@@ -242,6 +241,7 @@ document.addEventListener("plusready", function() {
 		}
     };
     
+	JPushPlugin.init();
     window.plus.Push = JPushPlugin;
 
 }, true);
