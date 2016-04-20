@@ -1,6 +1,5 @@
 ![JPush Dev logo](http://community.jpush.cn/uploads/default/original/1X/a1dbd54304178079e65cdc36810fdf528fdebe24.png)
-
-#JPushPlugin For HBuilder API
+# JPushPlugin For HBuilder API
 
 - [通用 API](#通用-api)
 	- [获取 RegistrationID](#获取-registrationid)
@@ -193,11 +192,12 @@ ps：点击通知后传递的 json object 保存在 window.plus.Push.openNotific
 			  "badge":1,
 			  "sound":"default",
 			  "alert":"今天去哪儿",
-			  "content-available" = 1	// 未设置则没有,用于 iOS 7 以上 remote notification
+			  "content-available" = 1 // 未设置则没有,用于 iOS 7 以上 remote notification
 			  },
 			"_j_msgid":154604475,
 			"key1":"value1"		// 未设置 extra 则没有相应键值
 		}
+
 
 ## 获取收到通知内容
 
@@ -256,6 +256,7 @@ ps：点击通知后传递的 json object 保存在 window.plus.Push.receiveNoti
 
 
 ## 获取自定义消息内容
+
 ### event - jpush.receiveMessage
 
 收到自定义消息时触发这个事件。
@@ -552,23 +553,24 @@ JPush SDK 会恢复正常的默认行为。（因为保存在本地的状态数�
 
 极光 Push SDK 提供了 2 个用于定制通知栏样式的构建类。
 如果不调用这两个方法定制，则 JPush SDK 默认的通知栏样式是 Android 标准的通知栏样式。
+通过修改 ../src/io/dcloud/feature/jPush/JPushService.java 中的代码进行定制。
 
 ### API - setBasicPushNotificationBuilder
 
 Basic 用于定制 Android Notification 里的 defaults / flags / icon 等基础样式（行为）。
 
-- setCustomPushNotificationBuilder
-	- 继承 Basic 进一步让开发者定制 Notification Layout。
-
-
 #### 接口定义
 
 	window.plus.Push.setBasicPushNotificationBuilder()
-	window.plus.Push.setCustomPushNotificationBuilder()
 
 ### API - setCustomPushNotificationBuilder
 
 继承 Basic 进一步让开发者定制 Notification Layout。
+
+#### 接口定义
+
+	window.plus.Push.setCustomPushNotificationBuilder()
+
 
 ##  设置保留最近通知条数
 
