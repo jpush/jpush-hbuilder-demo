@@ -465,20 +465,6 @@ JPush SDK 会恢复正常的默认行为。（因为保存在本地的状态数�
 	    JPushInterface.onPause(this);
 	}
 
-### API - setStatisticsOpen(boolean)
-
-用于在 js 中控制是否打开应用的统计分析功能，但如果已经添加了上面的 onResume/onPause 方法，
-就不能再通过这个方法来控制统计分析功能了。
-
-#### 接口定义
-
-	window.plus.Push.setStatisticsOpen(boolean)
-
-#### 参数说明
-- boolean
-	- true : 打开统计分析功能。
-	- false: 关闭统计分析功能。
-
 ### API - reportNotificationOpened
 
 用于上报用户的通知栏被打开，或者用于上报用户自定义消息被展示等客户端需要统计的事件。
@@ -563,23 +549,26 @@ JPush SDK 会恢复正常的默认行为。（因为保存在本地的状态数�
 
 
 ##  通知栏样式定制
-### API - setBasicPushNotificationBuilder,setCustomPushNotificationBuilder
 
-当用户需要定制默认的通知栏样式时，则可调用此方法。
-极光 Push SDK 提供了 2 个用于定制通知栏样式的构建类：
+极光 Push SDK 提供了 2 个用于定制通知栏样式的构建类。
+如果不调用这两个方法定制，则 JPush SDK 默认的通知栏样式是 Android 标准的通知栏样式。
 
-- setBasicPushNotificationBuilder
-	- Basic 用于定制 Android Notification 里的 defaults / flags / icon 等基础样式（行为）。
+### API - setBasicPushNotificationBuilder
+
+Basic 用于定制 Android Notification 里的 defaults / flags / icon 等基础样式（行为）。
+
 - setCustomPushNotificationBuilder
 	- 继承 Basic 进一步让开发者定制 Notification Layout。
 
-如果不调用此方法定制，则 JPush SDK 默认的通知栏样式是：Android 标准的通知栏样式。
 
-##### 接口定义
+#### 接口定义
 
 	window.plus.Push.setBasicPushNotificationBuilder()
 	window.plus.Push.setCustomPushNotificationBuilder()
 
+### API - setCustomPushNotificationBuilder
+
+继承 Basic 进一步让开发者定制 Notification Layout。
 
 ##  设置保留最近通知条数
 

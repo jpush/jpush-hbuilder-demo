@@ -7,7 +7,7 @@
 [![platforms](https://img.shields.io/badge/platforms-iOS%7CAndroid-lightgrey.svg)](https://github.com/jpush/jpush-hbuilder-demo)
 [![weibo](https://img.shields.io/badge/weibo-JPush-blue.svg)](http://weibo.com/jpush?refer_flag=1001030101_&is_all=1)
 
-JPush 官方支持的 HBuilder Demo，支持 iOS, Android。
+JPush 官方支持的 HBuilder Demo(基于 [DCloud](http://dev.dcloud.net.cn/mui/) HTML5+ 官方 Demo)，支持 iOS, Android。
 
 ## 功能特性
 + 发送推送通知。
@@ -18,8 +18,9 @@ JPush 官方支持的 HBuilder Demo，支持 iOS, Android。
 
 ## 安装
 
+可以将 Demo 直接导入 Android Studio 或 Xcode 运行，如果想要在自己的项目中集成 JPush，可以参考以下步骤：
+
 ### Android 手动安装
-如果想要在自己的项目中集成 JPush，可以按照以下步骤：
  - 将 Demo/android 项目中的 /libs/jpush-android-x.x.x.jar 和 x86 等文件夹下的 libjpushXXX.so 拷贝到对应文件中。
  - 拷贝 /src/io.dcloud.feature.jPush 文件夹。
  - 拷贝 /assets/apps/H51423BFB/js/jpush.js。
@@ -62,7 +63,7 @@ JPush 官方支持的 HBuilder Demo，支持 iOS, Android。
 
 ## API 说明
 
-iOS、Android 详细 API 文档请参阅 [JPush Hbuilder demo API 文档](API/API.md)。
+iOS、Android 详细 API 文档请参阅 [JPush Hbuilder demo API 文档](API.md)。
 
 插件的 API 集中在 jpush.js 文件中,该文件的具体位置如下：
 
