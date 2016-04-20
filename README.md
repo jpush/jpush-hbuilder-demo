@@ -80,7 +80,7 @@ iOS:
 
 ### 1. Android
 
-	eclipse 中 PhoneGap 工程 import 之后出现：`Type CallbackContext cannot be resolved to a type`。
+	eclipse 中工程 import 之后出现："Type CallbackContext cannot be resolved to a type"。
 	解决方案：eclipse 中右键单击工程名，
         Build Path -> Config Build Path -> Projects -> 选中工程名称 -> CordovaLib -> 点击 add
 
