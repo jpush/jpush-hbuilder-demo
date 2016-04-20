@@ -314,12 +314,14 @@ public class JPushService extends StandardFeature {
 			if (isValidHour(startHour)) {
 				JSUtil.execCallback(webview, callbackId, "允许推送开始时间设置不正确",
 						JSUtil.ERROR, false);
+				return;
 			}
 
 			int endHour = data.getInt(2);
 			if (isValidHour(endHour)) {
 				JSUtil.execCallback(webview, callbackId, "允许推送结束时间设置不正确",
 						JSUtil.ERROR, false);
+				return;
 			}
 
 			Set<Integer> weekDays = weekDaysArr == null ? null : new HashSet<Integer>();
