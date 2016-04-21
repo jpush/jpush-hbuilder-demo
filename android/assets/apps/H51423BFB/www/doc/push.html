@@ -1,0 +1,210 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="HandheldFriendly" content="true">
+		<meta name="MobileOptimized" content="320">
+		<title>Hello H5+</title>
+		<link rel="stylesheet" type="text/css" href="res/doc.css" charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="res/prettify.sons.css" charset="utf-8">
+		<script type="text/javascript" src="res/doc.js" charset="utf-8"></script>
+		<script type="text/javascript" src="res/prettify.js" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="content" class="content">
+			<h1><a name="plus.push">push</a></h1>
+			<p>Push模块管理推送消息功能，可以实现在线、离线的消息推送，通过plus.push可获取推送消息管理对象。</p>
+			<h2>方法：</h2>
+			<ul>
+				<li>
+					<a href="#plus.push.addEventListener">addEventListener</a>
+					: 添加推送消息事件监听器
+				</li>
+				<li><a href="#plus.push.clear">clear</a>: 清空所有推送消息</li>
+				<li>
+					<a href="#plus.push.createMessage">createMessage</a>
+					: 创建本地消息
+				</li>
+				<li>
+					<a href="#plus.push.getAllMessage">getAllMessage</a>
+					: 获取所有推送消息
+				</li>
+				<li><a href="#plus.push.getClientInfo">getClientInfo</a>
+					: 获取客户端推送标识信息
+				</li>
+				<li>
+					<a href="#plus.push.setAutoNotification">setAutoNotification</a>
+					: 设置程序是否将消息显示在系统通知栏
+				</li>
+				<li><a href="#plus.push.remove">remove</a>: 删除推送消息</li>
+			</ul>
+			<h2>对象：</h2>
+			<ul>
+				<li>
+					<a href="#plus.push.ClientInfo">ClientInfo</a>
+					: JSON对象，获取的客户端标识信息
+				</li>
+				<li>
+					<a href="#plus.push.PushMessage">PushMessage</a>
+					: JSON对象，推送消息对象
+				</li>
+				<li>
+					<a href="#plus.push.MessageOption">MessageOption</a>
+					: JSON对象，获客户端创建本地消息的参数
+				</li>
+			</ul>
+
+			<h2>回调方法：</h2>
+			<ul>
+				<li>
+					<a href="#plus.push.PushReceiveCallback">PushReceiveCallback</a>
+					: 客户端接收到推动消息的回调函数
+				</li>
+				<li>
+					<a href="#plus.push.PushClickCallback">PushClickCallback</a>
+					: 用户点击推送消息事件的回调函数
+				</li>
+			</ul>
+
+			<h2>权限：</h2>
+			<p>permissions</p>
+			<pre class="prettyprint linenums">
+				"Push": {
+					"description": "访问推送插件"
+				}
+			</pre>
+			属性：
+			<ul>
+				<li>
+					cover: 设定显示推送消息的模式
+					<br>
+					<p>可取值true或false，true表示推送消息覆盖模式显示，
+						即仅显示最后接收到的推送消息；false表示多条推送消息独立显示，
+						将在通知栏中显示多条消息内容。默认值为ture。</p>
+					<h3>平台支持</h3>
+					<ul>
+						<li>Android2.2+ (支持)</li>
+						<li>iOS4.3+ (不支持): 不支持消息显示模式的设置，
+							每条信息都在通知栏显示，忽略cover属性值。</li>
+						<li>WP7.5+ (不支持)</li>
+					</ul>
+				</li>
+			</ul>
+
+			<h1><a name="plus.push.ClientInfo">ClientInfo</a></h1>
+			<p>JSON对象，获取的客户端标识信息</p>
+			<h2>属性：</h2>
+			<ul>
+				<li>token: <em>(<font class="type">DOMString</font>类型)</em>
+					设备令牌（iOS设备唯一标识），用于APNS服务推送中标识设备的身份
+					<br>
+				</li>
+				<li>clientid: <em>(<font class="type">DOMString</font>类型)</em>\
+					推送服务令牌（设备唯一标识），用于标识推送信息接收者身份
+					<br>
+					<p>第三方推送服务器管理的设备唯一标识，在iOS平台此值通常与token不同；
+						在其它平台此值通常与token值一致。</p>
+				</li>
+				<li>appid: <em>(<font class="type">DOMString</font>类型)</em>
+					第三方推送服务的应用标识
+					<br>
+					<p>第三方推送服务器管理的应用标识，通常需要在第三方推送服务器平台进行注册获取。</p>
+				</li>
+				<li>appkey: <em>(<font class="type">DOMString</font>类型)</em>
+					第三方推送服务器的应用键值
+					<br>
+					<p>第三方推送服务器管理的应用键值，通常需要在第三方推送服务器平台进行注册获取。</p>
+				</li>
+			</ul>
+
+			<h1><a name="plus.push.PushMessage">PushMessage</a></h1>
+			<p>JSON对象，推送消息对象</p>
+			<h2>属性：</h2>
+			<ul>
+				<li>title: <em>(<font class="type">DOMString</font>类型)</em>
+					推送消息显示的标题
+					<br>
+				</li>
+				<li>content: <em>(<font class="type">DOMString</font>类型)</em>
+					推送消息显示的内容
+					<br>
+				</li>
+				<li>payload: <em>(<font class="type">JSON</font>类型)</em>
+					推送消息承载的数据
+					<br>
+					<p>如果推送消息中传输的数据不符合JSON格式，则作为String类型数据保存。</p>
+				</li>
+				<li>aps: <em>(<font class="type">JSON</font>类型)</em>
+					Apple APNS推送协议数据
+					<br>
+				</li>
+			</ul>
+
+			<h1><a name="plus.push.MessageOption">MessageOption</a></h1>
+			<p>JSON对象，获客户端创建本地消息的参数</p>
+			<h2>属性：</h2>
+			<ul>
+				<li>title: <em>(<font class="type">DOMString</font>类型)</em>
+					推送消息的标题
+					<br>
+					<p>在系统通知栏显示，默认值为程序的名称。若不支持此属性，
+						在系统通知中心显示的标题固定为程序的名称</p>
+				</li>
+				<li>cover: <em>(<font class="type">Boolean</font>类型)</em>
+					是否覆盖上一次提示的消息
+					<br>
+					<p>可取值true或false，true为覆盖，false不覆盖，
+						默认为permission中设置的cover值。</p>
+				</li>
+				<li>when: <em>(<font class="type">Date</font>类型)</em>
+					消息上显示的提示时间
+					<br>
+					<p>默认为当前时间，如果使用的延迟显示则默认使用延时后的时间。</p>
+					</li>
+				<li>delay: <em>(<font class="type">Number</font>类型)</em>
+					提示消息延迟显示的时间
+					<br>
+					<p>当设备接收到推送消息后，可不立即显示，而是延迟一段时间显示，
+						延迟时间单位为s，默认为0s，立即显示。</p>
+				</li>
+			</ul>
+
+			<h1><a name="plus.push.PushReceiveCallback">PushReceiveCallback</a></h1>
+			<p>客户端接收到推动消息的回调函数</p>
+			<pre class="prettyprint linenums">
+				void onReceive( msg ) {
+				// Recieved push message code.
+				}
+			</pre>
+			<h2>参数：</h2>
+			<ul>
+				<li>msg:<em>(<font class="type">DOMString</font>)必选</em>
+					接收到的推送信息msg
+					<br>
+				</li>
+			</ul>
+			<h2>返回值：</h2>
+			<font class="type">void</font>: 无
+			<h1>
+				<a name="plus.push.PushClickCallback">PushClickCallback</a>
+			</h1>
+			<p>用户点击推送消息事件的回调函数</p>
+			<pre class="prettyprint linenums">
+				void onClick( msg ) {
+					// Clicked push message code. 
+				}
+			</pre>
+			<h2>参数：</h2>
+			<ul>
+				<li>msg: <em>(<font class="type">DOMString</font>)必选 </em>
+					用户点击的推送信息msg
+				<br>
+				</li>
+			</ul>
+			<h2>返回值：</h2>
+			<font class="type">void</font>: 无
+			<br><br>
+		</div>
+	</body>
+</html>

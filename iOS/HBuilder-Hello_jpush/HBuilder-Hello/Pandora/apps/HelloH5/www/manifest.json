@@ -1,0 +1,37 @@
+{
+    "id": "HelloH5",
+    "name": "HelloH5",
+    "version": {
+        "name": "1.5.1",
+        "code": "151"
+    },
+    "description": "HTML5 Plus能力演示",
+    "icons": {
+        "72": "icon.png"
+    },
+    "launch_path": "index.html",
+    "developer": {
+        "name": "yanyilin",
+        "email": "yanyilin@dcloud.io",
+        "url": "http://www.dcloud.io"
+    },
+    "orientation": [
+        "portrait"
+    ],
+    "permissions": {
+
+		"Push":{
+			"description": "极光推送插件"
+		}
+        
+    },
+    "plus": {
+        "splashscreen": {
+            "autoclose": true,
+            "waiting": true
+        },
+        "popGesture": "close",
+        "runmode": "liberate",
+        "signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw=="
+    }
+}

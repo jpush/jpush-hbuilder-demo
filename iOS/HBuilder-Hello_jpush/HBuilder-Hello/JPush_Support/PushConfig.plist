@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>APP_KEY</key>
+	<string>abcacdf406411fa656ee11c3</string>
+	<key>CHANNEL</key>
+	<string>any channel</string>
+	<key>PRODUCTION</key>
+	<string>0</string>
+</dict>
+</plist>

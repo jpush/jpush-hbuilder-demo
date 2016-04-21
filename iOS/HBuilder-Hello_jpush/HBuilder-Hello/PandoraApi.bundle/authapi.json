@@ -1,0 +1,17 @@
+{
+    "Gallery":[
+        {"action":"*","desc":"允许\"%@\"访问系统相册"}
+    ],
+    "Contacts":[
+        {"action":"*","desc":"允许\"%@\"访问通讯录"}
+    ],
+    "OAuth-qq":[
+        {"action":"*","desc":"允许\"%@\"使用\"QQ登录\""}
+    ],
+    "OAuth-weixin":[
+        {"action":"*","desc":"允许\"%@\"使用\"微信登录\""}
+    ],
+    "OAuth-sinaweibo":[
+        {"action":"*","desc":"允许\"%@\"使用\"新浪登录\""}
+    ]
+}

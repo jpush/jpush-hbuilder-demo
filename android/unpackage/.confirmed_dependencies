@@ -1,0 +1,26 @@
+{
+  "assets/apps/HelloH5/www/index.html": {
+    "resources": [
+      "assets/apps/HelloH5/www/css/common.css",
+      "assets/apps/HelloH5/www/js/update.js"
+    ],
+    "refer": [
+      "assets/apps/HelloH5/www/plus/push.html",
+      "assets/apps/HelloH5/www/about.html"
+    ]
+  },
+  "assets/apps/HelloH5/www/plus/push.html": {
+    "resources": [
+      "assets/apps/HelloH5/www/js/common.js",
+      "assets/apps/HelloH5/www/css/common.css"
+    ],
+    "refer": []
+  },
+  "assets/apps/HelloH5/www/about.html": {
+    "resources": [
+      "assets/apps/HelloH5/www/img/h5p.jpg",
+      "assets/apps/HelloH5/www/js/common.js"
+    ],
+    "refer": []
+  }
+}
