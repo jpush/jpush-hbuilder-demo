@@ -7,7 +7,10 @@
 [![platforms](https://img.shields.io/badge/platforms-iOS%7CAndroid-lightgrey.svg)](https://github.com/jpush/jpush-hbuilder-demo)
 [![weibo](https://img.shields.io/badge/weibo-JPush-blue.svg)](http://weibo.com/jpush?refer_flag=1001030101_&is_all=1)
 
-JPush 官方支持的 HBuilder Demo(基于 [DCloud](http://dev.dcloud.net.cn/mui/) HTML5+ 官方 Demo)，支持 iOS, Android。
+[极光推送官方](https://www.jpush.cn/) 提供的 JPush HBuilder Demo。是基于 HBuilder 提供的 [第三方插件架构](http://ask.dcloud.net.cn/docs/#http://ask.dcloud.net.cn/article/66) 进而开发出的推送插件，并集成到 iOS/Android 工程里的 demo。开发者可以通过我们提供的 [安装方式](#install) 将推送功能集成到自己的项目中，从而在 JS 层实现对推送的控制。
+
+<!--JPush 官方支持的 HBuilder Demo(基于 [DCloud](http://dev.dcloud.net.cn/mui/) HTML5+ 官方 Demo)，支持 iOS, Android。
+-->
 
 ## 功能特性
 + 发送推送通知。
@@ -16,7 +19,7 @@ JPush 官方支持的 HBuilder Demo(基于 [DCloud](http://dev.dcloud.net.cn/mui
 + 设置角标（iOS）。
 
 
-## 安装
+<h2 id="install">安装</h2>
 
 可以将 Demo 直接导入 Android Studio 或 Xcode 运行，如果想要在自己的项目中集成 JPush，可以参考以下步骤：
 
@@ -74,7 +77,6 @@ Android:
 iOS:
 
 	[Project]/iOS/HBuilder-Hello_jpush/HBuilder-Hello/Pandora/apps/HelloH5/www/js/jpush.js
-
 
 
 ## 常见问题
