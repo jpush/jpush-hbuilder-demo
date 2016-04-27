@@ -11,6 +11,19 @@
 #import "JPushPlugin.h"
 #import "PDRCommonString.h"
 #import "PDRCoreAppFrame.h"
+#import <AdSupport/AdSupport.h>
+
+//启动配置
+NSString *const kJPushConfig_appkey     = @"APP_KEY";
+NSString *const kJPushConfig_channel    = @"CHANNEL";
+NSString *const kJPushConfig_production = @"PRODUCTION";
+NSString *const kJPushConfig_idfa = @"IDFA";
+
+//以下为js中可监听到的事件
+NSString *const kJPushReceiveMessage    = @"jpush.receiveMessage";         //收到自定义消息
+NSString *const kJPushReceiveAPNS       = @"jpush.receiveNotification";    //前台收到推送消息
+NSString *const kJPushReceiveLaunch     = @"jpush.openNotification";       //点击推送消息启动或唤醒app
+NSString *const kJPushReceiveBackground = @"jpush.backgroundNotification"; //后台收到推送
 
 @interface JPushPlugin()
 
@@ -28,14 +41,25 @@
 
     NSString *path = [[NSBundle mainBundle]pathForResource:@"PushConfig" ofType:@"plist"];
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:path];
-    [JPUSHService setupWithOption:options appKey:dict[kJPushConfig_appkey] channel:dict[kJPushConfig_channel] apsForProduction:[dict[kJPushConfig_production] boolValue]];
+
+    NSString *advertisingId = nil;
+    if([dict[kJPushConfig_idfa] boolValue]){
+        advertisingId = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+    }
+    [JPUSHService setupWithOption:options
+                           appKey:dict[kJPushConfig_appkey]
+                          channel:dict[kJPushConfig_channel]
+                 apsForProduction:[dict[kJPushConfig_production] boolValue]
+            advertisingIdentifier:advertisingId];
+
     [JPUSHService setDebugMode];
+    
     [super onAppStarted:options];
 
     if (options) {
         NSDictionary *userInfo = [options valueForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
         if ([userInfo count]) {
-            [self fireEvent:kJPushLaunchWithAPNS args:userInfo];
+            [self fireEvent:kJPushReceiveLaunch args:userInfo];
         }
     }
 
@@ -50,7 +74,19 @@
 {
     [JPUSHService handleRemoteNotification:userInfo];
     [super onRevRemoteNotification:userInfo];
-    [self fireEvent:kJPushReceiveAPNS args:userInfo];
+    switch ([UIApplication sharedApplication].applicationState) {
+        case UIApplicationStateActive:
+            [self fireEvent:kJPushReceiveAPNS args:userInfo];
+            break;
+        case UIApplicationStateInactive:
+            [self fireEvent:kJPushReceiveLaunch args:userInfo];
+            break;
+        case UIApplicationStateBackground:
+            [self fireEvent:kJPushReceiveBackground args:userInfo];
+            break;
+        default:
+            break;
+    }
 }
 
 - (void)onRevLocationNotification:(UILocalNotification *)userInfo

@@ -8,5 +8,7 @@
 	<string>any channel</string>
 	<key>PRODUCTION</key>
 	<string>0</string>
+	<key>IDFA</key>
+	<string>0</string>
 </dict>
 </plist>

@@ -40,13 +40,17 @@
 			  if(data.length != 0) {
 				  $("#registrationID").html(data);
 			  }
-		  });
+		  });		  
       };
-      
+      //前台收到推送
       var receiveNotification = function(event) {
 		 openNotification(event);
       };
-      
+      //后台收到推送(需要iOS7.0以上，且开启Remote Notification，具体设置 http://docs.jpush.io/client/ios_tutorials/#ios-7-background-remote-notification)
+      var onBackgroundNotification = function(event){
+      	openNotification(event);
+      }
+      //点击推送弹窗唤醒或启动app
       var openNotification = function(event) {
       		var msg = JSON.parse(event.arguments);
 			document.getElementById("notificationResult").innerHTML = msg.aps.alert;
@@ -68,6 +72,7 @@
       document.addEventListener("jpush.receiveMessage", receiveMessage, false);
       document.addEventListener("jpush.receiveNotification", receiveNotification, false);
       document.addEventListener("jpush.openNotification", openNotification, false);
+      document.addEventListener("jpush.backgroundNotification", onBackgroundNotification, false);
 
   </script>
 </head>
