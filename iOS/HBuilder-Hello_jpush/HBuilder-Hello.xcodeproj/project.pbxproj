@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		0D20772B1CAA8DC600DA7FFC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D20772A1CAA8DC600DA7FFC /* CoreGraphics.framework */; };
 		0D20772D1CAA8DD400DA7FFC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D20772C1CAA8DD400DA7FFC /* Security.framework */; };
-		0DC9166C1CCF486600B6E043 /* jpush-ios-2.1.6.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DC9166A1CCF486600B6E043 /* jpush-ios-2.1.6.a */; };
+		0D6381651CF7EEA6009CBE62 /* jpush-ios-2.1.7.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D6381641CF7EEA6009CBE62 /* jpush-ios-2.1.7.a */; };
 		0DC9166F1CCF496D00B6E043 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DC9166E1CCF496D00B6E043 /* AdSupport.framework */; };
 		0DCAFEC41CC08CB6002B03F9 /* JPushPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DCAFEC01CC08CB6002B03F9 /* JPushPlugin.m */; };
 		0DCAFEC61CC08CB6002B03F9 /* PushConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0DCAFEC31CC08CB6002B03F9 /* PushConfig.plist */; };
@@ -63,7 +63,7 @@
 /* Begin PBXFileReference section */
 		0D20772A1CAA8DC600DA7FFC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		0D20772C1CAA8DD400DA7FFC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		0DC9166A1CCF486600B6E043 /* jpush-ios-2.1.6.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-2.1.6.a"; sourceTree = "<group>"; };
+		0D6381641CF7EEA6009CBE62 /* jpush-ios-2.1.7.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-2.1.7.a"; sourceTree = "<group>"; };
 		0DC9166B1CCF486600B6E043 /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
 		0DC9166E1CCF496D00B6E043 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		0DCAFEBF1CC08CB6002B03F9 /* JPushPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPushPlugin.h; sourceTree = "<group>"; };
@@ -159,11 +159,11 @@
 				247417B01CAA835A009C8FF7 /* libxml2.tbd in Frameworks */,
 				247417A61CAA833C009C8FF7 /* CoreAudioKit.framework in Frameworks */,
 				247417A41CAA8335009C8FF7 /* CoreAudio.framework in Frameworks */,
-				0DC9166C1CCF486600B6E043 /* jpush-ios-2.1.6.a in Frameworks */,
 				247417A21CAA832D009C8FF7 /* MediaPlayer.framework in Frameworks */,
 				247417A01CAA8325009C8FF7 /* CoreMedia.framework in Frameworks */,
 				2474179C1CAA8318009C8FF7 /* AudioToolbox.framework in Frameworks */,
 				247417981CAA830A009C8FF7 /* MobileCoreServices.framework in Frameworks */,
+				0D6381651CF7EEA6009CBE62 /* jpush-ios-2.1.7.a in Frameworks */,
 				247417961CAA8303009C8FF7 /* libstdc++.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -174,7 +174,7 @@
 		0DCAFEBE1CC08CB6002B03F9 /* JPush_Support */ = {
 			isa = PBXGroup;
 			children = (
-				0DC9166A1CCF486600B6E043 /* jpush-ios-2.1.6.a */,
+				0D6381641CF7EEA6009CBE62 /* jpush-ios-2.1.7.a */,
 				0DC9166B1CCF486600B6E043 /* JPUSHService.h */,
 				0DCAFEBF1CC08CB6002B03F9 /* JPushPlugin.h */,
 				0DCAFEC01CC08CB6002B03F9 /* JPushPlugin.m */,
