@@ -11,16 +11,6 @@
 #include "PGPush.h"
 #import <Foundation/Foundation.h>
 
-//启动配置
-NSString *const kJPushConfig_appkey     = @"APP_KEY";
-NSString *const kJPushConfig_channel    = @"CHANNEL";
-NSString *const kJPushConfig_production = @"PRODUCTION";
-
-//以下为js中可监听到的事件
-NSString *const kJPushReceiveMessage    = @"jpush.receiveMessage";     //收到自定义消息
-NSString *const kJPushReceiveAPNS       = @"jpush.receiveNotification";//前台收到推送消息或点击推送消息唤醒app
-NSString *const kJPushLaunchWithAPNS    = @"jpush.openNotification"; //点击推送消息启动app
-
 @interface JPushPlugin : PGPush
 
 - (void)onRegRemoteNotificationsError:(NSError *)error;

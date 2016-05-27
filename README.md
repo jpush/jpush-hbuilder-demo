@@ -1,4 +1,4 @@
-![JPush Dev logo](http://community.jpush.cn/uploads/default/original/1X/a1dbd54304178079e65cdc36810fdf528fdebe24.png)
+[![JPush Dev logo](http://community.jpush.cn/uploads/default/original/1X/a1dbd54304178079e65cdc36810fdf528fdebe24.png)](http://community.jpush.cn/)
 
 # JPush HBuilder Demo
 
@@ -56,13 +56,21 @@
 
     <img src="https://raw.githubusercontent.com/Yasashi/Yasashi.github.io/master/images/resource/blog01/01.png" width="700px"></img>
 
-- 将 JPush_Support 文件夹中所有内容在 Xcode 中拖到自己的工程里。
+- 将 JPush_Support 文件夹中所有内容在 Xcode 中拖到自己的工程里
 
-- 在 JPush_Support/PushConfig.plist 中配置 APP_KEY 和 PRODUCTION （0开发 / 1发布）。
+- 在 JPush_Support/PushConfig.plist 中配置 APP_KEY 、 PRODUCTION（0开发 / 1发布）、IDFA（是否需要通过广告标识符启动 sdk）
 
-- 添加必要框架，打开 xcode，点击 project，选择(Targets -> Build Phases -> Link Binary With Libraries)。
+- 打开 xcode，点击工程目录中顶部的 工程，选择(Target -> Build Phases -> Link Binary With Libraries)，添加以下框架：
 
-    <img src="/iOS/HBuilder-Hello_jpush/HBuilder-Hello/img/01.png" width="700px"></img>
+		CFNetwork.framework
+		CoreFoundation.framework
+		CoreTelephony.framework
+		SystemConfiguration.framework
+		CoreGraphics.framework
+		Foundation.framework
+		UIKit.framework
+		AdSupport.framework
+		libz.tbd(若存在 libz.dylib 则替换为 libz.tbd)
 
 ## API 说明
 
@@ -87,12 +95,19 @@ iOS:
 	解决方案：eclipse 中右键单击工程名，
         Build Path -> Config Build Path -> Projects -> 选中工程名称 -> CordovaLib -> 点击 add
 
-### 2. iOS 设置 / 修改 APP_KEY
+### 2. iOS
 
-    在 PushConfig.plist 中修改。
-	PushConfig.plist 其他值说明：
-    	CHANNEL: 渠道标识
-    	IsProduction: 是否生产环境（暂未启用）
+- 收不到推送:
+
+	请首先按照正确方式再次配置证书、描述文件 
+	[iOS 证书设置指南](http://docs.jpush.io/client/ios_tutorials/#ios_1)
+
+- 设置 PushConfig.plist：
+
+	- APP_KEY：应用标识 
+	- CHANNEL：渠道标识
+	- IsProduction：是否生产环境
+	- IsIDFA：是否使用 IDFA 启动 sdk
 
 
 ### 更多
