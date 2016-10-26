@@ -54,7 +54,7 @@
 
 - 配置 feature.plist ，在 Xcode 中打开 ../PandoraApi.bundle/ 目录下的 feature.plist ，为插件添加新的 item：
 
-    <img src="https://raw.githubusercontent.com/Yasashi/Yasashi.github.io/master/images/resource/blog01/01.png" width="700px"></img>
+	![feature.plist](iOS/doc_res/res_01.jpg)
 
 - 将 JPush_Support 文件夹中所有内容在 Xcode 中拖到自己的工程里
 
