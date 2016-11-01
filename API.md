@@ -1,5 +1,4 @@
-![JPush Dev logo](http://community.jpush.cn/uploads/default/original/1X/a1dbd54304178079e65cdc36810fdf528fdebe24.png)
-# JPushPlugin For HBuilder API
+# JPush For HBuilder API
 
 - [通用 API](#通用-api)
 	- [获取 RegistrationID](#获取-registrationid)

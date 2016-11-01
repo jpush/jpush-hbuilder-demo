@@ -1,5 +1,3 @@
-[![JPush Dev logo](http://community.jpush.cn/uploads/default/original/1X/a1dbd54304178079e65cdc36810fdf528fdebe24.png)](http://community.jpush.cn/)
-
 # JPush HBuilder Demo
 
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/jpush/jpush-hbuilder-demo)
@@ -7,7 +5,7 @@
 [![platforms](https://img.shields.io/badge/platforms-iOS%7CAndroid-lightgrey.svg)](https://github.com/jpush/jpush-hbuilder-demo)
 [![weibo](https://img.shields.io/badge/weibo-JPush-blue.svg)](http://weibo.com/jpush?refer_flag=1001030101_&is_all=1)
 
-[极光推送官方](https://www.jpush.cn/) 提供的 JPush HBuilder Demo。是基于 HBuilder 提供的 [第三方插件架构](http://ask.dcloud.net.cn/docs/#http://ask.dcloud.net.cn/article/66) 进而开发出的推送插件，并集成到 iOS/Android 工程里的 demo。开发者可以通过我们提供的 [安装方式](#install) 将推送功能集成到自己的项目中，从而在 JS 层实现对推送的控制。
+[极光推送](https://www.jiguangh.cn/) 官方提供的 JPush HBuilder Demo。是基于 HBuilder 提供的 [第三方插件架构](http://ask.dcloud.net.cn/docs/#http://ask.dcloud.net.cn/article/66) 进而开发出的推送插件，并集成到 iOS/Android 工程里的 demo。开发者可以通过我们提供的 [安装方式](#install) 将推送功能集成到自己的项目中，从而在 JS 层实现对推送的控制。
 
 <!--JPush 官方支持的 HBuilder Demo(基于 [DCloud](http://dev.dcloud.net.cn/mui/) HTML5+ 官方 Demo)，支持 iOS, Android。
 -->
@@ -54,7 +52,7 @@
 
 - 配置 feature.plist ，在 Xcode 中打开 ../PandoraApi.bundle/ 目录下的 feature.plist ，为插件添加新的 item：
 
-    <img src="https://raw.githubusercontent.com/Yasashi/Yasashi.github.io/master/images/resource/blog01/01.png" width="700px"></img>
+	![feature.plist](iOS/doc_res/res_01.jpg)
 
 - 将 JPush_Support 文件夹中所有内容在 Xcode 中拖到自己的工程里
 
@@ -89,22 +87,16 @@ iOS:
 
 ## 常见问题
 
-### 1. Android
-
-	eclipse 中工程 import 之后出现："Type CallbackContext cannot be resolved to a type"。
-	解决方案：eclipse 中右键单击工程名，
-        Build Path -> Config Build Path -> Projects -> 选中工程名称 -> CordovaLib -> 点击 add
-
-### 2. iOS
+### iOS
 
 - 收不到推送:
 
-	请首先按照正确方式再次配置证书、描述文件 
+	请首先按照正确方式再次配置证书、描述文件
 	[iOS 证书设置指南](http://docs.jpush.io/client/ios_tutorials/#ios_1)
 
 - 设置 PushConfig.plist：
 
-	- APP_KEY：应用标识 
+	- APP_KEY：应用标识
 	- CHANNEL：渠道标识
 	- IsProduction：是否生产环境
 	- IsIDFA：是否使用 IDFA 启动 sdk
@@ -112,4 +104,4 @@ iOS:
 
 ### 更多
 
- [JPush 官网文档](http://docs.jpush.io/)
+ [JPush 官网文档](http://docs.jiguang.cn/)
