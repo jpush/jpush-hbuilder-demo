@@ -22,11 +22,12 @@
 可以将 Demo 直接导入 Android Studio 或 Xcode 运行，如果想要在自己的项目中集成 JPush，可以参考以下步骤：
 
 ### Android 手动安装
- - 将 Demo/android 项目中的 /libs/jpush-android-x.x.x.jar 和 x86 等文件夹下的 libjpushXXX.so 拷贝到对应文件中。
- - 拷贝 /src/io.dcloud.feature.jPush 文件夹。
+HBuilder 项目集成第三方插件，需先参考 HBuilder 官方的[离线打包](https://ask.dcloud.net.cn/article/38)教程，将您的 HBuilder 项目集成进 Android 工程中。之后再执行以下步骤：
+ - 将 Demo/android 项目中的 /libs/jpush-android-x.x.x.jar 和 x86 等文件夹下的 libjpushXXX.so 拷贝到 Android 工程中的 /libs 下。
+ - 拷贝 /src/io.dcloud.feature.jPush 文件夹至 Android 工程的 /src 目录下。
  - 拷贝 /assets/apps/H51423BFB/js/jpush.js。
- - 修改 /src/io.dcloud/RInformation.java 文件中的包名。
- - 按照 Demo 中的 AndroidManifest.xml ，添加需要的权限和组件，替换包名和 JPush_APPKEY。
+ - 修改 /src/io.dcloud/RInformation.java 文件中的 com.jpush.hbuilderdemo 为自己 Android 工程的包名。
+ - 参照 Demo 中的 AndroidManifest.xml ，添加需要的权限和组件，替换包名和 JPush_APPKEY 为您应用的 APP_KEYs。
  - 在 /assets/apps/[yourAppName]/www/manifest.json 文件中添加：
 
         "Push": {
