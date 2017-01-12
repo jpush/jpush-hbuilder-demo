@@ -27,7 +27,7 @@ HBuilder 项目集成第三方插件，需先参考 HBuilder 官方的[离线打
  - 拷贝 /src/io.dcloud.feature.jPush 文件夹至 Android 工程的 /src 目录下。
  - 拷贝 /assets/apps/H51423BFB/js/jpush.js。
  - 修改 /src/io.dcloud/RInformation.java 文件中的 com.jpush.hbuilderdemo 为自己 Android 工程的包名。
- - 参照 Demo 中的 AndroidManifest.xml ，添加需要的权限和组件，替换包名和 JPush_APPKEY 为您应用的 APP_KEYs。
+ - 参照 Demo 中的 AndroidManifest.xml ，添加需要的权限和组件，替换包名和 JPush_APPKEY 为您应用的 APP_KEY。
  - 在 /assets/apps/[yourAppName]/www/manifest.json 文件中添加：
 
         "Push": {
