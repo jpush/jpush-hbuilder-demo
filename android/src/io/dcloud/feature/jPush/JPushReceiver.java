@@ -26,7 +26,11 @@ public class JPushReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
-        if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(action)) {
+        if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
+            Logger.d(TAG, "JPush 用户注册成功");
+            String rId = JPushInterface.getRegistrationId(context);
+            JPushService.transmitGetRegistrationId(rId);
+        } if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(action)) {
             handlingMessageReceive(intent);
         } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(action)) {
             handlingNotificationReceive(context, intent);
@@ -95,5 +99,4 @@ public class JPushReceiver extends BroadcastReceiver {
         }
         return extrasMap;
     }
-
 }

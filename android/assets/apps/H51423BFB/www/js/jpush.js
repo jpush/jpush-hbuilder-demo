@@ -126,11 +126,9 @@ document.addEventListener("plusready", function() {
 						successCallback);
 			}
 		},
-		setSilenceTime : function(successCallback, startHour, startMinute,
-				endHour, endMinute) {
+		setSilenceTime : function(successCallback, startHour, startMinute, endHour, endMinute) {
 			if(plus.os.name == 'Android') {
-				this.callNative("setSilenceTime",
-						[startHour, startMinute, endHour, endMinute], successCallback);
+				this.callNative("setSilenceTime", [startHour, startMinute, endHour, endMinute], successCallback);
 			}
 		},
 		requetPermission : function() {
@@ -138,12 +136,17 @@ document.addEventListener("plusready", function() {
 				this.callNative("requestPermission", null, null);
 			}
 		},
+		onGetRegistrationId : function(rId) {
+			if(plus.os.name == 'Android') {
+				this.fireDocumentEvent('jpush.onGetRegistrationId', rId);
+			}
+		},
 		receiveMessageInAndroidCallback : function(data) {
 			if(plus.os.name == 'Android') {
 				data = JSON.stringify(data);
 				var jsonObj = JSON.parse(data);
 				this.receiveMessage = jsonObj;
-				this.fireDocumentEvent("jpush.receiveMessage", null);	
+				this.fireDocumentEvent("jpush.receiveMessage", this.receiveMessage);	
 			}
 		},
 		openNotificationInAndroidCallback : function(data) {
@@ -151,7 +154,7 @@ document.addEventListener("plusready", function() {
 				data = JSON.stringify(data);
 				var jsonObj = JSON.parse(data);
 				this.openNotification = jsonObj;
-				this.fireDocumentEvent("jpush.openNotification", null);
+				this.fireDocumentEvent("jpush.openNotification", this.openNotification);
 			}
 		},
 		receiveNotificationInAndroidCallback : function(data) {
@@ -159,7 +162,7 @@ document.addEventListener("plusready", function() {
 				data = JSON.stringify(data);
 				var jsonObj = JSON.parse(data);
 				this.receiveNotification = jsonObj;
-				this.fireDocumentEvent("jpush.receiveNotification", null);
+				this.fireDocumentEvent("jpush.receiveNotification", this.receiveNotification);
 			}
 		},
 		// iOS methods

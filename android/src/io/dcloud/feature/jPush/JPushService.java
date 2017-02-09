@@ -103,6 +103,17 @@ public class JPushService extends StandardFeature {
 		}
 	}
 
+	public static void transmitGetRegistrationId(String rId) {
+		String format = "plus.Push.onGetRegistrationId(%s);";
+		final String js = String.format(format, rId);
+		mIWebview.getActivity().runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				mIWebview.loadUrl("javascript:" + js);
+			}
+		});
+	}
+
 	public static void transmitMessageReceive(String msg,
 			Map<String, Object> extras) {
         JSONObject data = getMessageObject(msg, extras);
@@ -457,5 +468,4 @@ public class JPushService extends StandardFeature {
 		}
 		return true;
 	}
-
 }
