@@ -38,6 +38,8 @@ public class JPushService extends StandardFeature {
 	private static IWebview mIWebview;
     private static boolean shouldCacheMsg = false;
 
+	private String mRegistrationId;
+
 	@Override
 	public void onStart(Context context, Bundle arg1, String[] arg2) {
 		JPushInterface.init(context);
@@ -58,6 +60,10 @@ public class JPushService extends StandardFeature {
             transmitNotificationReceive(notificationTitle,
             		notificationAlert, notificationExtras);
         }
+		if (mRegistrationId != null && !mRegistrationId.equals("")) {
+			transmitGetRegistrationId(mRegistrationId);
+			mRegistrationId = null;
+		}
 	}
 
 	@Override
@@ -72,12 +78,10 @@ public class JPushService extends StandardFeature {
 		shouldCacheMsg = false;
         if (openNotificationAlert != null) {
             notificationAlert = null;
-            transmitNotificationOpen(openNotificationTitle,
-            		openNotificationAlert, openNotificationExtras);
+            transmitNotificationOpen(openNotificationTitle, openNotificationAlert, openNotificationExtras);
         }
         if (notificationAlert != null) {
-            transmitNotificationReceive(notificationTitle,
-            		notificationAlert, notificationExtras);
+            transmitNotificationReceive(notificationTitle, notificationAlert, notificationExtras);
         }
 	}
 
@@ -106,12 +110,16 @@ public class JPushService extends StandardFeature {
 	public static void transmitGetRegistrationId(String rId) {
 		String format = "plus.Push.onGetRegistrationId(%s);";
 		final String js = String.format(format, rId);
-		mIWebview.getActivity().runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				mIWebview.loadUrl("javascript:" + js);
-			}
-		});
+		if (mIWebview == null) {
+			mRegistrationId = rId;
+		} else {
+			mIWebview.getActivity().runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					mIWebview.loadUrl("javascript:" + js);
+				}
+			});
+		}
 	}
 
 	public static void transmitMessageReceive(String msg,
