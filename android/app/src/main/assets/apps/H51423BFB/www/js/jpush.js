@@ -1,8 +1,8 @@
-document.addEventListener("plusready", function() {
+document.addEventListener('plusready', function() {
 
   var _BARCODE = 'Push'	// 插件名称
 	var B = window.plus.bridge
-    
+
   var JPushPlugin = {
     receiveMessage : {},
     openNotification : {},
@@ -18,15 +18,14 @@ document.addEventListener("plusready", function() {
 			return B.exec(_BARCODE, fname, args)
 		},
 		getCallbackId : function(successCallback) {
-			var success = typeof successCallback !== 'function' ? null : function(args) 
-			{
+			var success = typeof successCallback !== 'function' ? null : function(args) {
 				successCallback(args)
 			}
 			callbackId = B.callbackId(success, this.errorCallback)
 			return callbackId
 		},
 		errorCallback : function(errorMsg) {
-			console.log("Javascript callback error: " + errorMsg)
+			console.log('Javascript callback error: ' + errorMsg)
 		},
 		fireDocumentEvent : function(ename, jsonData) {
 			var event = document.createEvent('HTMLEvents')
@@ -40,13 +39,13 @@ document.addEventListener("plusready", function() {
 		},
 		// Common method
 		getRegistrationID : function(successCallback) {
-			this.callNative("getRegistrationID", null, successCallback)
+			this.callNative('getRegistrationID', null, successCallback)
 		},
 		setTags : function(tags) {
-			this.callNative("setTags", tags, null)
+			this.callNative('setTags', [tags], null)
 		},
 		setAlias : function(alias) {
-			this.callNative("setAlias", [alias], null)
+			this.callNative('setAlias', [alias], null)
 		},
 		setTagsWithAlias : function(tags, alias) {
 			if(alias == null) {
@@ -59,82 +58,82 @@ document.addEventListener("plusready", function() {
 			}
 			var arrayTagWithAlias = [tags]
 			arrayTagWithAlias.unshift(alias)
-			this.callNative("setTagsWithAlias", arrayTagWithAlias, null)
+			this.callNative('setTagsWithAlias', arrayTagWithAlias, null)
 		},
 		stopPush : function() {
-			this.callNative("stopPush", null, null)
+			this.callNative('stopPush', null, null)
 		},
 		resumePush : function() {
-			this.callNative("resumePush", null, null)
+			this.callNative('resumePush', null, null)
 		},
 		isPushStopped : function(successCallback) {
-			this.callNative("isPushStopped", null, successCallback)
+			this.callNative('isPushStopped', null, successCallback)
 		},
 		// Android methods
 		init : function() {
 			if(plus.os.name == 'Android') {
-				this.callNative("init", null, null)
+				this.callNative('init', null, null)
 			}
 		},
 		setDebugMode : function(mode) {
 			if(plus.os.name == 'Android') {
-				this.callNative("setDebugMode", [mode], null)
+				this.callNative('setDebugMode', [mode], null)
 			}
 		},
 		addLocalNotification : function(builderId, content, title, notiID, broadcastTime, extras) {
 			if(plus.os.name == 'Android') {
 				data = [builderId, content, title, notiID, broadcastTime, extras]
-				this.callNative("addLocalNotification", data, null)
+				this.callNative('addLocalNotification', data, null)
 			}
 		},
 		removeLocalNotification : function(notificationId) {
 			if(plus.os.name == 'Android') {
-				this.callNative("removeLocalNotification", [notificationId], null)
+				this.callNative('removeLocalNotification', [notificationId], null)
 			}
 		},
 		clearLocalNotifications : function() {
 			if(plus.os.name == 'Android') {
-				this.callNative("clearLocalNotifications", null, null)
+				this.callNative('clearLocalNotifications', null, null)
 			}
 		},
 		clearAllNotification : function() {
 			if(plus.os.name == 'Android') {
-				this.callNative("clearAllNotification", null, null)
+				this.callNative('clearAllNotification', null, null)
 			}
 		},
 		clearNotificationById : function(notificationId) {
 			if(plus.os.name == 'Android') {
-				this.callNative("clearNotificationById", [notificationId], null)
+				this.callNative('clearNotificationById', [notificationId], null)
 			}
 		},
 		setBasicPushNotificationBuilder : function() {
 			if(plus.os.name == 'Android') {
-				this.callNative("setBasicPushNotification", null, null)
+				this.callNative('setBasicPushNotification', null, null)
 			}
 		},
 		setCustomPushNotificationBuilder : function() {
 			if(plus.os.name == 'Android') {
-				this.callNative("setCustomPushNotificationBuilder", null, null)
+				this.callNative('setCustomPushNotificationBuilder', null, null)
 			}
 		},
 		setLatestNotificationNum : function(num) {
 			if(plus.os.name == 'Android') {
-				this.callNative("setLatestNotificationNum", [num], null)
+				this.callNative('setLatestNotificationNum', [num], null)
 			}
 		},
 		setPushTime : function(successCallback, weekDays, startHour, endHour) {
 			if(plus.os.name == 'Android') {
-				this.callNative("setPushTime", [weekDays, startHour, endHour], successCallback)
+				this.callNative('setPushTime', [weekDays, startHour, endHour], successCallback)
 			}
 		},
 		setSilenceTime : function(successCallback, startHour, startMinute, endHour, endMinute) {
 			if(plus.os.name == 'Android') {
-				this.callNative("setSilenceTime", [startHour, startMinute, endHour, endMinute], successCallback)
+				this.callNative('setSilenceTime', [startHour, startMinute, endHour, endMinute], successCallback)
 			}
 		},
 		requestPermission : function() {
 			if(plus.os.name == 'Android') {
-				this.callNative("requestPermission", null, null)
+				this.callNative('requestPermission', null, null)
 			}
 		},
 		onGetRegistrationId : function(rId) {
@@ -147,7 +146,7 @@ document.addEventListener("plusready", function() {
 				data = JSON.stringify(data)
 				var jsonObj = JSON.parse(data)
 				this.receiveMessage = jsonObj
-				this.fireDocumentEvent("jpush.receiveMessage", this.receiveMessage)	
+				this.fireDocumentEvent('jpush.receiveMessage', this.receiveMessage)
 			}
 		},
 		openNotificationInAndroidCallback : function(data) {
@@ -155,7 +154,7 @@ document.addEventListener("plusready", function() {
 				data = JSON.stringify(data)
 				var jsonObj = JSON.parse(data)
 				this.openNotification = jsonObj
-				this.fireDocumentEvent("jpush.openNotification", this.openNotification)
+				this.fireDocumentEvent('jpush.openNotification', this.openNotification)
 			}
 		},
 		receiveNotificationInAndroidCallback : function(data) {
@@ -163,14 +162,14 @@ document.addEventListener("plusready", function() {
 				data = JSON.stringify(data)
 				var jsonObj = JSON.parse(data)
 				this.receiveNotification = jsonObj
-				this.fireDocumentEvent("jpush.receiveNotification", this.receiveNotification)
+				this.fireDocumentEvent('jpush.receiveNotification', this.receiveNotification)
 			}
 		},
 		// iOS methods
     setBadge : function(value) {
       if(plus.os.name == 'iOS') {
         try {
-          this.callNative("setBadge", [value], null)
+          this.callNative('setBadge', [value], null)
         } catch (exception) {
           console.log(exception)
         }
@@ -179,7 +178,7 @@ document.addEventListener("plusready", function() {
     resetBadge : function() {
       if(plus.os.name == 'iOS') {
         try {
-          this.callNative("resetBadge", [], null)
+          this.callNative('resetBadge', [], null)
         } catch (exception) {
           console.log(exception)
         }
@@ -187,59 +186,59 @@ document.addEventListener("plusready", function() {
     },
     setApplicationIconBadgeNumber : function(badge) {
       if(plus.os.name == 'iOS') {
-        this.callNative("setApplicationIconBadgeNumber", [badge], null)
+        this.callNative('setApplicationIconBadgeNumber', [badge], null)
       }
     },
     getApplicationIconBadgeNumber : function(callback) {
       if(plus.os.name == 'iOS') {
-        this.callNative("getApplicationIconBadgeNumber", [], callback)
+        this.callNative('getApplicationIconBadgeNumber', [], callback)
       }
     },
     startLogPageView : function(pageName) {
       if(plus.os.name == 'iOS') {
-        this.callNative("startLogPageView", [pageName], null)
+        this.callNative('startLogPageView', [pageName], null)
       }
     },
     stopLogPageView : function(pageName) {
       if(plus.os.name == 'iOS') {
-        this.callNative("stopLogPageView", [pageName], null)
+        this.callNative('stopLogPageView', [pageName], null)
       }
     },
     beginLogPageView : function(pageName, duration) {
       if(plus.os.name == 'iOS') {
-        this.callNative("beginLogPageView", [pageName, duration], null)
+        this.callNative('beginLogPageView', [pageName, duration], null)
       }
     },
     setLogOFF : function() {
       if(plus.os.name == 'iOS') {
-        this.callNative("setLogOFF", [], null)
+        this.callNative('setLogOFF', [], null)
       }
     },
     setCrashLogON : function() {
       if(plus.os.name == 'iOS') {
-        this.callNative("crashLogON", [], null)
+        this.callNative('crashLogON', [], null)
       }
     },
     setLocation : function(latitude, longitude) {
       if(plus.os.name == 'iOS') {
-        this.callNative("setLocation", [latitude, longitude], null)
+        this.callNative('setLocation', [latitude, longitude], null)
       }
     },
     addLocalNotificationIniOS : function(delayTime, content, badge, notificationID, extras) {
       if(plus.os.name == 'iOS') {
         var data = [delayTime, content, badge, notificationID, extras]
-        this.call_native("setLocalNotification", data, null)
+        this.call_native('setLocalNotification', data, null)
       }
     },
     deleteLocalNotificationWithIdentifierKeyIniOS : function(identifierKey) {
       if(plus.os.name == 'iOS') {
         var data = [identifierKey]
-        this.call_native("deleteLocalNotificationWithIdentifierKey", data, null)
+        this.call_native('deleteLocalNotificationWithIdentifierKey', data, null)
       }
     },
     clearAllLocalNotificationsIniOS : function(){
       if(plus.os.name == 'iOS') {
-        this.call_native("clearAllLocalNotifications", [], null)
+        this.call_native('clearAllLocalNotifications', [], null)
       }
     }
   }

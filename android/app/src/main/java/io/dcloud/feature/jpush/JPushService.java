@@ -236,9 +236,10 @@ public class JPushService extends StandardFeature {
 
     public void setTags(IWebview webview, JSONArray data) {
         try {
+            JSONArray jsonArr = data.getJSONArray(1);
             HashSet<String> tags = new HashSet<String>();
-            for (int i = 1, len = data.length(); i < len; i++) {
-                tags.add(data.getString(i));
+            for (int i = 0, len = jsonArr.length(); i < len; i++) {
+                tags.add(jsonArr.getString(i));
             }
             JPushInterface.setTags(webview.getContext(), tags, mTagAliasCallback);
         } catch (JSONException e) {
@@ -445,6 +446,7 @@ public class JPushService extends StandardFeature {
                 data.put("resultCode", code);
                 data.put("tags", tags);
                 data.put("alias", alias);
+
                 final String jsEvent = String.format(
                         "plus.Push.fireDocumentEvent('jpush.setTagsWithAlias', %s)",
                         data.toString());
