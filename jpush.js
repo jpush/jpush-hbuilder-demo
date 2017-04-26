@@ -18,8 +18,7 @@ document.addEventListener("plusready", function() {
 			return B.exec(_BARCODE, fname, args)
 		},
 		getCallbackId : function(successCallback) {
-			var success = typeof successCallback !== 'function' ? null : function(args)
-			{
+			var success = typeof successCallback !== 'function' ? null : function(args) {
 				successCallback(args)
 			}
 			callbackId = B.callbackId(success, this.errorCallback)
