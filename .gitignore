@@ -255,3 +255,5 @@ iOSInjectionProject/
 /*.gcno
 
 # End of https://www.gitignore.io/api/xcode,android,objective-c,androidstudio
+
+Android/\.idea/

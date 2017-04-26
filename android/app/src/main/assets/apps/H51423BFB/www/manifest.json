@@ -1,0 +1,84 @@
+{
+	"id": "H51423BFB",
+	"name": "JPushHBuilderDemo",
+	"version": {
+		"name": "1.0.0",
+		"code": "100"
+	},
+	"description": "HTML5 Plus能力演示",
+	"icons": {
+		"72": "icon.png"
+	},
+	"launch_path": "index.html",
+	"developer": {
+		"name": "yanyilin",
+		"email": "yanyilin@dcloud.io",
+		"url": "http://www.dcloud.io"
+	},
+	"orientation": [
+		"portrait"
+	],
+	"permissions": {
+		"Cache": {
+			"description": "缓存管理"
+		},
+		"Console": {
+			"description": "调试输出日志"
+		},
+		"Events": {
+			"description": "扩展事件"
+		},
+		"File": {
+			"description": "本地文件系统"
+		},
+		"Invocation": {
+			"description": "Native.js能力"
+		},
+		"Storage": {
+			"description": "本地数据存储"
+		},
+		"Webview": {
+			"description": "窗口管理"
+		},
+		"NativeUI": {
+			"description": "原生UI控件"
+		},
+		"Navigator": {
+		},
+		"Runtime": {
+			"description": "运行环境"
+		},
+		"XMLHttpRequest": {
+			"description": "跨域网络请求"
+		},
+		"NativeObj": {},
+		"Device": {},
+		"Push":{
+		  "description": "消息推送"
+		}
+	},
+	"plus": {
+		"distribute": {
+			"google": {
+				"permissions": [
+					"<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.VIBRATE\"/>",
+					"<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
+					"<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>"
+				]
+			},
+			"orientation": [
+				"portrait-primary"
+			]
+		},
+		"splashscreen": {
+			"autoclose": true,
+			"waiting": true
+		},
+		"popGesture": "close",
+		"runmode": "normal",
+		"signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw=="
+	}
+}

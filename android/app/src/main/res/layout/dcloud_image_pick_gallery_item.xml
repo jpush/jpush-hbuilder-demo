@@ -1,0 +1,22 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/imgQueue"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/dcloud_gallery_app_name"
+            android:scaleType="centerCrop"
+            android:src="@drawable/dcloud_image_pick_no_media" />
+
+        <ImageView
+            android:id="@+id/imgQueueMask"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/dcloud_image_pick_mask"
+            android:visibility="gone" />
+
+</RelativeLayout>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ActionSheetStyleIOS6">
+        <item name="actionSheetBackground">@drawable/dcloud_as_bg_ios6</item>
+        <item name="cancelButtonBackground">@drawable/dcloud_as_cancel_bt_bg</item>
+        <item name="otherButtonTopBackground">@drawable/dcloud_as_other_bt_bg</item>
+        <item name="otherButtonMiddleBackground">@drawable/dcloud_as_other_bt_bg</item>
+        <item name="otherButtonBottomBackground">@drawable/dcloud_as_other_bt_bg</item>
+        <item name="otherButtonSingleBackground">@drawable/dcloud_as_other_bt_bg</item>
+        <item name="cancelButtonTextColor">@android:color/white</item>
+        <item name="otherButtonTextColor">@android:color/black</item>
+        <item name="actionSheetPadding">20dp</item>
+        <item name="otherButtonSpacing">5dp</item>
+        <item name="cancelButtonMarginTop">20dp</item>
+        <item name="actionSheetTextSize">16sp</item>
+    </style>
+
+    <style name="ActionSheetStyleIOS7">
+        <item name="actionSheetBackground">@android:color/transparent</item>
+        <item name="cancelButtonBackground">@drawable/dcloud_slt_as_ios7_cancel_bt</item>
+        <item name="otherButtonTopBackground">@drawable/dcloud_slt_as_ios7_other_bt_top</item>
+        <item name="otherButtonTitleBackground">@drawable/dcloud_slt_as_ios7_other_bt_title</item>
+        <item name="otherButtonMiddleBackground">@drawable/dcloud_slt_as_ios7_other_bt_middle</item>
+        <item name="otherButtonBottomBackground">@drawable/dcloud_slt_as_ios7_other_bt_bottom</item>
+        <item name="otherButtonSingleBackground">@drawable/dcloud_slt_as_ios7_other_bt_single</item>
+        <item name="cancelButtonTextColor">#000000</item>
+        <item name="otherButtonTextColor">#000000</item>
+        <item name="destructiveButtonTextColor">#E8484A</item>
+        <item name="titleButtonTextColor">#8C8C8C</item>
+        <item name="actionSheetPadding">10dp</item>
+        <item name="otherButtonSpacing">0dp</item>
+        <item name="cancelButtonMarginTop">10dp</item>
+        <item name="actionSheetTextSize">16sp</item>
+    </style>
+
+    <declare-styleable name="ActionSheets">
+        <attr name="actionSheetStyle" format="reference" />
+    </declare-styleable>
+    <declare-styleable name="ActionSheet">
+        <attr name="actionSheetBackground" format="color|reference" />
+        <attr name="cancelButtonBackground" format="color|reference" />
+        <attr name="otherButtonTopBackground" format="color|reference" />
+        <attr name="otherButtonTitleBackground" format="color|reference" />
+        <attr name="otherButtonMiddleBackground" format="color|reference" />
+        <attr name="otherButtonBottomBackground" format="color|reference" />
+        <attr name="otherButtonSingleBackground" format="color|reference" />
+        <attr name="cancelButtonTextColor" format="color|reference" />
+        <attr name="otherButtonTextColor" format="color|reference" />
+        <attr name="destructiveButtonTextColor" format="color|reference" />
+        <attr name="titleButtonTextColor" format="color|reference" />
+        <attr name="actionSheetPadding" format="dimension|reference" />
+        <attr name="otherButtonSpacing" format="dimension|reference" />
+        <attr name="cancelButtonMarginTop" format="dimension|reference" />
+        <attr name="actionSheetTextSize" format="dimension|reference" />
+    </declare-styleable>
+</resources>
