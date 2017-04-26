@@ -337,10 +337,9 @@ NSString *const kJPushReceiveBackground = @"jpush.backgroundNotification"; //后
     UIWindow *window = [[UIApplication sharedApplication] keyWindow];
     NSArray *views = [[[window rootViewController] view] subviews];
     NSArray *frames = [self searchViews:views];
+  
     for (PDRCoreAppFrame *appFrame in frames) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [appFrame stringByEvaluatingJavaScriptFromString:string];
-        });
+        [appFrame stringByEvaluatingJavaScriptFromString:string];
     }
 }
 
