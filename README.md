@@ -5,42 +5,75 @@
 [![platforms](https://img.shields.io/badge/platforms-iOS%7CAndroid-lightgrey.svg)](https://github.com/jpush/jpush-hbuilder-demo)
 [![weibo](https://img.shields.io/badge/weibo-JPush-blue.svg)](http://weibo.com/jpush?refer_flag=1001030101_&is_all=1)
 
-[极光推送](https://www.jiguangh.cn/) 官方提供的 JPush HBuilder Demo。是基于 HBuilder 提供的 [第三方插件架构](http://ask.dcloud.net.cn/docs/#http://ask.dcloud.net.cn/article/66) 进而开发出的推送插件，并集成到 iOS/Android 工程里的 demo。开发者可以通过我们提供的 [安装方式](#install) 将推送功能集成到自己的项目中，从而在 JS 层实现对推送的控制。
+[极光推送](https://www.jiguangh.cn/) 官方提供的 JPush HBuilder Demo。是基于 HBuilder 提供的 [第三方插件架构](http://ask.dcloud.net.cn/docs/#http://ask.dcloud.net.cn/article/66) 进而开发出的推送插件，并集成到 iOS/Android 工程里的 demo。开发者可以通过我们提供的[安装方式](#install)将推送功能集成到自己的项目中，从而在 js 层实现对推送的控制。
 
-<!--JPush 官方支持的 HBuilder Demo(基于 [DCloud](http://dev.dcloud.net.cn/mui/) HTML5+ 官方 Demo)，支持 iOS, Android。
--->
-
-## 功能特性
-+ 发送推送通知。
-+ 发送推送自定义消息。
-+ 设置推送标签和别名。
-+ 设置角标（iOS）。
-
-
-<h2 id="install">安装</h2>
-
+## 安装
 可以将 Demo 直接导入 Android Studio 或 Xcode 运行，如果想要在自己的项目中集成 JPush，可以参考以下步骤：
 
 ### Android 手动安装
-HBuilder 项目集成第三方插件，需先参考 HBuilder 官方的[离线打包](https://ask.dcloud.net.cn/article/38)教程，将您的 HBuilder 项目集成进 Android 工程中。之后再执行以下步骤：
- - 将 Demo/android 项目中的 /libs/jpush-android-x.x.x.jar 和 x86 等文件夹下的 libjpushXXX.so 拷贝到 Android 工程中的 /libs 下。
- - 拷贝 /src/io.dcloud.feature.jPush 文件夹至 Android 工程的 /src 目录下。
- - 拷贝 /assets/apps/H51423BFB/js/jpush.js 到 Android 工程的 /assets/apps/HBuilder应用名/js/ 下。
- - 修改 /src/io.dcloud/RInformation.java 文件中的 com.jpush.hbuilderdemo 为自己 Android 工程的包名。
- - 参照 Demo 中的 AndroidManifest.xml ，添加需要的权限和组件，替换包名和 JPush_APPKEY 为您应用的 APP_KEY。
- - 在 /assets/apps/[yourAppName]/www/manifest.json 文件中添加：
-
-        "Push": {
-            "description": "消息推送"
+HBuilder 项目集成第三方插件，需先参考 HBuilder 官方的[离线打包](https://ask.dcloud.net.cn/article/924)教程，将您的 HBuilder 项目集成进 Android 工程中。之后再执行以下步骤：
+- 拷贝 /src/main/java/io.dcloud.feature.jpush 文件夹至 Android Studio 工程的 /src/main/java 目录下。
+- 拷贝 /assets/apps/H51423BFB/js/jpush.js 到 Android Studio 工程的 /assets/apps/HBuilder应用名/js/ 下。
+- 在 /assets/apps/[yourAppName]/www/manifest.json 文件中添加：
+```json
+"Push": {
+    "description": "消息推送"
+}
+```
+- 在 /assets/data/dcloud_properties.xml 中添加（如果已存在，可直接修改）：
+ ```xml
+<feature
+    name="Push"
+    value="io.dcloud.feature.jpush.JPushService" >
+</feature>
+```
+- 在 app/build.gradle 中添加：
+```groovy
+android {
+    ...
+    defaultConfig {
+        applicationId "com.xxx.xxx" // JPush 上注册的包名.
+        ...
+        ndk {
+            // 选择要添加的对应 cpu 类型的 .so 库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
         }
+        manifestPlaceholders = [
+            JPUSH_PKGNAME : applicationId,
+            JPUSH_APPKEY : "你的 appkey", // JPush上注册的包名对应的 appkey
+            JPUSH_CHANNEL : "developer-default", // 暂时填写默认值即可
+        ]
+        ...
+    }
+    ...
+}
+dependencies {
+    ...
+    compile 'cn.jiguang.sdk:jpush:3.0.5'  // 此处以 JPush 3.0.5 版本为例，可在官网查看到最新版本号
+    compile 'cn.jiguang.sdk:jcore:1.1.2'  // 此处以 JCore 1.1.2 版本为例，可在官网查看到最新版本号
+    ...
+}
+```
+- 在 AndroidManifest.xml 中添加：
+```xml
+<receiver
+    android:name="io.dcloud.feature.jpush.JPushReceiver"
+    android:enabled="true"
+    android:exported="false">
+    <intent-filter>
+        <action android:name="cn.jpush.android.intent.REGISTRATION"/> <!-- Required 用户注册 SDK 的 intent -->
+        <action android:name="cn.jpush.android.intent.UNREGISTRATION"/>
+        <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED"/> <!-- Required 用户接收SDK消息的 intent -->
+        <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED"/> <!-- Required 用户接收SDK通知栏信息的 intent -->
+        <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED"/> <!-- Required 用户打开自定义通知栏的 intent -->
+        <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK"/> <!-- Optional 用户接受 Rich Push Javascript 回调函数的intent -->
+        <action android:name="cn.jpush.android.intent.CONNECTION"/> <!-- 接收网络变化 连接/断开 since 1.6.3 -->
 
- - 在 /assets/data/properties.xml 中添加：
-
-        <feature
-            name="Push"
-            value="io.dcloud.feature.jPush.JPushService" >
-        </feature>
-
+        <category android:name="com.jiguang.jpushhbuilderdemo"/>
+       </intent-filter>
+</receiver>
+```
 
 ### iOS 手动安装
 - 配置 manifest.json ，首先用源码的方式打开工程 /Pandora/ 目录下的 manifest.json ，在"permissions"中添加新的插件名称：
