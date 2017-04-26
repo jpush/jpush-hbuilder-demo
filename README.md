@@ -13,7 +13,7 @@
 ### Android 手动安装
 HBuilder 项目集成第三方插件，需先参考 HBuilder 官方的[离线打包](https://ask.dcloud.net.cn/article/924)教程，将您的 HBuilder 项目集成进 Android 工程中。之后再执行以下步骤：
 - 拷贝 /src/main/java/io.dcloud.feature.jpush 文件夹至 Android Studio 工程的 /src/main/java 目录下。
-- 拷贝 /assets/apps/H51423BFB/js/jpush.js 到 Android Studio 工程的 /assets/apps/HBuilder应用名/js/ 下。
+- 拷贝 ./jpush.js 到 Android Studio 工程的 /assets/apps/HBuilder应用名/js/ 下。
 - 在 /assets/apps/[yourAppName]/www/manifest.json 文件中添加：
 ```json
 "Push": {
