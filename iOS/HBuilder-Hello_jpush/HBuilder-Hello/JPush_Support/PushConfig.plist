@@ -3,11 +3,13 @@
 <plist version="1.0">
 <dict>
 	<key>APP_KEY</key>
-	<string>abcacdf406411fa656ee11c3</string>
+	<string>a1703c14b186a68a66ef86c1</string>
 	<key>CHANNEL</key>
 	<string>any channel</string>
 	<key>PRODUCTION</key>
 	<string>0</string>
+	<key>New item</key>
+	<string></string>
 	<key>IDFA</key>
 	<string>0</string>
 </dict>
