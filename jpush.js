@@ -42,7 +42,7 @@ document.addEventListener("plusready", function() {
 			this.callNative("getRegistrationID", null, successCallback)
 		},
 		setTags : function(tags) {
-			this.callNative("setTags", tags, null)
+			this.callNative("setTags", [tags], null)
 		},
 		setAlias : function(alias) {
 			this.callNative("setAlias", [alias], null)
