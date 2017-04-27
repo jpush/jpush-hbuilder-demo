@@ -20,10 +20,10 @@ NSString *const kJPushConfig_production = @"PRODUCTION";
 NSString *const kJPushConfig_idfa = @"IDFA";
 
 //以下为js中可监听到的事件
-NSString *const kJPushReceiveMessage    = @"jpush.receiveMessage";         //收到自定义消息
-NSString *const kJPushReceiveAPNS       = @"jpush.receiveNotification";    //前台收到推送消息
-NSString *const kJPushReceiveLaunch     = @"jpush.openNotification";       //点击推送消息启动或唤醒app
-NSString *const kJPushReceiveBackground = @"jpush.backgroundNotification"; //后台收到推送
+NSString *const kJPushReceiveMessage    = @"plus.Push.receiveMessageIniOSCallback";         //收到自定义消息
+NSString *const kJPushReceiveAPNS       = @"plus.Push.receiveNotificationIniOSCallback";    //前台收到推送消息
+NSString *const kJPushReceiveLaunch     = @"plus.Push.receiveNotificationLaunceAppIniOSCallback";       //点击推送消息启动或唤醒app
+NSString *const kJPushReceiveBackground = @"plus.Push.receiveNotificationBackgroundIniOSCallback"; //后台收到推送
 
 @interface JPushPlugin()
 
@@ -317,30 +317,23 @@ NSString *const kJPushReceiveBackground = @"jpush.backgroundNotification"; //后
                 NSLog(@"%@",error);
             }
         }
-        evalString = [NSString stringWithFormat:@"\
-                      var jpushEvent = document.createEvent('HTMLEvents');\
-                      jpushEvent.initEvent('%@', true, true);\
-                      jpushEvent.eventType = 'message';\
-                      jpushEvent.arguments = '%@';\
-                      document.dispatchEvent(jpushEvent);",event,argsString];
+      evalString = [NSString stringWithFormat:@"%@(%@)", event, argsString];
     }else{
-        evalString = [NSString stringWithFormat:@"\
-                      var jpushEvent = document.createEvent('HTMLEvents');\
-                      jpushEvent.initEvent('%@', true, true);\
-                      jpushEvent.eventType = 'message';\
-                      document.dispatchEvent(jpushEvent);",event];
+      evalString = [NSString stringWithFormat:@"%@({})", event];
     }
     [self evaluatingJavaScriptFromString:evalString];
 }
 
 -(void)evaluatingJavaScriptFromString:(NSString*)string{
+  dispatch_async(dispatch_get_main_queue(), ^{
     UIWindow *window = [[UIApplication sharedApplication] keyWindow];
     NSArray *views = [[[window rootViewController] view] subviews];
     NSArray *frames = [self searchViews:views];
   
-    for (PDRCoreAppFrame *appFrame in frames) {
+      for (PDRCoreAppFrame *appFrame in frames) {
         [appFrame stringByEvaluatingJavaScriptFromString:string];
-    }
+      }
+    });
 }
 
 -(NSMutableArray*)searchViews:(NSArray*)views{

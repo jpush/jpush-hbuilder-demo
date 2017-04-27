@@ -165,6 +165,41 @@ document.addEventListener("plusready", function() {
 				this.fireDocumentEvent("jpush.receiveNotification", this.receiveNotification)
 			}
 		},
+        receiveNotificationIniOSCallback : function(data) {
+            if(plus.os.name == 'iOS') {
+                data = JSON.stringify(data)
+                var jsonObj = JSON.parse(data)
+                this.receiveNotification = jsonObj
+
+                this.fireDocumentEvent("jpush.receiveNotification", this.receiveNotification)
+            }
+        },
+        receiveMessageIniOSCallback : function(data) {
+            if(plus.os.name == 'iOS') {
+                data = JSON.stringify(data)
+                var jsonObj = JSON.parse(data)
+                this.receiveMessage = jsonObj
+                this.fireDocumentEvent("jpush.receiveMessage", this.receiveMessage)
+            }
+        },
+        receiveNotificationLaunceAppIniOSCallback :function(data) {
+            if(plus.os.name == 'iOS') {
+                data = JSON.stringify(data)
+                var jsonObj = JSON.parse(data)
+                this.receiveMessage = jsonObj
+                this.fireDocumentEvent("jpush.receiveNotifcationLaunchApp", this.receiveMessage)
+            }
+
+        },
+        receiveNotificationBackgroundIniOSCallback :function(data) {
+            if(plus.os.name == 'iOS') {
+                data = JSON.stringify(data)
+                var jsonObj = JSON.parse(data)
+                this.receiveMessage = jsonObj
+                this.fireDocumentEvent("jpush.receiveNotificationBackground", this.receiveMessage)
+            }
+
+        },
 		// iOS methods
     setBadge : function(value) {
       if(plus.os.name == 'iOS') {
