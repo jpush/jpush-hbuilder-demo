@@ -38,18 +38,36 @@
 		    })
       }
       
-      var receiveNotification = function() {
-		    var content = plus.Push.receiveNotification.alert
+      var receiveNotification = function(event) {
+        var content
+        if(plus.os.name == 'iOS') {
+          content = window.plus.Push.receiveNotification.aps.alert
+        } else {
+          content = window.plus.Push.receiveNotification.alert
+        }
+        
 		    $("#notificationResult").html(content)
       }
       
       var openNotification = function() {
-		    var content = plus.Push.openNotification.alert
-		    alert(content)
+        var content
+        if(plus.os.name == 'iOS') {
+		      content = plus.Push.openNotification.aps.alert
+        } else {
+          content = plus.Push.openNotification.alert
+
+        }
+        $("#notificationResult").html(content)
       }
       
       var receiveMessage = function() {
-        var msg = plus.Push.receiveMessage.message
+        var msg
+        if(plus.os.name == 'iOS') {
+          msg = plus.Push.receiveMessage.content
+        } else {
+          msg = plus.Push.receiveMessage.message
+        }
+        
         $("#messageResult").html(msg)
       }
 
@@ -57,6 +75,7 @@
           var result = "result code: " + event.arguments.resultCode + " "
           result += "tags: " + event.arguments.tags + " "
           result += "alias: " + event.arguments.alias + " "
+          alert(result)
           $("#tagAliasResult").html(result)
       }
       
