@@ -72,29 +72,17 @@ NSString *const kJPushReceiveBackground = @"plus.Push.receiveNotificationBackgro
 
 - (void)onRevRemoteNotification:(NSDictionary *)userInfo
 {
-  
-  NSDictionary *userinforet;
-  if ([userInfo isKindOfClass:[NSNotification class]]){
-    NSNotification *noti = (NSNotification *)userInfo;
-    userinforet = (NSDictionary *)noti.object;
-  }else if ([userInfo isKindOfClass:[NSDictionary class]]){
-    userinforet = userInfo;
-  }
-  if (!userinforet){
-    return;
-  }
-  
-  [JPUSHService handleRemoteNotification:userinforet];
+  [JPUSHService handleRemoteNotification:userInfo];
   [super onRevRemoteNotification:userInfo];
   switch ([UIApplication sharedApplication].applicationState) {
     case UIApplicationStateActive:
-      [self fireEvent:kJPushReceiveAPNS args:userinforet];
+      [self fireEvent:kJPushReceiveAPNS args:userInfo];
       break;
     case UIApplicationStateInactive:
-      [self fireEvent:kJPushReceiveLaunch args:userinforet];
+      [self fireEvent:kJPushReceiveLaunch args:userInfo];
       break;
     case UIApplicationStateBackground:
-      [self fireEvent:kJPushReceiveBackground args:userinforet];
+      [self fireEvent:kJPushReceiveBackground args:userInfo];
       break;
     default:
       break;
