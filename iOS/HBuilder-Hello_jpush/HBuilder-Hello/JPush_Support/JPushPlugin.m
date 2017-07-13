@@ -72,14 +72,14 @@ NSString *const kJPushReceiveBackground = @"plus.Push.receiveNotificationBackgro
 
 - (void)onRevRemoteNotification:(NSDictionary *)userInfo
 {
-  
   NSDictionary *userinforet;
   if ([userInfo isKindOfClass:[NSNotification class]]){
     NSNotification *noti = (NSNotification *)userInfo;
     userinforet = (NSDictionary *)noti.object;
-  }else if ([userInfo isKindOfClass:[NSDictionary class]]){
+  } else if ([userInfo isKindOfClass: [NSDictionary class]]){
     userinforet = userInfo;
   }
+  
   if (!userinforet){
     return;
   }
