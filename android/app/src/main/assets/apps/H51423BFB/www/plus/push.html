@@ -31,11 +31,11 @@
 
       var getRegistrationID = function() {
         init()
-		    plus.Push.getRegistrationID(function(data) {
-			    if(data.length != 0) {
-				    $('#registrationID').html(data)
-			    }
-		    })
+        plus.Push.getRegistrationID(function(data) {
+            if(data.length != 0) {
+                $('#registrationID').html(data)
+            }
+        })
       }
 
       var receiveNotification = function() {
