@@ -2,9 +2,9 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion "26.0.0"
     defaultConfig {
-        applicationId "com.jiguang.jpushhbuilderdemo"
+        applicationId "应用的包名"
         minSdkVersion 19
         targetSdkVersion 25
         versionCode 1
@@ -13,13 +13,12 @@ android {
 
         ndk {
             //选择要添加的对应cpu类型的.so库。
-            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
-            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64', 'mips', 'mips64'
         }
 
         manifestPlaceholders = [
                 JPUSH_PKGNAME : applicationId,
-                JPUSH_APPKEY : "your appkey", // JPush 上注册的包名对应的 AppKey
+                JPUSH_APPKEY : "应用的 AppKey", // JPush 上注册的包名对应的 AppKey
                 JPUSH_CHANNEL : "developer-default", // 暂时填写默认值即可
         ]
     }
@@ -39,11 +38,16 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
+
+    compile 'cn.jiguang.sdk:jpush:3.0.9'
+    compile 'cn.jiguang.sdk:jcore:1.1.7'
+
     compile files('libs/my-imageloader.jar')
     compile files('libs/my-nineoldandroids-2.4.0.jar')
     compile files('libs/pdr.jar')
     compile files('libs/ui.jar')
-
-    compile 'cn.jiguang.sdk:jpush:3.0.5'
-    compile 'cn.jiguang.sdk:jcore:1.1.2'
+    compile files('libs/file.jar')
+    compile files('libs/nopermission.jar')
+    compile files('libs/xhr.jar')
+    compile files('libs/nativeui.jar')
 }
