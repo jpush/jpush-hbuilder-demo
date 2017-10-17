@@ -1,6 +1,5 @@
 # JPush HBuilder Demo
 
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/jpush/jpush-hbuilder-demo)
 [![release](https://img.shields.io/badge/release-1.0.0-blue.svg)](https://github.com/jpush/jpush-hbuilder-demo/releases)
 [![platforms](https://img.shields.io/badge/platforms-iOS%7CAndroid-lightgrey.svg)](https://github.com/jpush/jpush-hbuilder-demo)
 [![weibo](https://img.shields.io/badge/weibo-JPush-blue.svg)](http://weibo.com/jpush?refer_flag=1001030101_&is_all=1)
@@ -8,9 +7,11 @@
 [极光推送](https://www.jiguangh.cn/) 官方提供的 JPush HBuilder Demo。是基于 HBuilder 提供的 [第三方插件架构](http://ask.dcloud.net.cn/docs/#http://ask.dcloud.net.cn/article/66) 进而开发出的推送插件，并集成到 iOS/Android 工程里的 demo。开发者可以通过我们提供的[安装方式](#install)将推送功能集成到自己的项目中，从而在 js 层实现对推送的控制。
 
 ## 安装
+
 可以将 Demo 直接导入 Android Studio 或 Xcode 运行，如果想要在自己的项目中集成 JPush，可以参考以下步骤：
 
 ### Android 手动安装
+
 HBuilder 项目集成第三方插件，需先参考 HBuilder 官方的[离线打包](https://ask.dcloud.net.cn/article/924)教程，将您的 HBuilder 项目集成进 Android 工程中。之后再执行以下步骤：
 - 拷贝 /src/main/java/io.dcloud.feature.jpush 文件夹至 Android Studio 工程的 /src/main/java 目录下。
 - 拷贝 ./jpush.js 到 Android Studio 工程的 /assets/apps/HBuilder应用名/js/ 下。
@@ -20,6 +21,7 @@ HBuilder 项目集成第三方插件，需先参考 HBuilder 官方的[离线打
     "description": "消息推送"
 }
 ```
+
 - 在 /assets/data/dcloud_properties.xml 中添加（如果已存在，可直接修改）：
  ```xml
 <feature
@@ -27,6 +29,7 @@ HBuilder 项目集成第三方插件，需先参考 HBuilder 官方的[离线打
     value="io.dcloud.feature.jpush.JPushService" >
 </feature>
 ```
+
 - 在 app/build.gradle 中添加：
 ```groovy
 android {
@@ -50,29 +53,10 @@ android {
 }
 dependencies {
     ...
-    compile 'cn.jiguang.sdk:jpush:3.0.5'  // 此处以 JPush 3.0.5 版本为例，可在官网查看到最新版本号
-    compile 'cn.jiguang.sdk:jcore:1.1.2'  // 此处以 JCore 1.1.2 版本为例，可在官网查看到最新版本号
+    compile 'cn.jiguang.sdk:jpush:3.0.9'  // 此处以 JPush 3.0.9 版本为例。
+    compile 'cn.jiguang.sdk:jcore:1.1.7'  // 此处以 JCore 1.1.7 版本为例。
     ...
 }
-```
-- 在 AndroidManifest.xml 中添加：
-```xml
-<receiver
-    android:name="io.dcloud.feature.jpush.JPushReceiver"
-    android:enabled="true"
-    android:exported="false">
-    <intent-filter>
-        <action android:name="cn.jpush.android.intent.REGISTRATION"/> <!-- Required 用户注册 SDK 的 intent -->
-        <action android:name="cn.jpush.android.intent.UNREGISTRATION"/>
-        <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED"/> <!-- Required 用户接收SDK消息的 intent -->
-        <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED"/> <!-- Required 用户接收SDK通知栏信息的 intent -->
-        <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED"/> <!-- Required 用户打开自定义通知栏的 intent -->
-        <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK"/> <!-- Optional 用户接受 Rich Push Javascript 回调函数的intent -->
-        <action android:name="cn.jpush.android.intent.CONNECTION"/> <!-- 接收网络变化 连接/断开 since 1.6.3 -->
-
-        <category android:name="com.jiguang.jpushhbuilderdemo"/>
-       </intent-filter>
-</receiver>
 ```
 
 ### iOS 手动安装
