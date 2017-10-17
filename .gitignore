@@ -256,3 +256,7 @@ iOSInjectionProject/
 # End of https://www.gitignore.io/api/xcode,android,objective-c,androidstudio
 
 Android/\.idea/
+
+android/\.settings/
+
+android/app/\.settings/
