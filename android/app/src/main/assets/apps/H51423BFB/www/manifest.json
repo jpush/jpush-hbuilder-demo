@@ -28,9 +28,6 @@
 		"Events": {
 			"description": "扩展事件"
 		},
-		"File": {
-			"description": "本地文件系统"
-		},
 		"Invocation": {
 			"description": "Native.js能力"
 		},
@@ -65,7 +62,6 @@
 					"<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
 					"<uses-permission android:name=\"android.permission.VIBRATE\"/>",
 					"<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
-					"<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
 					"<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>"
 				]
 			},

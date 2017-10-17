@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
-          package="com.jiguang.jpushhbuilderdemo">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.jiguang.jpushhbuilderdemo">
 
     <supports-screens
         android:anyDensity="true"
         android:largeScreens="true"
         android:normalScreens="true"
         android:resizeable="true"
-        android:smallScreens="true"
-        />
+        android:smallScreens="true" />
 
-    <uses-sdk android:maxSdkVersion="8"/>
+    <uses-sdk android:maxSdkVersion="8" />
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.GET_TASKS"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name="io.dcloud.application.DCloudApplication"
@@ -37,9 +36,9 @@
             android:theme="@style/TranslucentTheme"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
@@ -51,26 +50,25 @@
             android:launchMode="singleTask"
             android:screenOrientation="user"
             android:theme="@style/DCloudTheme"
-            android:windowSoftInputMode="adjustResize">
-        </activity>
+            android:windowSoftInputMode="adjustResize"></activity>
 
         <service
             android:name="io.dcloud.common.adapter.io.MiniServerService"
-            android:exported="true"/>
+            android:exported="true" />
 
         <receiver
             android:name="io.dcloud.feature.jpush.JPushReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
-                <action android:name="cn.jpush.android.intent.REGISTRATION"/> <!-- Required 用户注册SDK的 intent -->
-                <action android:name="cn.jpush.android.intent.UNREGISTRATION"/>
-                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED"/> <!-- Required 用户接收SDK消息的 intent -->
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED"/> <!-- Required 用户接收SDK通知栏信息的 intent -->
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED"/> <!-- Required 用户打开自定义通知栏的 intent -->
-                <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK"/> <!-- Optional 用户接受 Rich Push Javascript 回调函数的intent -->
-                <action android:name="cn.jpush.android.intent.CONNECTION"/> <!-- 接收网络变化 连接/断开 since 1.6.3 -->
-                <category android:name="com.jiguang.jpushhbuilderdemo"/>
+                <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!-- Required 用户注册SDK的 intent -->
+                <action android:name="cn.jpush.android.intent.UNREGISTRATION" />
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!-- Required 用户接收SDK消息的 intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> <!-- Required 用户接收SDK通知栏信息的 intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!-- Required 用户打开自定义通知栏的 intent -->
+                <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK" /> <!-- Optional 用户接受 Rich Push Javascript 回调函数的intent -->
+                <action android:name="cn.jpush.android.intent.CONNECTION" /> <!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <category android:name="com.jiguang.jpushhbuilderdemo" />
             </intent-filter>
         </receiver>
     </application>

@@ -63,9 +63,6 @@
 			// 预创建二级窗口
 			//	preateWebviews();
 			// 关闭启动界面
-			setTimeout(function() {
-				plus.navigator.closeSplashscreen();
-			}, 500);
 		}
 
 		// 处理点击事件
@@ -114,7 +111,6 @@
 		var preate = {};
 
 		function preateWebviews() {
-			preateWebivew('plus/webview.html');
 			var plist = document.getElementById('plist').children;
 			// 由于启动是预创建过多Webview窗口会消耗较长的时间，所以这里限制仅创建5个
 			for (var i = 0; i < plist.length && i < 2; i++) {
