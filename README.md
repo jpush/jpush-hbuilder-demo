@@ -13,16 +13,17 @@
 ### Android 手动安装
 
 HBuilder 项目集成第三方插件，需先参考 HBuilder 官方的[离线打包](https://ask.dcloud.net.cn/article/924)教程，将您的 HBuilder 项目集成进 Android 工程中。之后再执行以下步骤：
-- 拷贝 /src/main/java/io.dcloud.feature.jpush 文件夹至 Android Studio 工程的 /src/main/java 目录下。
-- 拷贝 ./jpush.js 到 Android Studio 工程的 /assets/apps/HBuilder应用名/js/ 下。
-- 在 /assets/apps/[yourAppName]/www/manifest.json 文件中添加：
+1. 拷贝 /src/main/java/io.dcloud.feature.jpush 文件夹至 Android Studio 工程的 /src/main/java 目录下。
+2. 拷贝 ./jpush.js 到 Android Studio 工程的 /assets/apps/HBuilder应用名/js/ 下。
+3. 在 /assets/apps/[yourAppName]/www/manifest.json 文件中添加：
+
 ```json
 "Push": {
     "description": "消息推送"
 }
 ```
 
-- 在 /assets/data/dcloud_properties.xml 中添加（如果已存在，可直接修改）：
+4. 在 /assets/data/dcloud_properties.xml 中添加（如果已存在，可直接修改）：
  ```xml
 <feature
     name="Push"
@@ -30,7 +31,7 @@ HBuilder 项目集成第三方插件，需先参考 HBuilder 官方的[离线打
 </feature>
 ```
 
-- 在 app/build.gradle 中添加：
+5. 在 app/build.gradle 中添加：
 ```groovy
 android {
     ...
@@ -44,7 +45,7 @@ android {
         }
         manifestPlaceholders = [
             JPUSH_PKGNAME : applicationId,
-            JPUSH_APPKEY : "你的 appkey", // JPush上注册的包名对应的 appkey
+            JPUSH_APPKEY : "应用的 AppKey", // JPush上注册的包名对应的 appkey
             JPUSH_CHANNEL : "developer-default", // 暂时填写默认值即可
         ]
         ...
@@ -57,6 +58,26 @@ dependencies {
     compile 'cn.jiguang.sdk:jcore:1.1.7'  // 此处以 JCore 1.1.7 版本为例。
     ...
 }
+```
+
+6. 在 AndroidManifest.xml 中添加：
+
+```xml
+<receiver
+  android:name="io.dcloud.feature.jpush.JPushReceiver"
+  android:enabled="true"
+  android:exported="false">
+    <intent-filter>
+      <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!-- Required 用户注册SDK的 intent -->
+      <action android:name="cn.jpush.android.intent.UNREGISTRATION" />
+      <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!-- Required 用户接收SDK消息的 intent -->
+      <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> <!-- Required 用户接收SDK通知栏信息的 intent -->
+      <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!-- Required 用户打开自定义通知栏的 intent -->
+      <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK" /> <!-- Optional 用户接受 Rich Push Javascript 回调函数的intent -->
+      <action android:name="cn.jpush.android.intent.CONNECTION" /> <!-- 接收网络变化 连接/断开 since 1.6.3 -->
+      <category android:name="${JPUSH_PKGNAME}" />
+    </intent-filter>
+</receiver>
 ```
 
 ### iOS 手动安装
