@@ -1,168 +1,165 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="MobileOptimized" content="320"/>
+  <meta name="MobileOptimized" content="320" />
   <title>JPush HBuilder Demo</title>
-  <link href="../css/jquery.mobile-1.1.1.css" rel="stylesheet"/>
+  <link href="../css/jquery.mobile-1.1.1.css" rel="stylesheet" />
   <script src="../js/jquery.js"></script>
   <script src="../js/jquery.mobile-1.1.1.js"></script>
   <script src="../js/common.js"></script>
   <script src="../js/jpush.js"></script>
   <script type="text/javascript">
-      var setTagsWithAlias = function() {
-        var tag1 = $("#tagText1").attr("value")
-        var tag2 = $("#tagText2").attr("value")
-        var tag3 = $("#tagText3").attr("value")
-        var alias = $("#aliasText").attr("value")
-        var tags = []
+    var setTagsWithAlias = function () {
+      var tag1 = $("#tagText1").attr("value")
+      var tag2 = $("#tagText2").attr("value")
+      var tag3 = $("#tagText3").attr("value")
+      var alias = $("#aliasText").attr("value")
+      var tags = []
 
-        if (tag1 != "") {
-          tags.push(tag1)
-        }
-        if (tag2 != "") {
-          tags.push(tag2)
-        }
-        if (tag3 != "") {
-          tags.push(tag3)
-        }
-        plus.Push.setTagsWithAlias(tags, alias)
+      if (tag1 != "") {
+        tags.push(tag1)
       }
-      
-      var getRegistrationID = function() {
-        init()
-		    plus.Push.getRegistrationID(function(data) {
-			    if(data.length != 0) {
-				    $("#registrationID").html(data)
-			    }
-		    })
+      if (tag2 != "") {
+        tags.push(tag2)
       }
-      
-      var receiveNotification = function(event) {
-        var content
-        if(plus.os.name == 'iOS') {
-          content = window.plus.Push.receiveNotification.aps.alert
-        } else {
-          content = window.plus.Push.receiveNotification.alert
-        }
-        
-		    $("#notificationResult").html(content)
+      if (tag3 != "") {
+        tags.push(tag3)
       }
-      
-      var openNotification = function() {
-        var content
-        if(plus.os.name == 'iOS') {
-		      content = plus.Push.openNotification.aps.alert
-        } else {
-          content = plus.Push.openNotification.alert
+      plus.Push.setTagsWithAlias(tags, alias)
+    }
 
+    var getRegistrationID = function () {
+      plus.Push.getRegistrationID(function (data) {
+        if (data.length != 0) {
+          $("#registrationID").html(data)
         }
-        $("#notificationResult").html(content)
-      }
-      
-      var receiveMessage = function() {
-        var msg
-        if(plus.os.name == 'iOS') {
-          msg = plus.Push.receiveMessage.content
-        } else {
-          msg = plus.Push.receiveMessage.message
-        }
-        
-        $("#messageResult").html(msg)
+      })
+    }
+
+    var receiveNotification = function (event) {
+      var content
+      if (plus.os.name == 'iOS') {
+        content = window.plus.Push.receiveNotification.aps.alert
+      } else {
+        content = window.plus.Push.receiveNotification.alert
       }
 
-      var onAliasAndTagsSet = function(event) {
-          var result = "result code: " + event.arguments.resultCode + " "
-          result += "tags: " + event.arguments.tags + " "
-          result += "alias: " + event.arguments.alias + " "
-          alert(result)
-          $("#tagAliasResult").html(result)
+      $("#notificationResult").html(content)
+    }
+
+    var openNotification = function () {
+      var content
+      if (plus.os.name == 'iOS') {
+        content = plus.Push.openNotification.aps.alert
+      } else {
+        content = plus.Push.openNotification.alert
+
       }
-      
-      var init = function() {
-          plus.Push.init()
+      $("#notificationResult").html(content)
+    }
+
+    var receiveMessage = function () {
+      var msg
+      if (plus.os.name == 'iOS') {
+        msg = plus.Push.receiveMessage.content
+      } else {
+        msg = plus.Push.receiveMessage.message
       }
 
-      document.addEventListener("jpush.receiveMessage", receiveMessage, false)
-      document.addEventListener("jpush.receiveNotification", receiveNotification, false)
-      document.addEventListener("jpush.openNotification", openNotification, false)
-      document.addEventListener("jpush.setTagsWithAlias", onAliasAndTagsSet, false)
+      $("#messageResult").html(msg)
+    }
 
+    var onAliasAndTagsSet = function (event) {
+      var result = "result code: " + event.arguments.resultCode + " "
+      result += "tags: " + event.arguments.tags + " "
+      result += "alias: " + event.arguments.alias + " "
+      alert(result)
+      $("#tagAliasResult").html(result)
+    }
+
+    var init = function () {
+      plus.Push.init()
+    }
+
+    document.addEventListener("plusready", init, false)
+    document.addEventListener("jpush.receiveMessage", receiveMessage, false)
+    document.addEventListener("jpush.receiveNotification", receiveNotification, false)
+    document.addEventListener("jpush.openNotification", openNotification, false)
+    document.addEventListener("jpush.setTagsWithAlias", onAliasAndTagsSet, false)
   </script>
 </head>
 
 <body>
-<div data-role="page" id="page">
-  <div data-role="content">
-    <form>
-      <div class="ui-body ui-body-b">
-        <div data-role="fieldcontain">
-          <h3 align="center">JPush Example</h3>
-          <span id="alias"></span>
-          <hr/>
-          <label>RegistrationID: </label>
-          <label id="registrationID">null</label>
+  <div data-role="page" id="page">
+    <div data-role="content">
+      <form>
+        <div class="ui-body ui-body-b">
+          <div data-role="fieldcontain">
+            <h3 align="center">JPush Example</h3>
+            <span id="alias"></span>
+            <hr/>
+            <label>RegistrationID: </label>
+            <label id="registrationID">null</label>
+          </div>
+
+          <div data-role="fieldcontain">
+            <label>Tags: </label>
+            <table>
+              <tr>
+                <td>
+                  <input type="text" id="tagText1" />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input type="text" id="tagText2" />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input type="text" id="tagText3">
+                </td>
+              </tr>
+            </table>
+            <label>Alias: </label>
+            <table>
+              <tr>
+                <td>
+                  <input type="text" id="aliasText">
+                </td>
+              </tr>
+            </table>
+          </div>
+
+          <div data-role="fieldcontain">
+            <input type="button" value="Add tag and alias" onclick="setTagsWithAlias()" />
+
+            <input type="button" onclick="plus.Push.addLocalNotification(0,
+            		'local notification', 'title', 1, 0, null)" value="Add local notification" />
+
+            <input type="button" onclick="getRegistrationID()" value="Get registration ID" />
+          </div>
+
+          <div data-role="fieldcontain">
+            <label id="tagAliasPrompt">设置tag/alias结果:</label>
+            <label id="tagAliasResult">null</label>
+          </div>
+
+          <div data-role="fieldcontain">
+            <label id="notificationPrompt">接受的通知内容:</label>
+            <label id="notificationResult">null</label>
+          </div>
+
+          <div data-role="fieldcontain">
+            <label id="messagePrompt">接受的自定义消息:</label>
+            <label id="messageResult">null</label>
+          </div>
         </div>
-
-        <div data-role="fieldcontain">
-          <label>Tags: </label>
-          <table>
-            <tr>
-              <td>
-                <input type="text" id="tagText1"/>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <input type="text" id="tagText2"/>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <input type="text" id="tagText3">
-              </td>
-            </tr>
-          </table>
-          <label>Alias: </label>
-          <table>
-            <tr>
-              <td>
-                <input type="text" id="aliasText">
-              </td>
-            </tr>
-          </table>
-        </div>
-
-        <div data-role="fieldcontain">
-          <input type="button" value="Add tag and alias"
-                 onclick="setTagsWithAlias()"/>
-
-          <input type="button" onclick="plus.Push.addLocalNotification(0,
-            		'local notification', 'title', 1, 0, null)"
-                 value="Add local notification"/>
-
-          <input type="button" onclick="getRegistrationID()"
-                 value="Get registration ID"/>
-        </div>
-
-        <div data-role="fieldcontain">
-          <label id="tagAliasPrompt">设置tag/alias结果:</label>
-          <label id="tagAliasResult">null</label>
-        </div>
-
-        <div data-role="fieldcontain">
-          <label id="notificationPrompt">接受的通知内容:</label>
-          <label id="notificationResult">null</label>
-        </div>
-
-        <div data-role="fieldcontain">
-          <label id="messagePrompt">接受的自定义消息:</label>
-          <label id="messageResult">null</label>
-        </div>
-
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
-</div>
 </body>
+
 </html>

@@ -4,7 +4,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "26.0.0"
     defaultConfig {
-        applicationId "应用的包名"
+        applicationId "com.hevin.jmessage"
         minSdkVersion 19
         targetSdkVersion 25
         versionCode 1
@@ -18,7 +18,7 @@ android {
 
         manifestPlaceholders = [
                 JPUSH_PKGNAME : applicationId,
-                JPUSH_APPKEY : "应用的 AppKey", // JPush 上注册的包名对应的 AppKey
+                JPUSH_APPKEY : "b99f062ffc07bc9b3a4e92d7", // JPush 上注册的包名对应的 AppKey
                 JPUSH_CHANNEL : "developer-default", // 暂时填写默认值即可
         ]
     }
