@@ -140,8 +140,6 @@ JPush SDK 会以广播的形式发送 RegistrationID 到应用程序。
 |6008|tag/alias 超出总长度限制。	       	       |总长度最多 1K 字节。|
 |6011|10s 内设置 tag 或 alias 多于3次。	       |短时间内操作过于频繁。|
 
-
-
 ## 获取点击通知内容
 
 ### event - jpush.openNotification
@@ -406,6 +404,21 @@ JPush SDK 会恢复正常的默认行为。（因为保存在本地的状态数�
 	- true: 显示集成日志。
 	- false: 不显示集成日志。
 
+### API - getConnectionState
+
+获取推送连接状态。
+
+#### 代码示例
+
+```js
+plus.Push.getConnectionState((state) => {
+  if (state) {
+    // 连接状态
+  } else {
+    // 断开状态
+  }
+})
+```
 
 ##  接收消息和点击通知事件
 

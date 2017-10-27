@@ -1,7 +1,5 @@
 package io.dcloud.feature.jpush;
 
-import android.content.Context;
-import android.os.Bundle;
 import android.text.TextUtils;
 
 import org.json.JSONArray;
@@ -27,40 +25,36 @@ public class JPushService extends StandardFeature {
 
     public static final String TAG = JPushService.class.getSimpleName();
 
-    public static String notificationTitle;
-    public static String notificationAlert;
-    public static Map<String, Object> notificationExtras = new HashMap<String, Object>();
+    static String notificationTitle;
+    static String notificationAlert;
+    static Map<String, Object> notificationExtras = new HashMap<String, Object>();
 
-    public static String openNotificationTitle;
-    public static String openNotificationAlert;
-    public static Map<String, Object> openNotificationExtras = new HashMap<String, Object>();
+    static String openNotificationTitle;
+    static String openNotificationAlert;
+    static Map<String, Object> openNotificationExtras = new HashMap<String, Object>();
 
-    private static IWebview mIWebview;
+    private static IWebview mIWebView;
     private static boolean shouldCacheMsg = false;
 
     private static String mRegistrationId;
 
-    @Override
-    public void onStart(Context context, Bundle arg1, String[] arg2) {
-        JPushInterface.init(context);
-        JPushInterface.setDebugMode(false);
-    }
-
     // 需要手动调用
-    public void init(IWebview webview, JSONArray data) {
-        mIWebview = webview;
-        //如果同时缓存了打开事件 openNotificationAlert 和消息事件 notificationAlert，
-        //只向 UI 发打开事件，这样做是为了和 iOS 统一。
+    public void init(IWebview webView, JSONArray data) {
+        JPushInterface.init(webView.getContext().getApplicationContext());
+
+        mIWebView = webView;
+
         if (openNotificationAlert != null) {
-            notificationAlert = null;
-            transmitNotificationOpen(openNotificationTitle,
-                    openNotificationAlert, openNotificationExtras);
+            transmitNotificationOpen(openNotificationTitle, openNotificationAlert, openNotificationExtras);
+            openNotificationAlert = null;
         }
+
         if (notificationAlert != null) {
-            transmitNotificationReceive(notificationTitle,
-                    notificationAlert, notificationExtras);
+            transmitNotificationReceive(notificationTitle, notificationAlert, notificationExtras);
+            notificationAlert = null;
         }
-        if (mRegistrationId != null && !mRegistrationId.equals("")) {
+
+        if (!TextUtils.isEmpty(mRegistrationId)) {
             transmitGetRegistrationId(mRegistrationId);
             mRegistrationId = null;
         }
@@ -75,110 +69,135 @@ public class JPushService extends StandardFeature {
     @Override
     public void onResume() {
         super.onResume();
+
         shouldCacheMsg = false;
+
         if (openNotificationAlert != null) {
-            notificationAlert = null;
             transmitNotificationOpen(openNotificationTitle, openNotificationAlert, openNotificationExtras);
+            openNotificationAlert = null;
         }
+
         if (notificationAlert != null) {
             transmitNotificationReceive(notificationTitle, notificationAlert, notificationExtras);
+            notificationAlert = null;
         }
     }
 
-    public void stopPush(IWebview webview, JSONArray data) {
-        JPushInterface.stopPush(webview.getContext());
+    public void stopPush(IWebview webView, JSONArray data) {
+        JPushInterface.stopPush(webView.getContext());
     }
 
-    public void resumePush(IWebview webview, JSONArray data) {
-        JPushInterface.resumePush(webview.getContext());
+    public void resumePush(IWebview webView, JSONArray data) {
+        JPushInterface.resumePush(webView.getContext());
     }
 
-    public void isPushStopped(IWebview webview, JSONArray data) {
+    public void isPushStopped(IWebview webView, JSONArray data) {
         try {
             String callbackId = data.getString(0);
-            boolean isPushStopped = JPushInterface.isPushStopped(webview.getContext());
+            boolean isPushStopped = JPushInterface.isPushStopped(webView.getContext());
             if (isPushStopped) {
-                JSUtil.execCallback(webview, callbackId, 1, JSUtil.OK, false);
+                JSUtil.execCallback(webView, callbackId, 1, JSUtil.OK, false);
             } else {
-                JSUtil.execCallback(webview, callbackId, 0, JSUtil.OK, false);
+                JSUtil.execCallback(webView, callbackId, 0, JSUtil.OK, false);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    public static void transmitGetRegistrationId(String rId) {
-        String format = "plus.Push.onGetRegistrationId(%s);";
-        final String js = String.format(format, rId);
-        if (mIWebview == null) {
+    static void transmitGetRegistrationId(String rId) {
+        if (shouldCacheMsg) {
+            return;
+        }
+
+        if (mIWebView == null) {
             mRegistrationId = rId;
         } else {
-            mIWebview.getActivity().runOnUiThread(new Runnable() {
+            String format = "plus.Push.onGetRegistrationId(%s);";
+            final String js = String.format(format, rId);
+
+            mIWebView.getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    mIWebview.loadUrl("javascript:" + js);
+                    mIWebView.loadUrl("javascript:" + js);
                 }
             });
         }
     }
 
-    public static void transmitMessageReceive(String msg,
-                                              Map<String, Object> extras) {
-        JSONObject data = getMessageObject(msg, extras);
-        String format = "plus.Push.receiveMessageInAndroidCallback(%s);";
-        final String js = String.format(format, data.toString());
-        mIWebview.getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mIWebview.loadUrl("javascript:" + js);
-            }
-        });
-    }
-
-    public static void transmitNotificationOpen(String title, String alert,
-                                                Map<String, Object> extras) {
+    static void transmitMessageReceive(String msg, Map<String, Object> extras) {
         if (shouldCacheMsg) {
             return;
         }
-        JSONObject data = getNotificationObject(title, alert, extras);
-        String format = "plus.Push.openNotificationInAndroidCallback(%s);";
-        final String js = String.format(format, data.toString());
-        mIWebview.getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mIWebview.loadUrl("javascript:" + js);
-            }
-        });
-        openNotificationTitle = null;
-        openNotificationAlert = null;
+
+        if (mIWebView != null) {
+            JSONObject data = getMessageObject(msg, extras);
+            String format = "plus.Push.receiveMessageInAndroidCallback(%s);";
+            final String js = String.format(format, data.toString());
+
+            mIWebView.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mIWebView.loadUrl("javascript:" + js);
+                }
+            });
+        }
     }
 
-    public static void transmitNotificationReceive(String title, String alert,
-                                                   Map<String, Object> extras) {
-        JSONObject data = getNotificationObject(title, alert, extras);
-        String format = "plus.Push.receiveNotificationInAndroidCallback(%s);";
-        final String js = String.format(format, data.toString());
-        mIWebview.getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mIWebview.loadUrl("javascript:" + js);
-            }
-        });
-        notificationTitle = null;
-        notificationAlert = null;
+    static void transmitNotificationOpen(String title, String alert, Map<String, Object> extras) {
+        if (shouldCacheMsg) {
+            return;
+        }
+
+        if (mIWebView != null) {
+            JSONObject data = getNotificationObject(title, alert, extras);
+            String format = "plus.Push.openNotificationInAndroidCallback(%s);";
+            final String js = String.format(format, data.toString());
+
+            mIWebView.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mIWebView.loadUrl("javascript:" + js);
+                }
+            });
+
+            openNotificationTitle = null;
+            openNotificationAlert = null;
+        }
     }
 
-    public void getRegistrationID(IWebview webview, JSONArray data) {
+    static void transmitNotificationReceive(String title, String alert, Map<String, Object> extras) {
+        if (shouldCacheMsg) {
+            return;
+        }
+
+        if (mIWebView != null) {
+            JSONObject data = getNotificationObject(title, alert, extras);
+            String format = "plus.Push.receiveNotificationInAndroidCallback(%s);";
+            final String js = String.format(format, data.toString());
+
+            mIWebView.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mIWebView.loadUrl("javascript:" + js);
+                }
+            });
+            notificationTitle = null;
+            notificationAlert = null;
+        }
+    }
+
+    public void getRegistrationID(IWebview webView, JSONArray data) {
         try {
             String callbackId = data.getString(0);
-            String regId = JPushInterface.getRegistrationID(webview.getActivity());
-            JSUtil.execCallback(webview, callbackId, regId, JSUtil.OK, false);
+            String regId = JPushInterface.getRegistrationID(webView.getActivity());
+            JSUtil.execCallback(webView, callbackId, regId, JSUtil.OK, false);
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    public void addLocalNotification(IWebview webview, JSONArray data) {
+    public void addLocalNotification(IWebview webView, JSONArray data) {
         try {
             int builderId = data.getInt(1);
             String content = data.getString(2);
@@ -199,64 +218,64 @@ public class JPushService extends StandardFeature {
             jLocalNoti.setBroadcastTime(System.currentTimeMillis() + broadcastTime);
             jLocalNoti.setExtras(extras.toString());
 
-            JPushInterface.addLocalNotification(webview.getActivity(), jLocalNoti);
+            JPushInterface.addLocalNotification(webView.getActivity(), jLocalNoti);
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    public void removeLocalNotification(IWebview webview, JSONArray data) {
+    public void removeLocalNotification(IWebview webView, JSONArray data) {
         try {
             int notificationId = data.getInt(1);
-            JPushInterface.removeLocalNotification(webview.getContext(), notificationId);
+            JPushInterface.removeLocalNotification(webView.getContext(), notificationId);
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    public void clearLocalNotifications(IWebview webview, JSONArray data) {
-        JPushInterface.clearLocalNotifications(webview.getContext());
+    public void clearLocalNotifications(IWebview webView, JSONArray data) {
+        JPushInterface.clearLocalNotifications(webView.getContext());
     }
 
-    public void clearAllNotification(IWebview webview, JSONArray data) {
-        JPushInterface.clearAllNotifications(webview.getContext());
+    public void clearAllNotification(IWebview webView, JSONArray data) {
+        JPushInterface.clearAllNotifications(webView.getContext());
     }
 
-    public void clearNotificationById(IWebview webview, JSONArray data) {
+    public void clearNotificationById(IWebview webView, JSONArray data) {
         int id;
         try {
             id = data.getInt(1);
             if (id != -1) {
-                JPushInterface.clearNotificationById(webview.getActivity(), id);
+                JPushInterface.clearNotificationById(webView.getActivity(), id);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    public void setTags(IWebview webview, JSONArray data) {
+    public void setTags(IWebview webView, JSONArray data) {
         try {
             JSONArray jsonArr = data.getJSONArray(1);
             HashSet<String> tags = new HashSet<String>();
             for (int i = 0, len = jsonArr.length(); i < len; i++) {
                 tags.add(jsonArr.getString(i));
             }
-            JPushInterface.setTags(webview.getContext(), tags, mTagAliasCallback);
+            JPushInterface.setTags(webView.getContext(), tags, mTagAliasCallback);
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    public void setAlias(IWebview webview, JSONArray data) {
+    public void setAlias(IWebview webView, JSONArray data) {
         try {
             String alias = data.getString(1);
-            JPushInterface.setAlias(webview.getContext(), alias, mTagAliasCallback);
+            JPushInterface.setAlias(webView.getContext(), alias, mTagAliasCallback);
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    public void setTagsWithAlias(IWebview webview, JSONArray data) {
+    public void setTagsWithAlias(IWebview webView, JSONArray data) {
         HashSet<String> tags = new HashSet<String>();
         try {
             String alias = data.getString(1);
@@ -264,14 +283,13 @@ public class JPushService extends StandardFeature {
             for (int i = 0; i < tagsJson.length(); i++) {
                 tags.add(tagsJson.getString(i));
             }
-            JPushInterface.setAliasAndTags(webview.getContext(), alias, tags,
-                    mTagAliasCallback);
+            JPushInterface.setAliasAndTags(webView.getContext(), alias, tags, mTagAliasCallback);
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    public void setDebugMode(IWebview webview, JSONArray data) {
+    public void setDebugMode(IWebview webView, JSONArray data) {
         try {
             boolean isOpenDebugMode = data.getBoolean(1);
             JPushInterface.setDebugMode(isOpenDebugMode);
@@ -285,9 +303,9 @@ public class JPushService extends StandardFeature {
      * 方法中的"1"代表该设置的编号，需要服务器端同时指定要发送通知的 builderId = 1, 才会触发。
      * 可根据需要自行修改，具体请参考：http://docs.Push.io/client/android_tutorials/#_11
      */
-    public void setBasicPushNotificationBuilder(IWebview webview, JSONArray data) {
+    public void setBasicPushNotificationBuilder(IWebview webView, JSONArray data) {
         BasicPushNotificationBuilder builder = new BasicPushNotificationBuilder(
-                webview.getContext());
+                webView.getContext());
         builder.developerArg0 = "Basic builder 1";
         JPushInterface.setPushNotificationBuilder(1, builder);
     }
@@ -295,48 +313,48 @@ public class JPushService extends StandardFeature {
     /**
      * 设置通知使用自定义样式, 具体使用方法同上。
      */
-    public void setCustomPushNotificationBuilder(IWebview webview, JSONArray data) {
+    public void setCustomPushNotificationBuilder(IWebview webView, JSONArray data) {
         // 需要自行修改
 //		CustomPushNotificationBuilder builder = new CustomPushNotificationBuilder(
-//				webview.getActivity(), R.layout.layout, R.id.icon, R.id.title,
+//				webView.getActivity(), R.layout.layout, R.id.icon, R.id.title,
 //				R.id.text);
 //		PushInterface.setPushNotificationBuilder(2, builder);
     }
 
-    public void setLatestNotificationNum(IWebview webview, JSONArray data) {
+    public void setLatestNotificationNum(IWebview webView, JSONArray data) {
         int num;
         try {
             num = data.getInt(1);
             if (num != -1) {
-                JPushInterface.setLatestNotificationNumber(webview.getContext(), num);
+                JPushInterface.setLatestNotificationNumber(webView.getContext(), num);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    public void setPushTime(IWebview webview, JSONArray data) {
+    public void setPushTime(IWebview webView, JSONArray data) {
         try {
             String callbackId = data.getString(0);
 
             JSONArray weekDaysArr = data.isNull(1) ? null : data.getJSONArray(1);
 
             if (weekDaysArr == null || weekDaysArr.length() > 7) {
-                JSUtil.execCallback(webview, callbackId, "允许推送日期设置不正确",
+                JSUtil.execCallback(webView, callbackId, "允许推送日期设置不正确",
                         JSUtil.ERROR, false);
                 return;
             }
 
             int startHour = data.getInt(1);
             if (isValidHour(startHour)) {
-                JSUtil.execCallback(webview, callbackId, "允许推送开始时间设置不正确",
+                JSUtil.execCallback(webView, callbackId, "允许推送开始时间设置不正确",
                         JSUtil.ERROR, false);
                 return;
             }
 
             int endHour = data.getInt(2);
             if (isValidHour(endHour)) {
-                JSUtil.execCallback(webview, callbackId, "允许推送结束时间设置不正确",
+                JSUtil.execCallback(webView, callbackId, "允许推送结束时间设置不正确",
                         JSUtil.ERROR, false);
                 return;
             }
@@ -345,13 +363,13 @@ public class JPushService extends StandardFeature {
             for (int i = 0; i < weekDaysArr.length(); i++) {
                 weekDays.add(weekDaysArr.getInt(i));
             }
-            JPushInterface.setPushTime(webview.getContext(), weekDays, startHour, endHour);
+            JPushInterface.setPushTime(webView.getContext(), weekDays, startHour, endHour);
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    public void setSilenceTime(IWebview webview, JSONArray data) {
+    public void setSilenceTime(IWebview webView, JSONArray data) {
         try {
             String callbackId = data.getString(0);
             int startHour = data.getInt(1);
@@ -360,11 +378,11 @@ public class JPushService extends StandardFeature {
             int endMin = data.getInt(4);
             if (!isValidHour(startHour) || !isValidHour(endHour)
                     || !isValidMinute(startMin) || !isValidMinute(endMin)) {
-                JSUtil.execCallback(webview, callbackId, "时间设置不正确",
+                JSUtil.execCallback(webView, callbackId, "时间设置不正确",
                         JSUtil.ERROR, false);
                 return;
             }
-            JPushInterface.setSilenceTime(webview.getContext(), startHour,
+            JPushInterface.setSilenceTime(webView.getContext(), startHour,
                     startMin, endHour, endMin);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -375,12 +393,17 @@ public class JPushService extends StandardFeature {
      * 用于 Android 6.0 以上系统申请权限，具体可参考：
      * http://docs.Push.io/client/android_api/#android-60
      */
-    public void requestPermission(IWebview webview, JSONArray data) {
-        JPushInterface.requestPermission(webview.getContext());
+    public void requestPermission(IWebview webView, JSONArray data) {
+        JPushInterface.requestPermission(webView.getContext());
     }
 
-    private static JSONObject getMessageObject(String msg,
-                                               Map<String, Object> extras) {
+    public void getConnectionState(IWebview webView, JSONArray data) throws JSONException {
+        String callbackId = data.getString(0);
+        boolean state = JPushInterface.getConnectionState(mApplicationContext);
+        JSUtil.execCallback(webView, callbackId, String.valueOf(state), JSUtil.OK, false);
+    }
+
+    private static JSONObject getMessageObject(String msg, Map<String, Object> extras) {
         JSONObject data = new JSONObject();
         try {
             data.put("message", msg);
@@ -391,7 +414,7 @@ public class JPushService extends StandardFeature {
                     String key;
                     Iterator<String> keys = jo.keys();
                     while (keys.hasNext()) {
-                        key = keys.next().toString();
+                        key = keys.next();
                         jExtras.put(key, jo.getString(key));
                     }
                     jExtras.put("cn.JPush.android.EXTRA", jo);
@@ -421,7 +444,7 @@ public class JPushService extends StandardFeature {
                     String key;
                     Iterator<String> keys = jo.keys();
                     while (keys.hasNext()) {
-                        key = keys.next().toString();
+                        key = keys.next();
                         jExtras.put(key, jo.getString(key));
                     }
                     jExtras.put("cn.JPush.android.EXTRA", jo);
@@ -450,10 +473,10 @@ public class JPushService extends StandardFeature {
                 final String jsEvent = String.format(
                         "plus.Push.fireDocumentEvent('jpush.setTagsWithAlias', %s)",
                         data.toString());
-                mIWebview.getActivity().runOnUiThread(new Runnable() {
+                mIWebView.getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        mIWebview.loadUrl("javascript:" + jsEvent);
+                        mIWebView.loadUrl("javascript:" + jsEvent);
                     }
                 });
             } catch (JSONException e) {
@@ -463,16 +486,10 @@ public class JPushService extends StandardFeature {
     };
 
     private boolean isValidHour(int hour) {
-        if (hour < 0 || hour > 23) {
-            return false;
-        }
-        return true;
+        return !(hour < 0 || hour > 23);
     }
 
     private boolean isValidMinute(int min) {
-        if (min < 0 || min > 59) {
-            return false;
-        }
-        return true;
+        return !(min < 0 || min > 59);
     }
 }

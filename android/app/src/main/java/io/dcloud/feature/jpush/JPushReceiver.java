@@ -27,15 +27,21 @@ public class JPushReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
+
         if (JPushInterface.ACTION_REGISTRATION_ID.equals(action)) {
             String rId = JPushInterface.getRegistrationID(context);
             JPushService.transmitGetRegistrationId(rId);
-        } if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(action)) {
+
+        }
+        if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(action)) {
             handlingMessageReceive(intent);
+
         } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(action)) {
             handlingNotificationReceive(context, intent);
+
         } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(action)) {
             handlingNotificationOpen(context, intent);
+
         } else {
             Log.d(TAG, "Unhandled intent - " + action);
         }
@@ -59,8 +65,7 @@ public class JPushReceiver extends BroadcastReceiver {
 
         JPushService.transmitNotificationOpen(title, alert, extras);
 
-        Intent launch = context.getPackageManager().getLaunchIntentForPackage(
-                context.getPackageName());
+        Intent launch = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
         launch.addCategory(Intent.CATEGORY_LAUNCHER);
         launch.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         context.startActivity(launch);
@@ -86,17 +91,20 @@ public class JPushReceiver extends BroadcastReceiver {
 
     private Map<String, Object> getExtras(Intent intent) {
         Map<String, Object> extrasMap = new HashMap<String, Object>();
+
         for (String key : intent.getExtras().keySet()) {
             if (!IGNORED_EXTRAS_KEYS.contains(key)) {
                 if (key.equals(JPushInterface.EXTRA_NOTIFICATION_ID)) {
                     extrasMap.put(key, intent.getIntExtra(key, 0));
-            			Log.i(TAG, key + ":" + intent.getIntExtra(key, 0));
+                    Log.i(TAG, key + ":" + intent.getIntExtra(key, 0));
+
                 } else {
                     extrasMap.put(key, intent.getStringExtra(key));
-            			Log.i(TAG, key + ":" + intent.getStringExtra(key));
+                    Log.i(TAG, key + ":" + intent.getStringExtra(key));
                 }
             }
         }
+
         return extrasMap;
     }
 }
