@@ -191,7 +191,7 @@ document.addEventListener('plusready', function () {
         data = JSON.stringify(data)
         var jsonObj = JSON.parse(data)
         this.receiveMessage = jsonObj
-        this.fireDocumentEvent('jpush.receiveNotifcationLaunchApp', this.receiveMessage)
+        this.fireDocumentEvent('jpush.receiveNotificationLaunchApp', this.receiveMessage)
       }
     },
     receiveNotificationBackgroundIniOSCallback: function (data) {
