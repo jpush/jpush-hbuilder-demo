@@ -20,8 +20,7 @@ document.addEventListener('plusready', function () {
       var success = typeof successCallback !== 'function' ? null : function (args) {
         successCallback(args)
       }
-      callbackId = B.callbackId(success, this.errorCallback)
-      return callbackId
+      return B.callbackId(success, this.errorCallback)
     },
     errorCallback: function (errorMsg) {
       console.log('Javascript callback error: ' + errorMsg)

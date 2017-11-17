@@ -9,6 +9,7 @@
         <feature name="Push" value="io.dcloud.feature.jpush.JPushService" />
         <feature name="Storage" value="io.dcloud.feature.pdr.NStorageFeatureImpl" />
         <feature name="XMLHttpRequest" value="io.dcloud.net.XMLHttpRequestFeature" />
+        <feature name="Runtime" value="io.dcloud.feature.pdr.RuntimeFeatureImpl" />
     </features>
 
     <services>
