@@ -48,15 +48,28 @@ JPush SDK 会以广播的形式发送 RegistrationID 到应用程序。
 
 #### 调用示例
 
-	var onGetRegistradionID = function(data) {
-		try {
-			console.log("JPushPlugin:registrationID is " + data);
-		} catch(exception) {
-			console.log(exception);
-		}
-	}
- 	window.plus.Push.getRegistrationddID(onGetRegistradionID);
+```js
+var onGetRegistradionID = function(data) {
+  try {
+    console.log("JPushPlugin:registrationID is " + data);
+  } catch(exception) {
+    console.log(exception);
+  }
+}
+window.plus.Push.getRegistrationddID(onGetRegistradionID);
+```
 
+### EVENT - jpush.onGetRegistrationId
+
+在第一次注册到 JPush 服务器时会触发该事件，并返回当前设备的唯一标识 - registration id。
+
+#### 代码示例
+
+```js
+document.addEventListener('jpush.onGetRegistrationId', (rId) => {
+  console.log('registration id: ' + rId)
+}, false)
+```
 
 ## 设置别名与标签
 ### API - setTagsWithAlias, setTags, setAlias
