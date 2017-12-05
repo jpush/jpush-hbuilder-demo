@@ -140,9 +140,7 @@ document.addEventListener('plusready', function () {
       }
     },
     onGetRegistrationId: function (rId) {
-      if (plus.os.name == 'Android') {
-        this.fireDocumentEvent('jpush.onGetRegistrationId', rId)
-      }
+      this.fireDocumentEvent('jpush.onGetRegistrationId', rId)
     },
     receiveMessageInAndroidCallback: function (data) {
       if (plus.os.name == 'Android') {
