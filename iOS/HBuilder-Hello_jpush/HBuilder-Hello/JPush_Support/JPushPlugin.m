@@ -24,6 +24,7 @@ NSString *const kJPushReceiveMessage    = @"plus.Push.receiveMessageIniOSCallbac
 NSString *const kJPushReceiveAPNS       = @"plus.Push.receiveNotificationIniOSCallback";    //前台收到推送消息
 NSString *const kJPushReceiveLaunch     = @"plus.Push.receiveNotificationLaunceAppIniOSCallback";       //点击推送消息启动或唤醒app
 NSString *const kJPushReceiveBackground = @"plus.Push.receiveNotificationBackgroundIniOSCallback"; //后台收到推送
+NSString *const kJPushOnRegistrationId = @"plus.Push.onGetRegistrationId";
 
 @interface JPushPlugin()
 
@@ -39,6 +40,12 @@ NSString *const kJPushReceiveBackground = @"plus.Push.receiveNotificationBackgro
 {
     [JPushPlugin registerForRemoteNotification];
 
+    [JPUSHService registrationIDCompletionHandler:^(int resCode, NSString *registrationID) {
+      NSString *rid = registrationID?:@"";
+      [self fireEvent: kJPushOnRegistrationId args: rid];
+      
+    }];
+  
     NSString *path = [[NSBundle mainBundle]pathForResource:@"PushConfig" ofType:@"plist"];
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:path];
 
@@ -321,7 +328,7 @@ NSString *const kJPushReceiveBackground = @"plus.Push.receiveNotificationBackgro
 
     if (args) {
         if ([args isKindOfClass:[NSString class]]) {
-            argsString = args;
+          argsString = [NSString stringWithFormat:@"'%@'", args];
         }else{
             NSData   *jsonData   = [NSJSONSerialization dataWithJSONObject:args options:0 error:&error];
             argsString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];

@@ -45,7 +45,6 @@
         } else {
           content = window.plus.Push.receiveNotification.alert
         }
-        
 		    $("#notificationResult").html(content)
       }
       
@@ -75,7 +74,6 @@
           var result = "result code: " + event.arguments.resultCode + " "
           result += "tags: " + event.arguments.tags + " "
           result += "alias: " + event.arguments.alias + " "
-          alert(result)
           $("#tagAliasResult").html(result)
       }
       
@@ -87,6 +85,9 @@
       document.addEventListener("jpush.receiveNotification", receiveNotification, false)
       document.addEventListener("jpush.openNotification", openNotification, false)
       document.addEventListener("jpush.setTagsWithAlias", onAliasAndTagsSet, false)
+      document.addEventListener("jpush.onGetRegistrationId", function (rid){
+        alert(JSON.stringify(rid))
+      }, false)
 
   </script>
 </head>
