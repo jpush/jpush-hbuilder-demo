@@ -65,7 +65,6 @@
 /* Begin PBXFileReference section */
 		0D20772A1CAA8DC600DA7FFC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		0D20772C1CAA8DD400DA7FFC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		0DC9166B1CCF486600B6E043 /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
 		0DC9166E1CCF496D00B6E043 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		0DCAFEBF1CC08CB6002B03F9 /* JPushPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPushPlugin.h; sourceTree = "<group>"; };
 		0DCAFEC01CC08CB6002B03F9 /* JPushPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPushPlugin.m; sourceTree = "<group>"; };
@@ -185,7 +184,6 @@
 				6276631C1FD6D4AB00F81594 /* jcore-ios-1.1.6.a */,
 				6276631D1FD6D4AB00F81594 /* jpush-ios-3.0.7.a */,
 				6276631E1FD6D4AB00F81594 /* JPUSHService.h */,
-				0DC9166B1CCF486600B6E043 /* JPUSHService.h */,
 				0DCAFEBF1CC08CB6002B03F9 /* JPushPlugin.h */,
 				0DCAFEC01CC08CB6002B03F9 /* JPushPlugin.m */,
 				0DCAFEC31CC08CB6002B03F9 /* PushConfig.plist */,

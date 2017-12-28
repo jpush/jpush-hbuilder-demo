@@ -10,6 +10,14 @@
 #import "PDRCore.h"
 #import "PDRCommonString.h"
 
+#import "JPUSHService.h"
+
+#import <AdSupport/AdSupport.h>
+
+#ifdef NSFoundationVersionNumber_iOS_9_x_Max
+#import <UserNotifications/UserNotifications.h>
+#endif
+
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -24,6 +32,8 @@
     // 设置当前SDK运行模式
     BOOL ret = [PDRCore initEngineWihtOptions:launchOptions
                                   withRunMode:PDRCoreRunModeNormal];
+
+  
     return ret;
 }
 

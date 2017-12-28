@@ -13,6 +13,10 @@
 #import "PDRCoreAppFrame.h"
 #import <AdSupport/AdSupport.h>
 
+#ifdef NSFoundationVersionNumber_iOS_9_x_Max
+#import <UserNotifications/UserNotifications.h>
+#endif
+
 //启动配置
 NSString *const kJPushConfig_appkey     = @"APP_KEY";
 NSString *const kJPushConfig_channel    = @"CHANNEL";
@@ -38,13 +42,20 @@ NSString *const kJPushOnRegistrationId = @"plus.Push.onGetRegistrationId";
 
 - (void)onAppStarted:(NSDictionary*)options
 {
-    [JPushPlugin registerForRemoteNotification];
 
     [JPUSHService registrationIDCompletionHandler:^(int resCode, NSString *registrationID) {
       NSString *rid = registrationID?:@"";
       [self fireEvent: kJPushOnRegistrationId args: rid];
-      
     }];
+  
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(NSEC_PER_USEC)), dispatch_get_main_queue(), ^{
+      JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
+      entity.types = JPAuthorizationOptionAlert|JPAuthorizationOptionBadge|JPAuthorizationOptionSound;
+      if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
+      }
+      
+      [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
+    });
   
     NSString *path = [[NSBundle mainBundle]pathForResource:@"PushConfig" ofType:@"plist"];
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:path];
@@ -287,22 +298,6 @@ NSString *const kJPushOnRegistrationId = @"plus.Push.onGetRegistrationId";
 
 #pragma mark - jpush privates
 
-+(void)registerForRemoteNotification{
-    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
-        //可以添加自定义categories
-        [JPUSHService registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge |
-                                                          UIUserNotificationTypeSound |
-                                                          UIUserNotificationTypeAlert)
-                                              categories:nil];
-    } else {
-        //categories 必须为nil
-        [JPUSHService registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
-                                                          UIRemoteNotificationTypeSound |
-                                                          UIRemoteNotificationTypeAlert)
-                                              categories:nil];
-    }
-}
-
 -(void)networkDidReceiveMessage:(NSNotification*)notification{
     if (notification) {
         [self fireEvent:kJPushReceiveMessage args:[notification userInfo]];
@@ -399,6 +394,24 @@ NSString *const kJPushOnRegistrationId = @"plus.Push.onGetRegistrationId";
     }
 
     return hexData;
+}
+
+- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(NSInteger))completionHandler {
+  NSDictionary * userInfo = notification.request.content.userInfo;
+  if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+    [JPUSHService handleRemoteNotification:userInfo];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"kJPFDidReceiveRemoteNotification" object:userInfo];
+  }
+  completionHandler(UNNotificationPresentationOptionAlert);
+  
+}
+
+- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
+  NSDictionary * userInfo = response.notification.request.content.userInfo;
+  if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+    [JPUSHService handleRemoteNotification:userInfo];
+  }
+  completionHandler();
 }
 
 @end
