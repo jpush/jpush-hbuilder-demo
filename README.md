@@ -133,23 +133,17 @@ iOS:
 ### iOS
 
 - 提示收不到无法获取 Not get deviceToken yet	。
-
  - 找到 Project -> TARGETS ->Capabilities -> Push Notifications 点开推送选项
  - 新版本中 H5P deviceToken 的获取回调已经不回调给 `PGPush`了，需要需要在 Appdelegate.m 文件中的 `didRegisterForRemoteNotificationsWithDeviceToken` 方法中添加右边这段代码` [JPUSHService registerDeviceToken:deviceToken];` ，注意需要导入头文件 `import "JPUSHService.h"`
-
 - 新版本 H5P 官方已经把 PGPush 移除，所以需要将 demo 中的 `PGPush.h` 添加到自己工程。
-
 - 收不到推送:
-
- 请首先按照正确方式再次配置证书、描述文件
- [iOS 证书设置指南](http://docs.jpush.io/client/ios_tutorials/#ios_1)
-
-- 设置 PushConfig.plist：
-
- - APP_KEY：应用标识
- - CHANNEL：渠道标识
- - IsProduction：是否生产环境
- - IsIDFA：是否使用 IDFA 启动 sdk
+ - 请首先按照正确方式再次配置证书、描述文件
+ - [iOS 证书设置指南](http://docs.jpush.io/client/ios_tutorials/#ios_1)
+ - 设置 PushConfig.plist：
+  - APP_KEY：应用标识
+  - CHANNEL：渠道标识
+  - IsProduction：是否生产环境
+  - IsIDFA：是否使用 IDFA 启动 sdk
 
 
 ### 更多
