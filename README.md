@@ -33,7 +33,7 @@ HBuilder 项目集成第三方插件，需先参考 HBuilder 官方的[离线打
     name="Push"
     value="io.dcloud.feature.jpush.JPushService" >
 </feature>
-```
+ ```
 
 5. 在 app/build.gradle 中添加：
 ```groovy
@@ -95,7 +95,7 @@ dependencies {
 
 - 配置 feature.plist ，在 Xcode 中打开 ../PandoraApi.bundle/ 目录下的 feature.plist ，为插件添加新的 item：
 
-	![feature.plist](iOS/doc_res/res_01.jpg)
+ ![feature.plist](iOS/doc_res/res_01.jpg)
 
 - 将 JPush_Support 文件夹中所有内容在 Xcode 中拖到自己的工程里
 
@@ -103,15 +103,15 @@ dependencies {
 
 - 打开 xcode，点击工程目录中顶部的 工程，选择(Target -> Build Phases -> Link Binary With Libraries)，添加以下框架：
 
-		CFNetwork.framework
-		CoreFoundation.framework
-		CoreTelephony.framework
-		SystemConfiguration.framework
-		CoreGraphics.framework
-		Foundation.framework
-		UIKit.framework
-		AdSupport.framework
-		libz.tbd(若存在 libz.dylib 则替换为 libz.tbd)
+   CFNetwork.framework
+   	CoreFoundation.framework
+   	CoreTelephony.framework
+   	SystemConfiguration.framework
+   	CoreGraphics.framework
+   	Foundation.framework
+   	UIKit.framework
+   	AdSupport.framework
+   	libz.tbd(若存在 libz.dylib 则替换为 libz.tbd)
 
 ## API 说明
 
@@ -132,17 +132,24 @@ iOS:
 
 ### iOS
 
+- 提示收不到无法获取 Not get deviceToken yet	。
+
+ - 找到 Project -> TARGETS ->Capabilities -> Push Notifications 点开推送选项
+ - 新版本中 H5P deviceToken 的获取回调已经不回调给 `PGPush`了，需要需要在 Appdelegate.m 文件中的 `didRegisterForRemoteNotificationsWithDeviceToken` 方法中添加右边这段代码` [JPUSHService registerDeviceToken:deviceToken];` ，注意需要导入头文件 `import "JPUSHService.h"`
+
+- 新版本 H5P 官方已经把 PGPush 移除，所以需要将 demo 中的 `PGPush.h` 添加到自己工程。
+
 - 收不到推送:
 
-	请首先按照正确方式再次配置证书、描述文件
-	[iOS 证书设置指南](http://docs.jpush.io/client/ios_tutorials/#ios_1)
+ 请首先按照正确方式再次配置证书、描述文件
+ [iOS 证书设置指南](http://docs.jpush.io/client/ios_tutorials/#ios_1)
 
 - 设置 PushConfig.plist：
 
-	- APP_KEY：应用标识
-	- CHANNEL：渠道标识
-	- IsProduction：是否生产环境
-	- IsIDFA：是否使用 IDFA 启动 sdk
+ - APP_KEY：应用标识
+ - CHANNEL：渠道标识
+ - IsProduction：是否生产环境
+ - IsIDFA：是否使用 IDFA 启动 sdk
 
 
 ### 更多
