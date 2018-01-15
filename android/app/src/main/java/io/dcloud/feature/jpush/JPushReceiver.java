@@ -72,11 +72,6 @@ public class JPushReceiver extends BroadcastReceiver {
     }
 
     private void handlingNotificationReceive(Context context, Intent intent) {
-        Intent launch = context.getPackageManager().getLaunchIntentForPackage(
-                context.getPackageName());
-        launch.addCategory(Intent.CATEGORY_LAUNCHER);
-        launch.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-
         String title = intent.getStringExtra(JPushInterface.EXTRA_NOTIFICATION_TITLE);
         JPushService.notificationTitle = title;
 

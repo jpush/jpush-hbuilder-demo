@@ -21,68 +21,70 @@ HBuilder 项目集成第三方插件，需先参考 HBuilder 官方的[离线打
 2. 拷贝 ./jpush.js 到 Android Studio 工程的 /assets/apps/HBuilder应用名/js/ 下。
 3. 在 /assets/apps/[yourAppName]/www/manifest.json 文件中添加：
 
-```json
-"Push": {
-    "description": "消息推送"
-}
-```
+    ```json
+    "Push": {
+        "description": "消息推送"
+    }
+    ```
 
 4. 在 /assets/data/dcloud_properties.xml 中添加（如果已存在，可直接修改）：
- ```xml
-<feature
-    name="Push"
-    value="io.dcloud.feature.jpush.JPushService" >
-</feature>
- ```
+
+    ```xml
+    <feature
+        name="Push"
+        value="io.dcloud.feature.jpush.JPushService" >
+    </feature>
+    ```
 
 5. 在 app/build.gradle 中添加：
-```groovy
-android {
-    ...
-    defaultConfig {
-        applicationId "com.xxx.xxx" // JPush 上注册的包名.
+
+    ```groovy
+    android {
         ...
-        ndk {
-            // 选择要添加的对应 cpu 类型的 .so 库。
-            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
-            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
+        defaultConfig {
+            applicationId "com.xxx.xxx" // JPush 上注册的包名.
+            ...
+            ndk {
+                // 选择要添加的对应 cpu 类型的 .so 库。
+                abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+                // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
+            }
+            manifestPlaceholders = [
+                JPUSH_PKGNAME : applicationId,
+                JPUSH_APPKEY : "应用的 AppKey", // JPush上注册的包名对应的 appkey
+                JPUSH_CHANNEL : "developer-default", // 暂时填写默认值即可
+            ]
+            ...
         }
-        manifestPlaceholders = [
-            JPUSH_PKGNAME : applicationId,
-            JPUSH_APPKEY : "应用的 AppKey", // JPush上注册的包名对应的 appkey
-            JPUSH_CHANNEL : "developer-default", // 暂时填写默认值即可
-        ]
         ...
     }
-    ...
-}
-dependencies {
-    ...
-    compile 'cn.jiguang.sdk:jpush:3.0.9'  // 此处以 JPush 3.0.9 版本为例。
-    compile 'cn.jiguang.sdk:jcore:1.1.7'  // 此处以 JCore 1.1.7 版本为例。
-    ...
-}
-```
+    dependencies {
+        ...
+        compile 'cn.jiguang.sdk:jpush:3.1.1'  // 此处以 JPush 3.1.1 版本为例。
+        compile 'cn.jiguang.sdk:jcore:1.1.9'  // 此处以 JCore 1.1.9 版本为例。
+        ...
+    }
+    ```
 
 6. 在 AndroidManifest.xml 中添加：
 
-```xml
-<receiver
-  android:name="io.dcloud.feature.jpush.JPushReceiver"
-  android:enabled="true"
-  android:exported="false">
-    <intent-filter>
-      <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!-- Required 用户注册SDK的 intent -->
-      <action android:name="cn.jpush.android.intent.UNREGISTRATION" />
-      <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!-- Required 用户接收SDK消息的 intent -->
-      <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> <!-- Required 用户接收SDK通知栏信息的 intent -->
-      <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!-- Required 用户打开自定义通知栏的 intent -->
-      <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK" /> <!-- Optional 用户接受 Rich Push Javascript 回调函数的intent -->
-      <action android:name="cn.jpush.android.intent.CONNECTION" /> <!-- 接收网络变化 连接/断开 since 1.6.3 -->
-      <category android:name="${JPUSH_PKGNAME}" />
-    </intent-filter>
-</receiver>
-```
+    ```xml
+    <receiver
+      android:name="io.dcloud.feature.jpush.JPushReceiver"
+      android:enabled="true"
+      android:exported="false">
+        <intent-filter>
+          <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!-- Required 用户注册SDK的 intent -->
+          <action android:name="cn.jpush.android.intent.UNREGISTRATION" />
+          <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!-- Required 用户接收SDK消息的 intent -->
+          <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> <!-- Required 用户接收SDK通知栏信息的 intent -->
+          <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!-- Required 用户打开自定义通知栏的 intent -->
+          <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK" /> <!-- Optional 用户接受 Rich Push Javascript 回调函数的intent -->
+          <action android:name="cn.jpush.android.intent.CONNECTION" /> <!-- 接收网络变化 连接/断开 since 1.6.3 -->
+          <category android:name="${JPUSH_PKGNAME}" />
+        </intent-filter>
+    </receiver>
+    ```
 
 ### iOS 手动安装
 - 配置 manifest.json ，首先用源码的方式打开工程 /Pandora/ 目录下的 manifest.json ，在"permissions"中添加新的插件名称：
@@ -115,36 +117,41 @@ dependencies {
 
 ## API 说明
 
-iOS、Android 详细 API 文档请参阅 [JPush Hbuilder demo API 文档](API.md)。
+iOS、Android 详细 API 文档请参阅 [JPush Hbuilder API 文档](API.md)。
 
-插件的 API 集中在 jpush.js 文件中,该文件的具体位置如下：
+插件的 API 集中在 jpush.js 文件中，该文件的具体位置如下：
 
 Android:
 
-	[Project]/android/assets/apps/H51423BFB/www/js/jpush.js
+```
+[Project]/android/assets/apps/H51423BFB/www/js/jpush.js
+```
 
 iOS:
 
-	[Project]/iOS/HBuilder-Hello_jpush/HBuilder-Hello/Pandora/apps/HelloH5/www/js/jpush.js
-
+```
+  [Project]/iOS/HBuilder-Hello_jpush/HBuilder-Hello/Pandora/apps/HelloH5/www/js/jpush.js
+```
 
 ## 常见问题
 
 ### iOS
 
-- 提示收不到无法获取 Not get deviceToken yet	。
- - 找到 Project -> TARGETS ->Capabilities -> Push Notifications 点开推送选项
- - 新版本中 H5P deviceToken 的获取回调已经不回调给 `PGPush`了，需要需要在 Appdelegate.m 文件中的 `didRegisterForRemoteNotificationsWithDeviceToken` 方法中添加右边这段代码` [JPUSHService registerDeviceToken:deviceToken];` ，注意需要导入头文件 `import "JPUSHService.h"`
-- 新版本 H5P 官方已经把 PGPush 移除，所以需要将 demo 中的 `PGPush.h` 添加到自己工程。
-- 收不到推送:
- - 请首先按照正确方式再次配置证书、描述文件
- - [iOS 证书设置指南](http://docs.jpush.io/client/ios_tutorials/#ios_1)
- - 设置 PushConfig.plist：
-  - APP_KEY：应用标识
-  - CHANNEL：渠道标识
-  - IsProduction：是否生产环境
-  - IsIDFA：是否使用 IDFA 启动 sdk
+1. 提示 Not get deviceToken yet。
 
+   找到 Project -> TARGETS ->Capabilities -> Push Notifications 点开推送选项。
+
+1. 新版本中 H5P deviceToken 的获取回调已经不回调给 `PGPush`了。因此需要需要在 Appdelegate.m 文件中的 `didRegisterForRemoteNotificationsWithDeviceToken` 方法中添加代码：`[JPUSHService registerDeviceToken:deviceToken];` ，注意导入头文件 `import "JPUSHService.h"`。
+
+1. 新版本 H5P 官方已经把 PGPush 移除，所以需要将 demo 中的 `PGPush.h` 添加到自己工程。
+
+1. 收不到推送：首先按照正确方式再次配置证书、描述文件：[iOS 证书设置指南](http://docs.jpush.io/client/ios_tutorials/#ios_1)。
+
+1. PushConfig.plist 中的属性：
+    - APP_KEY：应用标识
+    - CHANNEL：渠道标识
+    - IsProduction：是否生产环境
+    - IsIDFA：是否使用 IDFA 启动 sdk
 
 ### 更多
 
