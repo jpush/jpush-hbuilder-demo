@@ -3,9 +3,9 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="MobileOptimized" content="320" />
+    <meta name="MobileOptimized" content="320"/>
     <title>JPush HBuilder Demo</title>
-    <link href="../css/jquery.mobile-1.1.1.css" rel="stylesheet" />
+    <link href="../css/jquery.mobile-1.1.1.css" rel="stylesheet"/>
     <script src="../js/jquery.js"></script>
     <script src="../js/jquery.mobile-1.1.1.js"></script>
     <script src="../js/common.js"></script>
@@ -87,7 +87,8 @@
     document.addEventListener("jpush.receiveNotification", receiveNotification, false)
     document.addEventListener("jpush.openNotification", openNotification, false)
     document.addEventListener("jpush.setTagsWithAlias", onAliasAndTagsSet, false)
-  </script>
+
+    </script>
 </head>
 
 <body>
@@ -108,12 +109,12 @@
                     <table>
                         <tr>
                             <td>
-                                <input type="text" id="tagText1" />
+                                <input type="text" id="tagText1"/>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <input type="text" id="tagText2" />
+                                <input type="text" id="tagText2"/>
                             </td>
                         </tr>
                         <tr>
@@ -133,12 +134,12 @@
                 </div>
 
                 <div data-role="fieldcontain">
-                    <input type="button" value="Add tag and alias" onclick="setTagsWithAlias()" />
+                    <input type="button" value="Add tag and alias" onclick="setTagsWithAlias()"/>
 
                     <input type="button" onclick="plus.Push.addLocalNotification(0,
-            		'local notification', 'title', 1, 0, null)" value="Add local notification" />
+            		'local notification', 'title', 1, 0, null)" value="Add local notification"/>
 
-                    <input type="button" onclick="getRegistrationID()" value="Get registration ID" />
+                    <input type="button" onclick="getRegistrationID()" value="Get registration ID"/>
                 </div>
 
                 <div data-role="fieldcontain">

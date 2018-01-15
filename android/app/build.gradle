@@ -1,24 +1,24 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "26.0.0"
+    compileSdkVersion 26
+    buildToolsVersion '27.0.0'
     defaultConfig {
-        applicationId "com.hevin.jmessage"
+        applicationId "应用的包名"
         minSdkVersion 19
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         ndk {
-            //选择要添加的对应cpu类型的.so库。
+            //选择要添加的对应 CPU 类型的.so库。
             abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64', 'mips', 'mips64'
         }
 
         manifestPlaceholders = [
                 JPUSH_PKGNAME : applicationId,
-                JPUSH_APPKEY : "b99f062ffc07bc9b3a4e92d7", // JPush 上注册的包名对应的 AppKey
+                JPUSH_APPKEY : "应用的 AppKey", // JPush 上注册的包名对应的 AppKey
                 JPUSH_CHANNEL : "developer-default", // 暂时填写默认值即可
         ]
     }
@@ -35,13 +35,11 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
-
-    compile 'cn.jiguang.sdk:jpush:3.0.9'
-    compile 'cn.jiguang.sdk:jcore:1.1.7'
-
+    compile 'cn.jiguang.sdk:jpush:3.1.1'
+    compile 'cn.jiguang.sdk:jcore:1.1.9'
     compile files('libs/my-imageloader.jar')
     compile files('libs/my-nineoldandroids-2.4.0.jar')
     compile files('libs/pdr.jar')
