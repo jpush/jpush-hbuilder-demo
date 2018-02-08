@@ -26,7 +26,7 @@ HBuilder 项目集成第三方插件，需先参考 HBuilder 官方的[离线打
     }
     ```
 
-4. 在 `/assets/data/dcloud_properties.xml` 中添加（如果已存在 Push feature
+4. 在 `/assets/data/dcloud_properties.xml` 中添加（如果已存在 Push feature，可以直接修改）：
 
     ```xml
     <feature
