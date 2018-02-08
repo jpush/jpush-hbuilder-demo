@@ -112,6 +112,7 @@ HBuilder 项目集成第三方插件，需先参考 HBuilder 官方的[离线打
    	Foundation.framework
    	UIKit.framework
    	AdSupport.framework
+    libresolv.tbd(若存在 libresolv.dylib 则替换为 libresolv.tbd)
    	libz.tbd(若存在 libz.dylib 则替换为 libz.tbd)
 
 ## API 说明
