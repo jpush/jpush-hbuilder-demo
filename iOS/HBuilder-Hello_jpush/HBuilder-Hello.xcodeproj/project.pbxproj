@@ -105,9 +105,9 @@
 		247417CF1CAA8470009C8FF7 /* PDRToolSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDRToolSystem.h; sourceTree = "<group>"; };
 		247417D01CAA8470009C8FF7 /* PDRToolSystemEx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDRToolSystemEx.h; sourceTree = "<group>"; };
 		62318FF11EB093C600E2863D /* HBuilder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HBuilder.entitlements; sourceTree = "<group>"; };
+		6241C138206102FB000BBBB0 /* JPUSHService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
 		6276631C1FD6D4AB00F81594 /* jcore-ios-1.1.6.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jcore-ios-1.1.6.a"; sourceTree = "<group>"; };
 		6276631D1FD6D4AB00F81594 /* jpush-ios-3.0.7.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-3.0.7.a"; sourceTree = "<group>"; };
-		6276631E1FD6D4AB00F81594 /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JPUSHService.h; path = "../../../../../../../Downloads/jpush-ios-3.0.7-release 2/Lib/JPUSHService.h"; sourceTree = "<group>"; };
 		627663211FD6D5C000F81594 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		7A6D778619FB5A9B0076EEFE /* icon87.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon87.png; sourceTree = "<group>"; };
 		7A6D778719FB5A9B0076EEFE /* icon180.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon180.png; sourceTree = "<group>"; };
@@ -183,7 +183,7 @@
 			children = (
 				6276631C1FD6D4AB00F81594 /* jcore-ios-1.1.6.a */,
 				6276631D1FD6D4AB00F81594 /* jpush-ios-3.0.7.a */,
-				6276631E1FD6D4AB00F81594 /* JPUSHService.h */,
+				6241C138206102FB000BBBB0 /* JPUSHService.h */,
 				0DCAFEBF1CC08CB6002B03F9 /* JPushPlugin.h */,
 				0DCAFEC01CC08CB6002B03F9 /* JPushPlugin.m */,
 				0DCAFEC31CC08CB6002B03F9 /* PushConfig.plist */,
