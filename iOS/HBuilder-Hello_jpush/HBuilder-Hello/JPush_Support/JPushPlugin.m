@@ -401,8 +401,8 @@ NSString *const kJPushOnRegistrationId = @"plus.Push.onGetRegistrationId";
 - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(NSInteger))completionHandler {
   NSDictionary * userInfo = notification.request.content.userInfo;
   if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
-    [JPUSHService handleRemoteNotification:userInfo];
     [self fireEvent:kJPushReceiveAPNS args:userInfo];
+    [JPUSHService handleRemoteNotification:userInfo];
   }
   completionHandler(UNNotificationPresentationOptionAlert);
   
