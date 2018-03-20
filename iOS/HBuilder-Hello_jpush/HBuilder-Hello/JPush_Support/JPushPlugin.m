@@ -26,7 +26,9 @@ NSString *const kJPushConfig_idfa = @"IDFA";
 //以下为js中可监听到的事件
 NSString *const kJPushReceiveMessage    = @"plus.Push.receiveMessageIniOSCallback";         //收到自定义消息
 NSString *const kJPushReceiveAPNS       = @"plus.Push.receiveNotificationIniOSCallback";    //前台收到推送消息
+NSString *const kJPushOpenNotification  = @"plus.Push.receiveNotificationIniOSCallback";    //前台收到推送消息
 NSString *const kJPushReceiveLaunch     = @"plus.Push.receiveNotificationLaunceAppIniOSCallback";       //点击推送消息启动或唤醒app
+
 NSString *const kJPushReceiveBackground = @"plus.Push.receiveNotificationBackgroundIniOSCallback"; //后台收到推送
 NSString *const kJPushOnRegistrationId = @"plus.Push.onGetRegistrationId";
 
@@ -399,8 +401,8 @@ NSString *const kJPushOnRegistrationId = @"plus.Push.onGetRegistrationId";
 - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(NSInteger))completionHandler {
   NSDictionary * userInfo = notification.request.content.userInfo;
   if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+    [self fireEvent:kJPushReceiveAPNS args:userInfo];
     [JPUSHService handleRemoteNotification:userInfo];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"kJPFDidReceiveRemoteNotification" object:userInfo];
   }
   completionHandler(UNNotificationPresentationOptionAlert);
   
@@ -409,6 +411,8 @@ NSString *const kJPushOnRegistrationId = @"plus.Push.onGetRegistrationId";
 - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
   NSDictionary * userInfo = response.notification.request.content.userInfo;
   if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+    
+    [self fireEvent:kJPushOpenNotification args:userInfo];
     [JPUSHService handleRemoteNotification:userInfo];
   }
   completionHandler();
