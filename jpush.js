@@ -268,18 +268,18 @@ document.addEventListener('plusready', function () {
     addLocalNotificationIniOS: function (delayTime, content, badge, notificationID, extras) {
       if (plus.os.name == 'iOS') {
         var data = [delayTime, content, badge, notificationID, extras]
-        this.call_native('setLocalNotification', data, null)
+        this.callNative('setLocalNotification', data, null)
       }
     },
     deleteLocalNotificationWithIdentifierKeyIniOS: function (identifierKey) {
       if (plus.os.name == 'iOS') {
         var data = [identifierKey]
-        this.call_native('deleteLocalNotificationWithIdentifierKey', data, null)
+        this.callNative('deleteLocalNotificationWithIdentifierKey', data, null)
       }
     },
     clearAllLocalNotificationsIniOS: function () {
       if (plus.os.name == 'iOS') {
-        this.call_native('clearAllLocalNotifications', [], null)
+        this.callNative('clearAllLocalNotifications', [], null)
       }
     }
   }

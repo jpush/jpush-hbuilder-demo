@@ -254,11 +254,11 @@ ps：点击通知后传递的 JSON 对象保存在 `window.plus.Push.receiveNoti
       "cn.jpush.android.NOTIFICATION_TYPE":"0"
   }
 }
-```json
+​```json
 
 - iOS:
 
-```json
+​```json
 {
   "aps":{
     "badge":1,
@@ -485,7 +485,7 @@ window.plus.Push.setPushTime(weekDays, startHour, endHour)
 ##### 参数说明
 
 - weekDays: 数组，0表示星期天，1表示星期一，以此类推（7 天制，数组里面的值范围为 0 到 6）。
-数组的值为 null，则任何时间都可以收到消息和通知，数组的 size 为 0，则表示任何时间都收不到消息和通知。
+  数组的值为 null，则任何时间都可以收到消息和通知，数组的 size 为 0，则表示任何时间都收不到消息和通知。
 - startHour: 整形，允许推送的开始时间（24小时制：startHour的范围为 0 到 23）。
 - endHour: 整形，允许推送的结束时间（24小时制：endHour的范围为0到23）。
 
@@ -664,13 +664,13 @@ window.plus.Push.getApplicationIconBadgeNumber(function(data) {
 
 ### 本地通知
 
-#### API - addLocalNotificationForIOS
+#### API - addLocalNotificationIniOS
 
 用于注册本地通知(最多支持64个)。
 
 ##### 接口定义
 
-window.plus.Push.addLocalNotificationForIOS(delayTime, content, badge, notificationID, extras)
+window.plus.Push.addLocalNotificationIniOS(delayTime, content, badge, notificationID, extras)
 
 ##### 参数说明
 
@@ -683,7 +683,7 @@ window.plus.Push.addLocalNotificationForIOS(delayTime, content, badge, notificat
 ##### 代码示例
 
 ```js
-window.plus.Push.addLocalNotificationForIOS(6*60*60, "本地推送内容", 1, "1", {"key":"value"});
+window.plus.Push.addLocalNotificationIniOS(6*60*60, "本地推送内容", 1, "1", {"key":"value"});
 ```
 
 #### API - deleteLocalNotificationWithIdentifierKeyInIOS
