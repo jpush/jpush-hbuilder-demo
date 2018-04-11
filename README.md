@@ -145,7 +145,7 @@ iOS:
 
 1. 新版本 H5P 官方已经把 PGPush 移除，所以需要将 demo 中的 `PGPush.h` 添加到自己工程。
 
-1. 收不到推送：首先按照正确方式再次配置证书、描述文件：[iOS 证书设置指南](http://docs.jpush.io/client/ios_tutorials/#ios_1)。
+1. 收不到推送：首先按照正确方式再次配置证书、描述文件：[iOS 证书设置指南](https://docs.jiguang.cn/jpush/client/iOS/ios_cer_guide/)。
 
 1. PushConfig.plist 中的属性：
     - APP_KEY：应用标识
