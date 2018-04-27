@@ -151,7 +151,7 @@ document.addEventListener("jpush.setTagsWithAlias", onTagsWithAlias, false);
 
 #### event - jpush.openNotification
 
-点击通知进入应用程序时会出发该事件。
+点击通知进入应用程序时会出发该事件 (在这个回调函数中直接使用 alert 可能会出现卡死情况，如果有需要使用 alert 的需求，可以使用 mui.alert 代替)。
 
 ##### 代码示例
 
@@ -160,7 +160,7 @@ document.addEventListener("jpush.setTagsWithAlias", onTagsWithAlias, false);
 ```js
 var onOpenNotification = function(event) {
   var alertContent;
-  if(device.platform == "Android") {
+  if(plus.os.name == "Android") {
       alertContent = window.plus.Push.openNotification.alert;
   } else {
       alertContent = event.aps.alert;
@@ -213,7 +213,7 @@ ps：点击通知后传递的 json 对象保存在 window.plus.Push.openNotifica
 
 #### event - jpush.receiveNotification
 
-App 处于前台收到通知会触发该事件。
+App 处于前台收到通知会触发该事件 (在这个回调函数中直接使用 alert 可能会出现卡死情况，如果有需要使用 alert 的需求，可以使用 mui.alert 代替)。
 
 ##### 代码示例
 
@@ -222,7 +222,7 @@ App 处于前台收到通知会触发该事件。
 ```js
 var onReceiveNotification = function(event) {
   var alertContent;
-  if(device.platform == "Android") {
+  if(plus.os.name == "Android") {
       alertContent=window.plus.Push.receiveNotification.alert;
   } else {
       alertContent = event.aps.alert;
@@ -275,7 +275,7 @@ ps：点击通知后传递的 JSON 对象保存在 `window.plus.Push.receiveNoti
 
 #### event - jpush.receiveMessage
 
-收到自定义消息时触发这个事件。
+收到自定义消息时触发这个事件 (在这个回调函数中直接使用 alert 可能会出现卡死情况，如果有需要使用 alert 的需求，可以使用 mui.alert 代替)。
 
 推荐使用事件的方式传递，但同时保留了 `receiveMessageIniOSCallback` 的回调函数，兼容以前的代码。
 
@@ -287,7 +287,7 @@ ps：点击通知后传递的 JSON 对象保存在 `window.plus.Push.receiveNoti
 var onReceiveMessage = function(event) {
     try {
       var message;
-      if(device.platform == "Android") {
+      if(plus.os.name == "Android") {
         message = window.plus.Push.receiveMessage.message;
       } else {
         message = event.content;
