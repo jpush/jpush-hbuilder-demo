@@ -38,6 +38,16 @@
       })
     }
 
+    var getLaunchAppCacheNotification = function () {
+      if (plus.os.name == 'Android') {
+         plus.Push.getLaunchAppCacheNotification(function (data) {
+           if (data.alert) {
+             $("#notificationResult").html("cache:"+data.alert)
+           }
+         })
+      }
+    }
+
     var receiveNotification = function (event) {
       var content
       if (plus.os.name == 'iOS') {
@@ -55,6 +65,7 @@
         content = plus.Push.openNotification.aps.alert
       } else {
         content = plus.Push.openNotification.alert
+        plus.Push.clearLaunchAppCacheNotification();
       }
       $("#notificationResult").html(content)
     }
@@ -80,6 +91,7 @@
 
     var init = function () {
       plus.Push.init()
+      getLaunchAppCacheNotification()
     }
 
     document.addEventListener("plusready", init, false)

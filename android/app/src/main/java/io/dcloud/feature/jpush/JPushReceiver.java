@@ -16,6 +16,10 @@ public class JPushReceiver extends BroadcastReceiver {
 
     private static String TAG = JPushReceiver.class.getSimpleName();
 
+    static String openNotificationTitle;
+    static String openNotificationAlert;
+    static Map<String, Object> openNotificationExtras = new HashMap<String, Object>();
+
     private static final List<String> IGNORED_EXTRAS_KEYS =
             Arrays.asList(
                     "cn.jpush.android.TITLE",
@@ -56,12 +60,15 @@ public class JPushReceiver extends BroadcastReceiver {
     private void handlingNotificationOpen(Context context, Intent intent) {
         String title = intent.getStringExtra(JPushInterface.EXTRA_NOTIFICATION_TITLE);
         JPushService.openNotificationTitle = title;
+        openNotificationTitle = title;
 
         String alert = intent.getStringExtra(JPushInterface.EXTRA_ALERT);
         JPushService.openNotificationAlert = alert;
+        openNotificationAlert = alert;
 
         Map<String, Object> extras = getExtras(intent);
         JPushService.openNotificationExtras = extras;
+        openNotificationExtras = extras;
 
         JPushService.transmitNotificationOpen(title, alert, extras);
 

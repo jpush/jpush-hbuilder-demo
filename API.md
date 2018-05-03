@@ -16,6 +16,8 @@
   - [通知栏样式定制](#通知栏样式定制)
   - [设置保留最近通知条数](#设置保留最近通知条数)
   - [本地通知](#本地通知)
+  - [获取点击通知内容缓存](#获取点击通知内容缓存)
+  - [清除点击通知内容缓存](#清除点击通知内容缓存)
 - [iOS API](#ios-api)
   - [设置 Badge](#设置-badge)
   - [本地通知](#本地通知)
@@ -594,6 +596,56 @@ window.plus.Push.clearLocalNotifications()
 - broadcastTime: 设置本地通知触发时间，为距离当前时间的数值，单位是毫秒。
 - extras: 设置额外的数据信息 extras 为 json 字符串。
 
+### 获取点击通知内容缓存
+
+#### API - getLaunchAppCacheNotification
+
+点击推送启动应用的时候原生会将该 notification 缓存起来，该方法用于获取缓存 notification
+
+退出程序后收到推送通知，此时点击通知事件下发，应用若不能及时注册点击通知事件，可调用此方法获取点击内容。
+
+##### 接口定义
+
+```js
+window.plus.Push.getLaunchAppCacheNotification(callback)
+```
+
+##### 参数说明
+
+- callback: 获取缓存 notification 的成功回调方法。
+
+##### 返回值
+
+调用此 API 来取得应用程序缓存的notification内容,返回内容结构为[openNotification](#获取点击通知内容)
+
+调用一次此方法后缓存清除，直到下一次点击推送后重新缓存notification。
+
+##### 调用示例
+
+```js
+var onGetLaunchAppCacheNotification = function(data) {
+  if (data.alert) {
+  		alert("cache:"+data.alert)
+	}
+}
+window.plus.Push.getRegistrationID(onGetLaunchAppCacheNotification);
+```
+### 清除点击通知内容缓存
+
+#### API - clearLaunchAppCacheNotification
+
+推送通知到客户端时，点击通知时会缓存通知内容，可以通过[getLaunchAppCacheNotification](#获取点击通知内容缓存)获取
+
+此 API 提供清除点击通知缓存的功能。
+
+##### 接口定义
+
+window.plus.Push.clearLaunchAppCacheNotification()
+
+##### 代码示例
+
+window.plus.Push.clearLaunchAppCacheNotification();
+
 ## iOS API
 
 ### 设置 Badge
@@ -825,3 +877,5 @@ window.plus.Push.setLocation(latitude, longitude)
 ```js
 window.plus.Push.setLocation(39.26, 115.25);
 ```
+
+

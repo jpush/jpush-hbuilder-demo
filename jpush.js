@@ -140,7 +140,19 @@ document.addEventListener('plusready', function () {
       }
     },
     onGetRegistrationId: function (rId) {
-      this.fireDocumentEvent('jpush.onGetRegistrationId', rId)
+      if (plus.os.name == 'Android') {
+        this.fireDocumentEvent('jpush.onGetRegistrationId', rId)
+      }
+    },
+    getLaunchAppCacheNotification: function (successCallback) {
+      if (plus.os.name == 'Android') {
+        this.callNative('getLaunchAppCacheNotification', null, successCallback)
+      }
+    },
+    clearLaunchAppCacheNotification: function () {
+      if (plus.os.name == 'Android') {
+        this.callNative('clearLaunchAppCacheNotification', null, null)
+      }
     },
     receiveMessageInAndroidCallback: function (data) {
       if (plus.os.name == 'Android') {
@@ -171,15 +183,8 @@ document.addEventListener('plusready', function () {
         data = JSON.stringify(data)
         var jsonObj = JSON.parse(data)
         this.receiveNotification = jsonObj
+
         this.fireDocumentEvent('jpush.receiveNotification', this.receiveNotification)
-      }
-    },
-    openNotificationIniOSCallback: function (data) {
-      if (plus.os.name == 'iOS') {
-        data = JSON.stringify(data)
-        var jsonObj = JSON.parse(data)
-        this.openNotification = jsonObj
-        this.fireDocumentEvent('jpush.openNotification', this.openNotification)
       }
     },
     receiveMessageIniOSCallback: function (data) {
@@ -268,18 +273,18 @@ document.addEventListener('plusready', function () {
     addLocalNotificationIniOS: function (delayTime, content, badge, notificationID, extras) {
       if (plus.os.name == 'iOS') {
         var data = [delayTime, content, badge, notificationID, extras]
-        this.callNative('setLocalNotification', data, null)
+        this.call_native('setLocalNotification', data, null)
       }
     },
     deleteLocalNotificationWithIdentifierKeyIniOS: function (identifierKey) {
       if (plus.os.name == 'iOS') {
         var data = [identifierKey]
-        this.callNative('deleteLocalNotificationWithIdentifierKey', data, null)
+        this.call_native('deleteLocalNotificationWithIdentifierKey', data, null)
       }
     },
     clearAllLocalNotificationsIniOS: function () {
       if (plus.os.name == 'iOS') {
-        this.callNative('clearAllLocalNotifications', [], null)
+        this.call_native('clearAllLocalNotifications', [], null)
       }
     }
   }

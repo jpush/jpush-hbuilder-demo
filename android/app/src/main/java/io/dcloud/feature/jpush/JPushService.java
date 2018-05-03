@@ -197,6 +197,36 @@ public class JPushService extends StandardFeature {
         }
     }
 
+    /**
+     * 点击推送启动应用的时候原生会将该 notification 缓存起来，该方法用于获取缓存 notification
+     * 注意：调用一次此方法后缓存清除，直到下一次点击推送后重新缓存notification
+     */
+    public void getLaunchAppCacheNotification(IWebview webView, JSONArray data) {
+        try {
+            String callbackId = data.getString(0);
+            if(TextUtils.isEmpty(JPushReceiver.openNotificationAlert)){
+                String notification=null;
+                JSUtil.execCallback(webView, callbackId, notification, JSUtil.OK, false);
+            }else {
+                JSONObject notification = getNotificationObject(JPushReceiver.openNotificationTitle, JPushReceiver.openNotificationAlert, JPushReceiver.openNotificationExtras);
+                JSUtil.execCallback(webView, callbackId, notification, JSUtil.OK, false);
+
+            }
+            clearLaunchAppCacheNotification(null,null);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 清除点击推送被缓存的notification
+     */
+    public void clearLaunchAppCacheNotification(IWebview webView, JSONArray data) {
+        JPushReceiver.openNotificationTitle = null;
+        JPushReceiver.openNotificationAlert = null;
+    }
+
     public void addLocalNotification(IWebview webView, JSONArray data) {
         try {
             int builderId = data.getInt(1);
