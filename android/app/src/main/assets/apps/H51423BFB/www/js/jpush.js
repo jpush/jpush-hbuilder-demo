@@ -144,6 +144,16 @@ document.addEventListener('plusready', function () {
         this.fireDocumentEvent('jpush.onGetRegistrationId', rId)
       }
     },
+    getLaunchAppCacheNotification: function (successCallback) {
+      if (plus.os.name == 'Android') {
+        this.callNative('getLaunchAppCacheNotification', null, successCallback)
+      }
+    },
+    clearLaunchAppCacheNotification: function () {
+      if (plus.os.name == 'Android') {
+        this.callNative('clearLaunchAppCacheNotification', null, null)
+      }
+    },
     receiveMessageInAndroidCallback: function (data) {
       if (plus.os.name == 'Android') {
         data = JSON.stringify(data)

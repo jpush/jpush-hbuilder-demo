@@ -9,7 +9,7 @@
 	"icons": {
 		"72": "icon.png"
 	},
-	"launch_path": "index.html",
+	"launch_path": "plus/push.html",
 	"developer": {
 		"name": "yanyilin",
 		"email": "yanyilin@dcloud.io",
