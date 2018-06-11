@@ -624,11 +624,11 @@ window.plus.Push.getLaunchAppCacheNotification(callback)
 
 ```js
 var onGetLaunchAppCacheNotification = function(data) {
-  if (data.alert) {
+  	if (data.alert) {
   		alert("cache:"+data.alert)
 	}
 }
-window.plus.Push.getRegistrationID(onGetLaunchAppCacheNotification);
+window.plus.Push.getLaunchAppCacheNotification(onGetLaunchAppCacheNotification);
 ```
 ### 清除点击通知内容缓存
 
@@ -640,11 +640,15 @@ window.plus.Push.getRegistrationID(onGetLaunchAppCacheNotification);
 
 ##### 接口定义
 
+```js
 window.plus.Push.clearLaunchAppCacheNotification()
+```
 
 ##### 代码示例
 
+```js
 window.plus.Push.clearLaunchAppCacheNotification();
+```
 
 ## iOS API
 
