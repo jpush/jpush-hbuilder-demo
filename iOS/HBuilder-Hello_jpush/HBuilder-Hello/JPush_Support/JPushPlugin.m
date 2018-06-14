@@ -251,7 +251,12 @@ NSString *const kJPushOnRegistrationId = @"plus.Push.onGetRegistrationId";
 }
 
 -(void)resumePush:(PDRPluginResult*)command{
-    [JPushPlugin registerForRemoteNotification];
+    JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
+    entity.types = JPAuthorizationOptionAlert|JPAuthorizationOptionBadge|JPAuthorizationOptionSound;
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
+    }
+    
+    [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
 }
 
 -(void)isPushStopped:(PGMethod*)command{
