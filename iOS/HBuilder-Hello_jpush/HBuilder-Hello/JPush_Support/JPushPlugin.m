@@ -229,14 +229,14 @@ NSString *const kJPushOnRegistrationId = @"plus.Push.onGetRegistrationId";
 }
 
 -(void)setBadge:(PGMethod*)command{
-    [JPUSHService setBadge:(NSInteger)command.arguments[1]];
+    [JPUSHService setBadge:((NSNumber*)command.arguments[1]).integerValue];
 }
 
 -(void)resetBadge:(PGMethod*)command{
     [JPUSHService resetBadge];
 }
 
--(void)setApplicationIconBadgeNumber:(PGMethod*)command{
+-(void)setApplicationIconBadgeNumber:(PGMethod*)command {
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:((NSString*)command.arguments[1]).integerValue];
 }
 
