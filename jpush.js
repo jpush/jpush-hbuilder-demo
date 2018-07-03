@@ -170,6 +170,14 @@ document.addEventListener('plusready', function () {
         this.fireDocumentEvent('jpush.openNotification', this.openNotification)
       }
     },
+    openNotificationIniOSCallback: function (data) {
+      if (plus.os.name == 'iOS') {
+        data = JSON.stringify(data)
+        var jsonObj = JSON.parse(data)
+        this.openNotification = jsonObj
+        this.fireDocumentEvent('jpush.openNotification', this.openNotification)
+      }
+    },
     receiveNotificationInAndroidCallback: function (data) {
       if (plus.os.name == 'Android') {
         data = JSON.stringify(data)
