@@ -19,6 +19,7 @@
   - [获取点击通知内容缓存](#获取点击通知内容缓存)
   - [清除点击通知内容缓存](#清除点击通知内容缓存)
 - [iOS API](#ios-api)
+  - [获取点击推送启动应用的 notification](#获取点击推送启动应用的-notification)
   - [设置 Badge](#设置-badge)
   - [本地通知](#本地通知)
   - [日志等级设置](#日志等级设置)
@@ -651,6 +652,52 @@ window.plus.Push.clearLaunchAppCacheNotification();
 ```
 
 ## iOS API
+
+### 获取点击推送启动应用的-notification
+
+点击推送启动应用时 JS 还没加载，无法监听事件，该方法用于获取缓存的通知。
+
+#### 代码示例
+
+```javascript
+plus.Push.getLaunchAppCacheNotification(
+  function (notification) {
+     alert(JSON.stringify(notification));
+  })
+
+
+```
+
+#### 回调参数：
+
+notification 可以是本地推送也可以是远程推送（两种推送字段不太一样）。如果应用不是通过点击推送启动的 event 将返回 {} 空对象。
+
+```
+//远程推送格式
+notification == {
+  _j_business: 1,
+  _j_uid: 1831789116,
+  _j_msgid: 3124434324,
+  aps: {
+    alert: "2423",
+    badge: 1,
+    sound: "default"
+  }
+}
+```
+
+```
+//本地推送格式
+notification == {
+  content: "the content",
+  badge: 1,
+  extras: {
+    
+  }
+}
+```
+
+
 
 ### 设置 Badge
 

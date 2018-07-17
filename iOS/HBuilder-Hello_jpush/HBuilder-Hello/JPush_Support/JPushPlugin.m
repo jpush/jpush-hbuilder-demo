@@ -34,8 +34,8 @@ NSString *const kJPushOnRegistrationId = @"plus.Push.onGetRegistrationId";
 
 @interface JPushPlugin()
 
-@property(nonatomic,strong)PGMethod *aliasAndTagsCommand;
-
+@property(nonatomic, strong)PGMethod *aliasAndTagsCommand;
+@property(nonatomic, strong)NSDictionary *cacheLaunchNotification;
 @end
 
 @implementation JPushPlugin
@@ -44,7 +44,9 @@ NSString *const kJPushOnRegistrationId = @"plus.Push.onGetRegistrationId";
 
 - (void)onAppStarted:(NSDictionary*)options
 {
-
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"title" message:[options description] delegate:nil cancelButtonTitle:@"fd" otherButtonTitles:nil, nil];
+    [alert show];
+    _cacheLaunchNotification = options;
     [JPUSHService registrationIDCompletionHandler:^(int resCode, NSString *registrationID) {
       NSString *rid = registrationID?:@"";
       [self fireEvent: kJPushOnRegistrationId args: rid];
@@ -185,6 +187,33 @@ NSString *const kJPushOnRegistrationId = @"plus.Push.onGetRegistrationId";
         [self handleResultWithValue:rid command:command];
     }
 }
+
+-(void)getLaunchAppCacheNotification:(PGMethod*)command{
+    if (command) {
+        
+        if (_cacheLaunchNotification != nil) {
+            
+            if ([_cacheLaunchNotification valueForKey:UIApplicationLaunchOptionsRemoteNotificationKey]) {
+                NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:[_cacheLaunchNotification valueForKey:UIApplicationLaunchOptionsRemoteNotificationKey]];
+                [self handleResultWithValue:dic command:command];
+                return;
+            }
+            
+            if ([_cacheLaunchNotification valueForKey:UIApplicationLaunchOptionsLocalNotificationKey]) {
+                UILocalNotification *localNotification = [_cacheLaunchNotification valueForKey:UIApplicationLaunchOptionsLocalNotificationKey];
+                NSMutableDictionary *localNotificationEvent = @{}.mutableCopy;
+                localNotificationEvent[@"content"] = localNotification.alertBody;
+                localNotificationEvent[@"badge"] = @(localNotification.applicationIconBadgeNumber);
+                localNotificationEvent[@"extras"] = localNotification.userInfo;
+                [self handleResultWithValue:localNotificationEvent command:command];
+                return;
+            }
+            
+            [self handleResultWithValue:@{} command:command];
+        }
+    }
+}
+
 
 -(void)handleResultWithValue:(id)value command:(PGMethod*)command{
 
