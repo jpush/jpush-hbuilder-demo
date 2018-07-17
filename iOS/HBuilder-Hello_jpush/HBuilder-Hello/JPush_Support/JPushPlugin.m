@@ -44,8 +44,6 @@ NSString *const kJPushOnRegistrationId = @"plus.Push.onGetRegistrationId";
 
 - (void)onAppStarted:(NSDictionary*)options
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"title" message:[options description] delegate:nil cancelButtonTitle:@"fd" otherButtonTitles:nil, nil];
-    [alert show];
     _cacheLaunchNotification = options;
     [JPUSHService registrationIDCompletionHandler:^(int resCode, NSString *registrationID) {
       NSString *rid = registrationID?:@"";
