@@ -67,6 +67,11 @@ document.addEventListener('plusready', function () {
     isPushStopped: function (successCallback) {
       this.callNative('isPushStopped', null, successCallback)
     },
+    getCacheLaunchNotification: function (successCallback) {
+      //点击推送的通知启动应用 JS 还没 ready，无法获取事件，该方法用于获取缓存的通知。
+      this.callNative('getCacheLaunchNotification', null, successCallback)
+    },
+
     // Android methods
     init: function () {
       if (plus.os.name == 'Android') {
@@ -140,7 +145,19 @@ document.addEventListener('plusready', function () {
       }
     },
     onGetRegistrationId: function (rId) {
-      this.fireDocumentEvent('jpush.onGetRegistrationId', rId)
+      if (plus.os.name == 'Android') {
+        this.fireDocumentEvent('jpush.onGetRegistrationId', rId)
+      }
+    },
+    getLaunchAppCacheNotification: function (successCallback) {
+      if (plus.os.name == 'iOS') {
+        this.callNative('getLaunchAppCacheNotification', null, successCallback)
+      }
+    },
+    clearLaunchAppCacheNotification: function () {
+      if (plus.os.name == 'Android') {
+        this.callNative('clearLaunchAppCacheNotification', null, null)
+      }
     },
     receiveMessageInAndroidCallback: function (data) {
       if (plus.os.name == 'Android') {
@@ -152,6 +169,14 @@ document.addEventListener('plusready', function () {
     },
     openNotificationInAndroidCallback: function (data) {
       if (plus.os.name == 'Android') {
+        data = JSON.stringify(data)
+        var jsonObj = JSON.parse(data)
+        this.openNotification = jsonObj
+        this.fireDocumentEvent('jpush.openNotification', this.openNotification)
+      }
+    },
+    openNotificationIniOSCallback: function (data) {
+      if (plus.os.name == 'iOS') {
         data = JSON.stringify(data)
         var jsonObj = JSON.parse(data)
         this.openNotification = jsonObj
@@ -171,15 +196,8 @@ document.addEventListener('plusready', function () {
         data = JSON.stringify(data)
         var jsonObj = JSON.parse(data)
         this.receiveNotification = jsonObj
+
         this.fireDocumentEvent('jpush.receiveNotification', this.receiveNotification)
-      }
-    },
-    openNotificationIniOSCallback: function (data) {
-      if (plus.os.name == 'iOS') {
-        data = JSON.stringify(data)
-        var jsonObj = JSON.parse(data)
-        this.openNotification = jsonObj
-        this.fireDocumentEvent('jpush.openNotification', this.openNotification)
       }
     },
     receiveMessageIniOSCallback: function (data) {
@@ -267,6 +285,7 @@ document.addEventListener('plusready', function () {
     },
     addLocalNotificationIniOS: function (delayTime, content, badge, notificationID, extras) {
       if (plus.os.name == 'iOS') {
+                          alert('fdsa')
         var data = [delayTime, content, badge, notificationID, extras]
         this.callNative('setLocalNotification', data, null)
       }
