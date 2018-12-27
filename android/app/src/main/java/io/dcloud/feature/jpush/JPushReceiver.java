@@ -74,7 +74,7 @@ public class JPushReceiver extends BroadcastReceiver {
 
         Intent launch = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
         launch.addCategory(Intent.CATEGORY_LAUNCHER);
-        launch.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        launch.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(launch);
     }
 

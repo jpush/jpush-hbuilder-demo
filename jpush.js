@@ -67,10 +67,6 @@ document.addEventListener('plusready', function () {
     isPushStopped: function (successCallback) {
       this.callNative('isPushStopped', null, successCallback)
     },
-    getCacheLaunchNotification: function (successCallback) {
-      //点击推送的通知启动应用 JS 还没 ready，无法获取事件，该方法用于获取缓存的通知。
-      this.callNative('getCacheLaunchNotification', null, successCallback)
-    },
 
     // Android methods
     init: function () {
@@ -150,9 +146,7 @@ document.addEventListener('plusready', function () {
       }
     },
     getLaunchAppCacheNotification: function (successCallback) {
-      if (plus.os.name == 'iOS') {
-        this.callNative('getLaunchAppCacheNotification', null, successCallback)
-      }
+      this.callNative('getLaunchAppCacheNotification', null, successCallback)
     },
     clearLaunchAppCacheNotification: function () {
       if (plus.os.name == 'Android') {
