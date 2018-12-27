@@ -67,6 +67,7 @@ document.addEventListener('plusready', function () {
     isPushStopped: function (successCallback) {
       this.callNative('isPushStopped', null, successCallback)
     },
+
     // Android methods
     init: function () {
       if (plus.os.name == 'Android') {
@@ -145,9 +146,7 @@ document.addEventListener('plusready', function () {
       }
     },
     getLaunchAppCacheNotification: function (successCallback) {
-      if (plus.os.name == 'Android') {
-        this.callNative('getLaunchAppCacheNotification', null, successCallback)
-      }
+      this.callNative('getLaunchAppCacheNotification', null, successCallback)
     },
     clearLaunchAppCacheNotification: function () {
       if (plus.os.name == 'Android') {
@@ -164,6 +163,14 @@ document.addEventListener('plusready', function () {
     },
     openNotificationInAndroidCallback: function (data) {
       if (plus.os.name == 'Android') {
+        data = JSON.stringify(data)
+        var jsonObj = JSON.parse(data)
+        this.openNotification = jsonObj
+        this.fireDocumentEvent('jpush.openNotification', this.openNotification)
+      }
+    },
+    openNotificationIniOSCallback: function (data) {
+      if (plus.os.name == 'iOS') {
         data = JSON.stringify(data)
         var jsonObj = JSON.parse(data)
         this.openNotification = jsonObj
