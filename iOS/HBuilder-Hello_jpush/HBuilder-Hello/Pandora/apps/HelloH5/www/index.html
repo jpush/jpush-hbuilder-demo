@@ -74,7 +74,7 @@ function clicked(id,a,s){
 //		var wa=plus.nativeUI.showWaiting();
 		_openw=plus.webview.create(id,id,{scrollIndicator:'none',scalable:false,popGesture:'hide'},{preate:true});
 		preate[id]=_openw;
-		_openw.addEventListener('loaded',function(){//叶面加载完成后才显示
+		_openw.addEventListener('loaded',function(){//页面加载完成后才显示
 //		setTimeout(function(){//延后显示可避免低端机上动画时白屏
 //			wa.close();
 			_openw.showded=true;

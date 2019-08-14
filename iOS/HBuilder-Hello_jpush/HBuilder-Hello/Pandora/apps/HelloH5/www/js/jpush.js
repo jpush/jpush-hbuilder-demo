@@ -285,7 +285,6 @@ document.addEventListener('plusready', function () {
     },
     addLocalNotificationIniOS: function (delayTime, content, badge, notificationID, extras) {
       if (plus.os.name == 'iOS') {
-                          alert('fdsa')
         var data = [delayTime, content, badge, notificationID, extras]
         this.callNative('setLocalNotification', data, null)
       }
