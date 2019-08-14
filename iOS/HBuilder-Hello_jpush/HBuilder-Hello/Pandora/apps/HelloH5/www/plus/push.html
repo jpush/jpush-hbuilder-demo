@@ -26,9 +26,8 @@
         if (tag3 != "") {
           tags.push(tag3)
         }
-        //plus.Push.setTagsWithAlias(tags, alias)
-        plus.Push.setApplicationIconBadgeNumber("4")
-
+        plus.Push.setTagsWithAlias(tags, alias)
+        // plus.Push.setApplicationIconBadgeNumber("5")
       }
       
       var getRegistrationID = function() {
@@ -140,8 +139,8 @@
           <input type="button" value="Add tag and alias"
                  onclick="setTagsWithAlias()"/>
 
-          <input type="button" onclick="plus.Push.addLocalNotification(0,
-            		'local notification', 'title', 1, 0, null)"
+          <input type="button" onclick="plus.Push.addLocalNotificationIniOS(5,
+            		'local notification', 1, 'local')"
                  value="Add local notification"/>
 
           <input type="button" onclick="getRegistrationID()"
