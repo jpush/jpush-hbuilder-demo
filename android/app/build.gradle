@@ -38,8 +38,8 @@ dependencies {
     compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
-    compile 'cn.jiguang.sdk:jpush:3.3.4'  // 此处以JPush 3.3.4 版本为例。
-    compile 'cn.jiguang.sdk:jcore:2.1.2'  // 此处以JCore 2.1.2 版本为例。
+    compile 'cn.jiguang.sdk:jpush:3.5.0'  // 此处以JPush 3.5.0 版本为例。
+    compile 'cn.jiguang.sdk:jcore:2.2.4'  // 此处以JCore 2.2.4 版本为例。
     compile files('libs/my-imageloader.jar')
     compile files('libs/my-nineoldandroids-2.4.0.jar')
     compile files('libs/pdr.jar')
