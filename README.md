@@ -16,76 +16,96 @@
 #### 集成指南
 
 HBuilder 项目集成第三方插件，需先参考 HBuilder 官方的[离线打包](https://ask.dcloud.net.cn/article/924)教程，将您的 HBuilder 项目集成进 Android 工程中。之后再执行以下步骤：
+
 1. 拷贝 `./android/app/src/main/java/io.dcloud.feature.jpush` 文件夹至你 Android Studio 工程的 `/src/main/java/` 目录下。
 2. 拷贝 `./jpush.js` 到你 Android Studio 工程的 `/assets/apps/HBuilder应用名/js/` 下。
 3. 在 `/assets/apps/你的应用名/www/manifest.json` 文件中添加：
 
-    ```json
-    "Push": {
-        "description": "消息推送"
-    }
-    ```
+   ```json
+   "Push": {
+       "description": "消息推送"
+   }
+   ```
 
 4. 在 `/assets/data/dcloud_properties.xml` 中添加（如果已存在 Push feature，可以直接修改）：
 
-    ```xml
-    <feature
-        name="Push"
-        value="io.dcloud.feature.jpush.JPushService" >
-    </feature>
-    ```
+   ```xml
+   <feature
+       name="Push"
+       value="io.dcloud.feature.jpush.JPushService" >
+   </feature>
+   ```
 
 5. 在 `app/build.gradle` 中添加：
 
-    ```groovy
-    android {
-        ...
-        defaultConfig {
-            applicationId "com.xxx.xxx" // JPush 上注册的包名.
-            ...
-            ndk {
-                // 选择要添加的对应 cpu 类型的 .so 库。
-                abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
-                // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
-            }
-            manifestPlaceholders = [
-                JPUSH_PKGNAME : applicationId,
-                JPUSH_APPKEY : "应用的 AppKey", // JPush上注册的包名对应的 appkey
-                JPUSH_CHANNEL : "developer-default", // 暂时填写默认值即可
-            ]
-            ...
-        }
-        ...
-    }
-    dependencies {
-        ...
-        compile 'cn.jiguang.sdk:jpush:3.1.1'  // 此处以 JPush 3.1.1 版本为例。
-        compile 'cn.jiguang.sdk:jcore:1.1.9'  // 此处以 JCore 1.1.9 版本为例。
-        ...
-    }
-    ```
+   ```groovy
+   android {
+       ...
+       defaultConfig {
+           applicationId "com.xxx.xxx" // JPush 上注册的包名.
+           ...
+           ndk {
+               // 选择要添加的对应 cpu 类型的 .so 库。
+               abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+               // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
+           }
+           manifestPlaceholders = [
+               JPUSH_PKGNAME : applicationId,
+               JPUSH_APPKEY : "应用的 AppKey", // JPush上注册的包名对应的 appkey
+               JPUSH_CHANNEL : "developer-default", // 暂时填写默认值即可
+           ]
+           ...
+       }
+       ...
+   }
+   dependencies {
+       ...
+       compile 'cn.jiguang.sdk:jpush:3.3.4'  // 此处以JPush 3.3.4 版本为例。
+       compile 'cn.jiguang.sdk:jcore:2.1.2'  // 此处以JCore 2.1.2 版本为例。
+       ...
+   }
+   ```
 
 6. 在 `AndroidManifest.xml` 中添加：
 
-    ```xml
-    <receiver
-      android:name="io.dcloud.feature.jpush.JPushReceiver"
-      android:enabled="true"
-      android:exported="false">
+   ```xml
+    <!-- since 3.3.0 Required SDK 核心功能-->
+    <!-- 可配置android:process参数将PushService放在其他进程中 -->
+    <!--User defined.  For test only 继承自cn.jpush.android.service.JCommonService-->
+    <service android:name="io.dcloud.feature.jpush.PushService"
+        android:process=":pushcore">
         <intent-filter>
-          <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!-- Required 用户注册SDK的 intent -->
-          <action android:name="cn.jpush.android.intent.UNREGISTRATION" />
-          <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!-- Required 用户接收SDK消息的 intent -->
-          <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> <!-- Required 用户接收SDK通知栏信息的 intent -->
-          <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!-- Required 用户打开自定义通知栏的 intent -->
-          <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK" /> <!-- Optional 用户接受 Rich Push Javascript 回调函数的intent -->
-          <action android:name="cn.jpush.android.intent.CONNECTION" /> <!-- 接收网络变化 连接/断开 since 1.6.3 -->
-          <category android:name="${JPUSH_PKGNAME}" />
+            <action android:name="cn.jiguang.user.service.action" />
+        </intent-filter>
+    </service>
+
+    <!-- User defined.  For test only  用户自定义接收消息器,3.0.7开始支持,目前新tag/alias接口设置结果会在该广播接收器对应的方法中回调-->
+    <!--since 3.3.0 接收JPush相关事件-->
+    <receiver android:name="io.dcloud.feature.jpush.PushMessageReceiver">
+        <intent-filter>
+            <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
+            <category android:name="${applicationId}"></category>
         </intent-filter>
     </receiver>
-    ```
+   <receiver
+     android:name="io.dcloud.feature.jpush.JPushReceiver"
+     android:enabled="true"
+     android:exported="false">
+       <intent-filter>
+         <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!-- Required 用户注册SDK的 intent -->
+         <action android:name="cn.jpush.android.intent.UNREGISTRATION" />
+         <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!-- Required 用户接收SDK消息的 intent -->
+         <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> <!-- Required 用户接收SDK通知栏信息的 intent -->
+         <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!-- Required 用户打开自定义通知栏的 intent -->
+         <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK" /> <!-- Optional 用户接受 Rich Push Javascript 回调函数的intent -->
+         <action android:name="cn.jpush.android.intent.CONNECTION" /> <!-- 接收网络变化 连接/断开 since 1.6.3 -->
+         <category android:name="${JPUSH_PKGNAME}" />
+       </intent-filter>
+   </receiver>
+   ```
 
 ### iOS 手动安装
+
 - 配置 manifest.json ，首先用源码的方式打开工程 /Pandora/ 目录下的 manifest.json ，在"permissions"中添加新的插件名称：
 
         "permissions": {
@@ -96,24 +116,26 @@ HBuilder 项目集成第三方插件，需先参考 HBuilder 官方的[离线打
 
 - 配置 feature.plist ，在 Xcode 中打开 ../PandoraApi.bundle/ 目录下的 feature.plist ，为插件添加新的 item：
 
- ![feature.plist](iOS/doc_res/res_01.jpg)
+![feature.plist](iOS/doc_res/res_01.jpg)
 
 - 将 JPush_Support 文件夹中所有内容在 Xcode 中拖到自己的工程里
 
-- 在 JPush_Support/PushConfig.plist 中配置 APP_KEY 、 PRODUCTION（0开发 / 1发布）、IDFA（是否需要通过广告标识符启动 sdk）
+- 在 JPush_Support/PushConfig.plist 中配置 APP_KEY 、 PRODUCTION（0 开发 / 1 发布）、IDFA（是否需要通过广告标识符启动 sdk）
 
 - 打开 xcode，点击工程目录中顶部的 工程，选择(Target -> Build Phases -> Link Binary With Libraries)，添加以下框架：
 
-   CFNetwork.framework
-   	CoreFoundation.framework
-   	CoreTelephony.framework
-   	SystemConfiguration.framework
-   	CoreGraphics.framework
-   	Foundation.framework
-   	UIKit.framework
-   	AdSupport.framework
-    libresolv.tbd(若存在 libresolv.dylib 则替换为 libresolv.tbd)
-   	libz.tbd(若存在 libz.dylib 则替换为 libz.tbd)
+  CFNetwork.framework
+  CoreFoundation.framework
+  CoreTelephony.framework
+  SystemConfiguration.framework
+  CoreGraphics.framework
+  Foundation.framework
+  Security.framework
+  UIKit.framework
+  AdSupport.framework
+  UserNotifications.framework（Xcode 8 及以上）
+  libresolv.tbd(若存在 libresolv.dylib 则替换为 libresolv.tbd)
+  libz.tbd(若存在 libz.dylib 则替换为 libz.tbd)
 
 ## API 说明
 
@@ -148,11 +170,11 @@ iOS:
 1. 收不到推送：首先按照正确方式再次配置证书、描述文件：[iOS 证书设置指南](https://docs.jiguang.cn/jpush/client/iOS/ios_cer_guide/)。
 
 1. PushConfig.plist 中的属性：
-    - APP_KEY：应用标识
-    - CHANNEL：渠道标识
-    - IsProduction：是否生产环境
-    - IsIDFA：是否使用 IDFA 启动 sdk
+   - APP_KEY：应用标识
+   - CHANNEL：渠道标识
+   - IsProduction：是否生产环境
+   - IsIDFA：是否使用 IDFA 启动 sdk
 
 ### 更多
 
- [JPush 官网文档](http://docs.jiguang.cn/)
+[JPush 官网文档](http://docs.jiguang.cn/)
